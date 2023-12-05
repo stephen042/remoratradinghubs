@@ -23,7 +23,9 @@
                             <li><a href="#features">Features</a></li>
                             <li><a href="#faqs">FAQs</a></li>
                             <li><a href="#contact">Contact Us</a></li>
-                            <li><a href="./account">Get Started</a></li>
+                            <li><a href="#pricing">Pricing</a></li>
+                            <li class="d-lg-none "><a href="./account/auth0">Login</a></li>
+                            <li class="d-lg-none "><a href="./account">Register</a></li>
                         </ul>
                     </nav>
                 </div>
