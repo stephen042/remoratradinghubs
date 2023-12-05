@@ -109,7 +109,7 @@
                 </li>
 
                 <li>
-                    <a href="mailto:info@rulerstradingfx.live" class="waves-effect">
+                    <a href="mailto:info@Remoratradinghubs.live" class="waves-effect">
                         <i class="bx bx-mail-send"></i>
                         <span key="t-chat">Email Support</span>
                     </a>

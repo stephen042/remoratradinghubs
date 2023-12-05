@@ -12,7 +12,7 @@
                             <div class="single-widget ">
                                 <div class="footer-logo">
                                     <a href="./" class="h2 text-white"><img src="./account/_vendors/images/logo-light.png" alt="Logo" style="width: 300px;"></a>
-                                    <p>Rulerstradingfx is an online digital assets Investment platform, which offers investors globally the opportunity to access high-growth investment opportunities in digital assets and other services. Elitefxmastes Advisors Corporation is an investment advisor registered with the Securities and Exchange Commission ("SEC"). Any reference to the advisory services refers to Elitefxmastes Advisors Corporation. Registration does not imply a certain level of skill or training nor does it imply endorsement by the SEC.​ Past performance is not a guarantee of future return, nor is it necessarily indicative of future performance. Keep in mind investing involves a certain level of risk. Have a great investment experience.</p>
+                                    <p>Remoratradinghubs is an online digital assets Investment platform, which offers investors globally the opportunity to access high-growth investment opportunities in digital assets and other services. Elitefxmastes Advisors Corporation is an investment advisor registered with the Securities and Exchange Commission ("SEC"). Any reference to the advisory services refers to Elitefxmastes Advisors Corporation. Registration does not imply a certain level of skill or training nor does it imply endorsement by the SEC.​ Past performance is not a guarantee of future return, nor is it necessarily indicative of future performance. Keep in mind investing involves a certain level of risk. Have a great investment experience.</p>
                                 </div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                         <i class='bx bx-phone'></i>
                     </div>
                     <div class="address-content">
-                        <span><a href="tel:<?php echo $admin_phone_number ?>"><?php echo $admin_phone_number ?></a></span>
+                        <span><a href="tel:<?php echo $manager_datasource['phone_number'] ?>"><?php echo $manager_datasource['phone_number'] ?></a></span>
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                         <i class='bx bx-envelope-open'></i>
                     </div>
                     <div class="address-content">
-                        <span><a href="mailto:info@rulerstradingfx.live">info@rulerstradingfx.live</a></span>
+                        <span><a href="mailto:support@remoratradinghubs.com">support@remoratradinghubs.com</a></span>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                         <script>
                             document.write(new Date().getFullYear());
                         </script>
-                        All rights reserved | <a href="https://www.rulerstradingfx.live">Rulerstradingfx</a>
+                        All rights reserved | <a href="https://www.Remoratradinghubs.com">Remoratradinghubs</a>
                     </p>
                 </div>
             </div>

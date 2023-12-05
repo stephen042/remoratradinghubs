@@ -5,10 +5,11 @@
             <div class="navbar-brand-box">
                 <a href="./" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="./_vendors/images/logo.svg" alt="" height="22">
+                        <img src="./_vendors/images/favicon.ico" alt="" class="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="./_vendors/images/logo.png" alt="" height="35">
+                        <img src="./_vendors/images/favicon.ico" alt="" class="" height="35">
+                        <span>R̳e̳m̳o̳r̳a̳t̳r̳a̳d̳i̳n̳g̳h̳u̳b̳s̳</span>
                     </span>
                 </a>
             </div>

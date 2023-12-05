@@ -1,12 +1,9 @@
-<!doctype html>
-
 <?php
 
-// require_once "./server/contact_form.php";
-
-// require_once "./server/public_details.php";
+require_once "_servers/contact_form.php";
 
 ?>
+<!doctype html>
 
 <html lang="en">
 
@@ -17,7 +14,7 @@
 
     <meta property="og:image" content="assets/images/hero-bg.jpg" />
 
-    <meta property="og:title" content="Digital trading | Create your investment portfolio | rulerstradingfx.live" />
+    <meta property="og:title" content="Digital trading | Create your investment portfolio | Remoratradinghubs.com" />
 
     <meta property="og:description" content="We are the most outstanding digital assets trading broker." />
 
@@ -25,7 +22,7 @@
 
     <meta property="og:image:height" content="630" />
 
-    <title>Rulerstradingfx | We are the most outstanding digital assets trading broker</title>
+    <title>Remoratradinghubs | We are the most outstanding digital assets trading broker</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="./account/_vendors/images/favicon.ico">
 
@@ -52,72 +49,71 @@
     <link rel="stylesheet" href="assets/css/responsive.css">
 
     <style type="text/css">
-    
-    /* width */
-::-webkit-scrollbar {
-  width: 3px;
-}
+        /* width */
+        ::-webkit-scrollbar {
+            width: 3px;
+        }
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #c4c4c5;
-}
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #c4c4c5;
+        }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #f5f6f9;
-}
-    
-.google_translate_element {
-  margin-top: 13px;
-}
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f5f6f9;
+        }
 
- .google_translate_element_auth {
-  position: relative;
-} 
+        .google_translate_element {
+            margin-top: 13px;
+        }
 
-      .goog-te-combo {
-  font-family: Arial, sans-serif;
-  color: #132144;
-  border: 1px dashed #bdc5d1;
-  padding: 8px 12px;
-  border-radius: 8px;
-  width: 180px;
-  text-transform: uppercase;
-}
+        .google_translate_element_auth {
+            position: relative;
+        }
 
-#google_translate_element a {
-  display: none;
-}
+        .goog-te-combo {
+            font-family: Arial, sans-serif;
+            color: #132144;
+            border: 1px dashed #bdc5d1;
+            padding: 8px 12px;
+            border-radius: 8px;
+            width: 180px;
+            text-transform: uppercase;
+        }
 
-.goog-te-gadget {
-  color: transparent !important;
-}
+        #google_translate_element a {
+            display: none;
+        }
 
-body {
-  top: 0px !important;
-}
+        .goog-te-gadget {
+            color: transparent !important;
+        }
 
-body > .skiptranslate > iframe.skiptranslate {
-  display: none !important;
-  visibility: hidden !important;
-}
+        body {
+            top: 0px !important;
+        }
+
+        body>.skiptranslate>iframe.skiptranslate {
+            display: none !important;
+            visibility: hidden !important;
+        }
     </style>
 
-<script type="text/javascript">
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'en'
-        }, 'google_translate_element');
-    }
-</script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en'
+            }, 'google_translate_element');
+        }
+    </script>
 
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </head>
 
@@ -204,7 +200,7 @@ body > .skiptranslate > iframe.skiptranslate {
                                 </div>
                             </div>
                             <h2>We've got everything you need to boost your Finance...</h2>
-                            <p>Rulerstradingfx is an investment agency built with the aim of creating an extra source of passive income to it's users. Our plafirm is distict because our team has a creative, fearless and innovative spirit that is encouraged and challenged by disruption and invention. “Impossible” is not in our vocabulary. Impossible just takes time.</p>
+                            <p>Remoratradinghubs is an investment agency built with the aim of creating an extra source of passive income to it's users. Our plafirm is distict because our team has a creative, fearless and innovative spirit that is encouraged and challenged by disruption and invention. “Impossible” is not in our vocabulary. Impossible just takes time.</p>
                         </div>
                         <div class="about-experience row">
                             <div class="about-experience-left-content wow animate flipInX col-md-3" data-wow-delay="200ms" data-wow-duration="1500ms">
@@ -664,12 +660,12 @@ body > .skiptranslate > iframe.skiptranslate {
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingOne">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        01. WHAT IS Rulerstradingfx?
+                                        01. WHAT IS Remoratradinghubs?
                                     </button>
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        Rulerstradingfx is an online digital assets Investment platform, which offers investors globally the opportunity to access high-growth investment opportunities in digital assets and other services.
+                                        Remoratradinghubs is an online digital assets Investment platform, which offers investors globally the opportunity to access high-growth investment opportunities in digital assets and other services.
                                     </div>
                                 </div>
                             </div>
@@ -850,7 +846,7 @@ body > .skiptranslate > iframe.skiptranslate {
                             </div>
                             <div class="contact-address-content">
                                 <h3>Email</h3>
-                                <span><a href="mailto:info@rulerstradingfx.live">info@rulerstradingfx.live</a></span>
+                                <span><a href="mailto:support@remoratradinghubs.com">support@remoratradinghubs.com</a></span>
                             </div>
                         </div>
                         <div class="contact-address-wrap">
@@ -859,7 +855,7 @@ body > .skiptranslate > iframe.skiptranslate {
                             </div>
                             <div class="contact-address-content">
                                 <h3>Phone</h3>
-                                <span><a href="tel:<?php echo $admin_phone_number ?>"><?php echo $admin_phone_number ?></a></span>
+                                <span><a href="tel:<?php echo $manager_datasource["phone_number"] ?>"><?php echo $manager_datasource["phone_number"]  ?></a></span>
                             </div>
                         </div>
                     </div>
@@ -893,10 +889,10 @@ body > .skiptranslate > iframe.skiptranslate {
 
     <!-- Require transaction alerts module -->
     <?php require "./_partials/transaction_alerts.php" ?>
-    
-<!-- Start of HubSpot Embed Code -->
-  <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/143353563.js"></script>
-<!-- End of HubSpot Embed Code -->
+
+    <!-- Start of HubSpot Embed Code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/143749483.js"></script>
+    <!-- End of HubSpot Embed Code -->
 
 </body>
 
