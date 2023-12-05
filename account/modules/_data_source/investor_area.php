@@ -213,7 +213,7 @@
                                         "symbol": "EUR/USD",
                                         "interval": "D",
                                         "timezone": "exchange",
-                                        "theme": "light",
+                                        "theme": "dark",
                                         "style": "0",
                                         "withdateranges": true,
                                         "allow_symbol_change": true,

@@ -90,3 +90,36 @@ body > .skiptranslate > iframe.skiptranslate {
 .border-light-primary {
   border: 1px dashed #556de638;
 }
+body{
+  background-color: #253661 !important;
+  color: #c4c4c5;
+}
+
+body .border-light-primary {
+  background-color: #132144 !important;
+  color: #c4c4c5;
+}
+
+footer{
+  background-color: #253661 !important;
+  color: #c4c4c5;
+}
+
+header{
+  background-color: #132144 !important;
+  color: #dfdfe2;
+}
+
+.vertical-menu{
+  background-color: #132144 !important;
+  color: #fdfdfd;
+}
+
+.waves-effect{
+  color: #fdfdfd !important;
+}
+
+.modal-content{
+  /* background-color: #eeeff1 !important; */
+  color: #a8a8a8 !important;
+}

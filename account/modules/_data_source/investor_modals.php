@@ -445,7 +445,7 @@
                     <div class="row">
                         <div class="mb-3 col-md-4">
                             <label for="desired_amount" class="form-label">Desired Amount</label>
-                            <input type="number" class="form-control border-light-primary" required name="amount" placeholder="e.g. $500.00" id="desired_amount">
+                            <input type="number" class="form-control text-light border-light-primary" required name="amount" placeholder="e.g. $500.00" id="desired_amount">
                         </div>
 
                         <div class="mb-3 col-md-4">
@@ -461,7 +461,7 @@
 
                         <div class="mb-3 col-md-4">
                             <label for="obtained_transaction_token" class="form-label">Transaction Token</label>
-                            <input type="text" class="form-control border-light-primary" required name="transaction_token" placeholder="e.g. TXN--0123456789" id="obtained_transaction_token">
+                            <input type="text" class="form-control text-light border-light-primary" required name="transaction_token" placeholder="e.g. TXN--0123456789" id="obtained_transaction_token">
                         </div>
 
                         <span class="text-muted small"> <b class="initialism">Please Note:</b> To process your withdrawal request, all you need to do is acquire a unique one-time transaction token simply by contacting our technical team via email or live chat. They are available to assist you with any questions. Thank you for choosing our trading platform!</span>
@@ -491,7 +491,7 @@
                     <div class="row">
                         <div class="mb-3 col-md-4">
                             <label for="desired_amount" class="form-label">Desired Amount</label>
-                            <input type="number" class="form-control border-light-primary" required name="amount" placeholder="e.g. $500.00" id="desired_amount">
+                            <input type="number" class="form-control text-light border-light-primary" required name="amount" placeholder="e.g. $500.00" id="desired_amount">
                         </div>
 
                         <div class="mb-3 col-md-4">
