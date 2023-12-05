@@ -15,15 +15,15 @@
                     </a>
                     <nav class="main-nav">
                         <div class="logo mobile-ham-logo d-lg-none d-block text-left">
-                        <a href="./" class="text-white"><img src="./account/_vendors/images/favicon.ico" alt="Logo" class="mx-1" style="width: 30px;"></a><span>R̳e̳m̳o̳r̳a̳t̳r̳a̳d̳i̳n̳g̳h̳u̳b̳s̳</span>
+                            <a href="./" class="text-white"><img src="./account/_vendors/images/favicon.ico" alt="Logo" class="mx-1" style="width: 30px;"></a><span>R̳e̳m̳o̳r̳a̳t̳r̳a̳d̳i̳n̳g̳h̳u̳b̳s̳</span>
                         </div>
                         <ul>
                             <li><a href="./" class="active">Home</a></li>
                             <li><a href="#about">About us</a></li>
                             <li><a href="#features">Features</a></li>
-                            <li><a href="#pricing">Pricing</a></li>
                             <li><a href="#faqs">FAQs</a></li>
                             <li><a href="#contact">Contact Us</a></li>
+                            <li><a href="./account">Get Started</a></li>
                         </ul>
                     </nav>
                 </div>

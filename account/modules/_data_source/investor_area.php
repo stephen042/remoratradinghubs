@@ -199,27 +199,33 @@
                 <div class="col-md-12">
                     <div class="card mini-stats-wid border-rounded-13 border-light-primary" style="height: 550px;">
                         <div class="card-body">
-                            <div id="tradingview_1b030"></div>
-                            <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-                            <script type="text/javascript">
-                                new TradingView.widget({
-                                    "autosize": true,
-                                    "width": "100%",
-                                    "height": "100%",
-                                    "symbol": "BINANCE:EURBUSD",
-                                    "interval": "1",
-                                    "timezone": "Etc/UTC",
-                                    "theme": "light",
-                                    "style": "1",
-                                    "locale": "en",
-                                    "enable_publishing": false,
-                                    "allow_symbol_change": true,
-                                    "studies": [
-                                        "STD;Keltner_Channels"
-                                    ],
-                                    "container_id": "tradingview_1b030"
-                                });
-                            </script>
+                            <!-- TradingView Widget BEGIN -->
+                            <div class="tradingview-widget-container" style="height:100%;width:100%">
+                                <div id="analytics-platform-chart-demo" style="height:calc(100% - 32px);width:100%"></div>
+                                <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+                                <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                                <script type="text/javascript">
+                                    new TradingView.widget({
+                                        "container_id": "analytics-platform-chart-demo",
+                                        "width": "100%",
+                                        "height": "100%",
+                                        "autosize": true,
+                                        "symbol": "EUR/USD",
+                                        "interval": "D",
+                                        "timezone": "exchange",
+                                        "theme": "light",
+                                        "style": "0",
+                                        "withdateranges": true,
+                                        "allow_symbol_change": true,
+                                        "save_image": false,
+                                        "details": true,
+                                        "hotlist": true,
+                                        "calendar": true,
+                                        "locale": "en"
+                                    });
+                                </script>
+                            </div>
+                            <!-- TradingView Widget END -->
                         </div>
                     </div>
                 </div>
