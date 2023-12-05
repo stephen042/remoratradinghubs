@@ -57,9 +57,9 @@
     });
 </script>
 
-<!-- Start of HubSpot Embed Code -->
-  <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/143353563.js"></script>
-<!-- End of HubSpot Embed Code -->
+    <!-- Start of HubSpot Embed Code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/143749483.js"></script>
+    <!-- End of HubSpot Embed Code -->
 
 <script>
     document.getElementById("walletSelect").addEventListener("change", function() {
