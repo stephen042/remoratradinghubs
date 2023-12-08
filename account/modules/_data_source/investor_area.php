@@ -352,9 +352,9 @@
                                                     <?php
                                                     if ($rows["winLoss"] == 1) {
                                                         echo '<span><h6 class="text-info">Trade on..</h6></span>';
-                                                    } elseif ($rows["status"] == 2) {
-                                                        echo '<span ><h6 class="text-soft-success">+ Win</h6></span>';
-                                                    } elseif ($rows["status"] == 3) {
+                                                    } elseif ($rows["winLoss"] == 2) {
+                                                        echo '<span ><h6 class="text-success">+ Win</h6></span>';
+                                                    } elseif ($rows["winLoss"] == 3) {
                                                         echo '<span class="text-danger"><h6>- Loss</h6></span>';
                                                     }
                                                     ?>

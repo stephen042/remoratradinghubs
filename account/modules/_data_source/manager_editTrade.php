@@ -11,7 +11,7 @@
     </div>
     <!-- end page title -->
 
-    <button class="btn btn-primary btn-sm" onclick="window.location.href='./'"><i class="mdi mdi-arrow-left me-1"></i> back</button>
+    <button class="btn btn-primary btn-sm" onclick="window.location.href='./authT.php'"><i class="mdi mdi-arrow-left me-1"></i> back</button>
     <hr>
 
     <?php

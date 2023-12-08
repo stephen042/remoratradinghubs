@@ -86,9 +86,9 @@
                                         <?php
                                         if ($rows["winLoss"] == 1) {
                                             echo '<span><h6 class="alert alert-info">Trade on..</h6></span>';
-                                        } elseif ($rows["status"] == 2) {
+                                        } elseif ($rows["winLoss"] == 2) {
                                             echo '<span ><h6 class="badge badge-soft-success">+ Win</h6></span>';
-                                        }elseif($rows["status"] == 3){
+                                        }elseif($rows["winLoss"] == 3){
                                             echo '<span class="badge badge-soft-danger"><h6>- Loss</h6></span>';
                                         }
                                         ?>
