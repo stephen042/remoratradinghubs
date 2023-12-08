@@ -73,3 +73,14 @@ if (isset($_POST["cancel_investment"])) {
 if (isset($_POST["complete_investment"])) {
     complete_investment($_POST);
 }
+
+// =========================================================
+    // functions for Trading
+// =========================================================
+
+if (isset($_POST["buyTrade"]) || isset($_POST["sellTrade"])) {
+    Trade($_POST);
+}
+if (isset($_POST["editTrade"])) {
+    editTrade($_POST);
+}

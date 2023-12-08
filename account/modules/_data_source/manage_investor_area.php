@@ -11,6 +11,9 @@
     </div>
     <!-- end page title -->
 
+    <button class="btn btn-primary btn-sm" onclick="window.location.href='./'"><i class="mdi mdi-arrow-left me-1"></i> back</button>
+    <hr>
+
     <?php
     if (isset($_SESSION['feedback'])) {
         $feedback = $_SESSION['feedback'];

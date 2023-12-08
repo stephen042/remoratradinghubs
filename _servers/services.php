@@ -863,3 +863,118 @@ function complete_investment($data)
     $_SESSION["feedback"] = "Investor's account has been successfully updated!";
     return true;
 }
+
+// ================================================================================
+// trading services and functions
+
+function Trade($data)
+{
+    $db_conn = connect_to_database();
+
+    $stmt = $db_conn->prepare("SELECT * FROM `accounts` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+    $stmt->bind_param("s", $data["account_id"]);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows <= 0) {
+        $_SESSION["feedback"] = "Unable to find the specified account. Please try again later.";
+        return false;
+    }
+
+    $row = $result->fetch_assoc();
+    $datasource = json_decode($row['datasource'], true);
+
+    if ($datasource["account_balance"] < $data["amount"]) {
+        $_SESSION["feedback"] = "Insufficient funds to innitiate Trade.";
+        return false;
+    }
+
+
+    $profitLoss = 0;
+    // 1 = "Trade on", 2 = "completed"
+    $status = 1;
+    // 1 = "pending", 2 = "win", 3 = "loss"
+    $winLoss = 1;
+
+    $datasource["account_balance"] = $datasource["account_balance"] - $data["amount"];
+
+    $stmt = $db_conn->prepare("INSERT INTO `trades`                     (`userEmail`,`stakeAmt`,`type`,`asset`,`duration`,`market`,`profitLoss`,`status`,`winLoss`) VALUES (?,?,?,?,?,?,?,?,?)");
+    $stmt->bind_param("sissssiii",
+        $datasource["email_address"],
+        $data["amount"],
+        $data["type"],
+        $data["asset"],
+        $data["duration"],
+        $data["market"],
+        $profitLoss,
+        $status,
+        $winLoss,
+    );
+    $stmt->execute();
+
+    $datasourceEncoded = json_encode($datasource);
+    $stmt = $db_conn->prepare("UPDATE `accounts` SET `datasource` = ? WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+    $stmt->bind_param("ss", $datasourceEncoded , $data["account_id"]);
+    $stmt->execute();
+
+    if ($stmt->affected_rows <= 0) {
+        $_SESSION["feedback"] = "Failed to initiate Trade funding. Please try again later.";
+        return false;
+    }else{
+        $_SESSION["feedback"] = "Trade has been successfully initiated!";
+        return true;
+    }
+}
+
+function editTrade($data)  {
+    
+    $db_conn = connect_to_database();
+
+    $stmt = $db_conn->prepare("SELECT * FROM `accounts` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+    $stmt->bind_param("s", $data["account_id"]);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows <= 0) {
+        $_SESSION["feedback"] = "Unable to find the specified account. Please try again later.";
+        return false;
+    }
+
+    // echo '<script>window.alert("editTrade")</script>';
+
+    $row = $result->fetch_assoc();
+    $datasource = json_decode($row['datasource'], true);
+
+    if ($data["winLoss"] == 1) {
+        $_SESSION["feedback"] = "Please choose if trade is win or Loss";
+        return false;
+    }elseif ($data["winLoss"] == 2 || $data["winLoss"] == 3) {
+        $status = 2;
+    }
+
+    if ($data['winLoss'] == 2) {
+        $datasource["account_earnings"] = $datasource["account_earnings"] + $data["profitLoss"];
+    } elseif ($data['winLoss'] == 3) {
+        $data["profitLoss"] = 0;
+        $datasource["account_earnings"] = $datasource["account_earnings"] + $data["profitLoss"];
+    }
+
+    $datasourceEncoded = json_encode($datasource);
+    
+    $stmt = $db_conn->prepare("UPDATE `accounts` SET `datasource` = ? WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+    $stmt->bind_param("ss", $datasourceEncoded , $data["account_id"]);
+    $stmt->execute();
+
+    $stmt = $db_conn->prepare("UPDATE `trades` SET `status` = ? , `winLoss` = ?, `profitLoss` = ? WHERE id = ?");
+    $stmt->bind_param("iisi", $status, $data["winLoss"], $data["profitLoss"], $data["trade_id"]);
+    $stmt->execute();
+    
+    if ($stmt->affected_rows <= 0) {
+        $_SESSION["feedback"] = "Failed to initiate Your Request. Please try again later.";
+        return false;
+    }else{
+        $_SESSION["feedback"] = "Request has been successfully initiated!";
+        return true;
+    }
+
+}

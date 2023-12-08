@@ -32,7 +32,7 @@
                         <i class='bx bx-phone'></i>
                     </div>
                     <div class="address-content">
-                        <span><a href="tel:<?php echo $manager_datasource['phone_number'] ?>"><?php echo $manager_datasource['phone_number'] ?></a></span>
+                        <span><a href="tel:(530)324-6734">(530)324-6734</a></span>
                     </div>
                 </div>
             </div>

@@ -481,18 +481,20 @@ require_once "_servers/contact_form.php";
                                 <i class="flaticon-goal"></i>
                             </div>
                             <div class="price-top-box-content">
-                                <h2>Bronze</h2>
-                                <h4 class="text1" style="display: block;"><span>$</span>300<sup>+</sup></h4>
+                                <h2>Starter Plan</h2>
+                                <h4 class="text1" style="display: block;"><span>$</span>500 - <span>$</span>5,000</h4>
+                                <p class="text-light">For Traders with little or Minimum Funds</p>
                             </div>
                         </div>
                         <div class="price-bottom-list-wrap">
                             <div class="price-bottom-list d-flex justify-content-center align-items-center">
                                 <ul>
-                                    <li><i class="far fa-check-circle text-secondary"></i>Phone & Email Support</li>
-                                    <li><i class="far fa-check-circle text-secondary"></i>10% earnings bonus</li>
-                                    <li><i class="far fa-times-circle text-danger"></i>Account Manager</li>
-                                    <li><i class="far fa-times-circle text-danger"></i>Unlock rewards</li>
-                                    <li><i class="far fa-times-circle text-danger"></i>Support Forum</li>
+                                    <li><i class="far fa-check-circle text-success"></i>Access to over 170 trading instruments</li>
+                                    <li><i class="far fa-check-circle text-success"></i>24/7 customer support</li>
+                                    <li><i class="far fa-check-circle text-success"></i>Low spreads starting from 0.7 pips</li>
+                                    <li><i class="far fa-check-circle text-secondary"></i>Access to educational resources</li>
+                                    <li><i class="far fa-check-circle text-success"></i>Access to trading signals</li>
+                                    <li><i class="far fa-check-circle text-success"></i>3 to 5 days Duration</li>
                                 </ul>
                             </div>
                             <div class="btn-wrap price-btn-wrap mt-50 text-center">
@@ -509,18 +511,20 @@ require_once "_servers/contact_form.php";
                                 <i class="flaticon-best-price"></i>
                             </div>
                             <div class="price-top-box-content">
-                                <h2>Silver</h2>
-                                <h4 class="text1" style="display: block;"><span>$</span>1,000<sup>+</sup></h4>
+                                <h2>Classic Plan</h2>
+                                <h4 class="text1" style="display: block;"><span>$</span>2,000 - <span>$</span>20,000 </h4>
+                                <p class="text-light">For Traders with moderate funds</p>
                             </div>
                         </div>
                         <div class="price-bottom-list-wrap">
                             <div class="price-bottom-list d-flex justify-content-center align-items-center">
                                 <ul>
-                                    <li><i class="far fa-check-circle text-secondary"></i>Phone & Email Support</li>
-                                    <li><i class="far fa-check-circle text-secondary"></i>25% earnings bonus</li>
-                                    <li><i class="far fa-check-circle text-secondary"></i>Account Manager</li>
-                                    <li><i class="far fa-times-circle text-danger"></i>Unlock rewards</li>
-                                    <li><i class="far fa-times-circle text-danger"></i>Support Forum</li>
+                                    <li><i class="far fa-check-circle text-success"></i>Access to over 170 trading instruments</li>
+                                    <li><i class="far fa-check-circle text-success"></i>24/7 customer support</li>
+                                    <li><i class="far fa-check-circle text-success"></i>Low spreads starting from 0.7 pips</li>
+                                    <li><i class="far fa-check-circle text-secondary"></i>Access to educational resources</li>
+                                    <li><i class="far fa-check-circle text-success"></i>Access to trading signals</li>
+                                    <li><i class="far fa-check-circle text-success"></i>3 to 5 days Duration</li>
                                 </ul>
                             </div>
                             <div class="btn-wrap price-btn-wrap mt-50 text-center">
@@ -536,18 +540,21 @@ require_once "_servers/contact_form.php";
                                 <i class="flaticon-gold"></i>
                             </div>
                             <div class="price-top-box-content">
-                                <h2>Gold</h2>
-                                <h4 class="text1" style="display: block;"><span>$</span>5,000<sup>+</sup></h4>
+                                <h2>Premium Plan</h2>
+                                <h4 class="text1" style="display: block"><span>$</span>20,000 - <span>$</span>150,000</h4>
+                                <p class="text-light">For Traders with Intrest in earning more</p>
                             </div>
                         </div>
                         <div class="price-bottom-list-wrap">
                             <div class="price-bottom-list d-flex justify-content-center align-items-center">
-                                <ul>
-                                    <li><i class="far fa-check-circle text-secondary"></i>Phone & Email Support</li>
-                                    <li><i class="far fa-check-circle text-secondary"></i>10% earnings bonus</li>
-                                    <li><i class="far fa-check-circle text-secondary"></i>Account Manager</li>
-                                    <li><i class="far fa-check-circle text-secondary"></i>Unlock rewards</li>
-                                    <li><i class="far fa-check-circle text-secondary"></i>Support Forum</li>
+                                <ul class="">
+                                    <li><i class="far fa-check-circle text-success"></i>Phone & Email Support</li>
+                                    <li><i class="far fa-check-circle text-success"></i>10% earnings bonus</li>
+                                    <li><i class="far fa-check-circle text-success"></i>Account Manager</li>
+                                    <li><i class="far fa-check-circle text-success"></i>Unlock rewards</li>
+                                    <li><i class="far fa-check-circle text-success"></i>Support Forum</li>
+                                    <li><i class="far fa-check-circle text-success"></i>Account Manager</li>
+                                    <li><i class="far fa-check-circle text-success"></i>Phone & Email Support</li>
                                 </ul>
                             </div>
                             <div class="btn-wrap price-btn-wrap mt-50 text-center">
@@ -613,7 +620,7 @@ require_once "_servers/contact_form.php";
                             </div>
                         </div>
                         <div class="testimonial-content">
-                            <p>I have been extremely pleased with Elitefxmastes's platform, in terms of the number of products available for trading, ease and speed of use, as well as the reliability. Although many brokers offer great service, most offer only great excuses.</p>
+                            <p>I have been extremely pleased with Remoratradinghubs platform, in terms of the number of products available for trading, ease and speed of use, as well as the reliability. Although many brokers offer great service, most offer only great excuses.</p>
                         </div>
                         <i class="testimonial-quote fas fa-quote-right"></i>
                     </div>
@@ -625,7 +632,7 @@ require_once "_servers/contact_form.php";
                             </div>
                         </div>
                         <div class="testimonial-content">
-                            <p>Happy to have been referred to Elitefxmastes by a friend. It's very liberating to know that they are so professional at monitoring the system, executing the trades, and being helpful whenever I ask for additional info or assistance. All I have to do these days is look at my earnings grow.</p>
+                            <p>Happy to have been referred to Remoratradinghubs by a friend. It's very liberating to know that they are so professional at monitoring the system, executing the trades, and being helpful whenever I ask for additional info or assistance. All I have to do these days is look at my earnings grow.</p>
                         </div>
                         <i class="testimonial-quote fas fa-quote-right"></i>
                     </div>
@@ -637,7 +644,7 @@ require_once "_servers/contact_form.php";
                             </div>
                         </div>
                         <div class="testimonial-content">
-                            <p>Topcryptoaim has an excellent team of systematic trading professionals. They are very knowledgeable and provide our clients with outstanding execution and excellent customer service. We’re proud to feature them as one of our recommended brokers.</p>
+                            <p>Remoratradinghubs has an excellent team of systematic trading professionals. They are very knowledgeable and provide our clients with outstanding execution and excellent customer service. We’re proud to feature them as one of our recommended brokers.</p>
                         </div>
                         <i class="testimonial-quote fas fa-quote-right"></i>
                     </div>
@@ -855,7 +862,7 @@ require_once "_servers/contact_form.php";
                             </div>
                             <div class="contact-address-content">
                                 <h3>Phone</h3>
-                                <span><a href="tel:<?php echo $manager_datasource["phone_number"] ?>"><?php echo $manager_datasource["phone_number"]  ?></a></span>
+                                <span><a href="tel:(530)324-6734">(530)324-6734</a></span>
                             </div>
                         </div>
                     </div>
@@ -891,7 +898,7 @@ require_once "_servers/contact_form.php";
     <?php require "./_partials/transaction_alerts.php" ?>
 
     <!-- Start of HubSpot Embed Code -->
-    <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/143749483.js"></script>
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/143770756.js"></script>
     <!-- End of HubSpot Embed Code -->
 
 </body>

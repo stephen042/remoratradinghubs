@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" style="height: auto;">
 
     <!-- start page title -->
     <div class="row">
@@ -16,7 +16,7 @@
         $feedback = $_SESSION['feedback'];
         unset($_SESSION['feedback']);
     ?>
-        <div class="alert alert-primary alert-dismissible fade show mt-n3" role="alert">
+        <div class="alert alert-warning alert-dismissible fade show mt-n3" role="alert">
             <i class="mdi mdi-bullseye-arrow me-2"></i>
             <?php echo $feedback ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -226,6 +226,145 @@
                                 </script>
                             </div>
                             <!-- TradingView Widget END -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mini-stats-wid border-rounded-13 border-light-primary" style="height:auto">
+                        <div class="card-body p-1">
+                            <div class="panel panel-primary">
+                                <div class=" tab-menu-heading ">
+                                    <div class="">
+                                        <!-- Tabs -->
+                                        <ul class="nav panel-tabs ps-2 pe-2 flex justify-content-around" style="background-color: #161616;border-radius: 10px">
+                                            <li>
+                                                <a style="color: #ADADAD;font-weight: bold;font-family:'Roboto', sans-serif;" href="#tab5" class="active btn m-1 p-2 px-3" id="tab-5" data-bs-toggle="tab">Buy
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a style="color: #ADADAD;font-weight: bold;font-family:'Roboto', sans-serif;" href="#tab6" class="btn m-1 p-2 px-3" data-bs-toggle="tab">Sell
+
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a style="color: #ADADAD;font-weight: bold;font-family:'Roboto', sans-serif;" href="#tab7" class="btn m-1 p-2 px-2" data-bs-toggle="tab">Convert
+                                                </a>
+                                            </li>
+                                            <!-- <li><a href="#tab8" data-bs-toggle="tab">Tab 4</a></li> -->
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="panel-body tabs-menu-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active " id="tab5">
+                                            <?php include('investor-buyform.php') ?>
+                                        </div>
+                                        <div class="tab-pane " id="tab6">
+                                            <?php include('investor-sellform.php') ?>
+                                        </div>
+                                        <div class="tab-pane " id="tab7">
+                                            <!-- Crypto Converter ⚡ Widget -->
+                                            <crypto-converter-widget shadow symbol live background-color="#383a59" border-radius="0.87rem" fiat="united-states-dollar" crypto="bitcoin" amount="1" font-family="sans-serif" decimal-places="2"></crypto-converter-widget>
+                                            <a href="#" target="_blank" rel="noopener">
+                                            </a>
+                                            <script async src="https://cdn.jsdelivr.net/gh/dejurin/crypto-converter-widget@1.5.2/dist/latest.min.js">
+                                            </script>
+                                            <!-- /Crypto Converter ⚡ Widget -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mini-stats-wid border-rounded-13 border-light-primary" style="height:auto;">
+                        <div class="card-header">
+                            <h3 class="card-title">Latest Trade History </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table datatable table-bordered text-nowrap text-light border-bottom w-100" id="tradeTable" style="border-radius: 5px;">
+                                    <thead>
+                                        <tr>
+                                            <td class="wd-15p border-bottom-0">#</td>
+                                            <td class="wd-15p border-bottom-0">Date</td>
+                                            <td class="wd-15p border-bottom-0">Type</td>
+                                            <td class="wd-15p border-bottom-0">Asset</td>
+                                            <td class="wd-15p border-bottom-0">Cost</td>
+                                            <td class="wd-15p border-bottom-0">Duration</td>
+                                            <td class="wd-15p border-bottom-0">Market</td>
+                                            <td class="wd-15p border-bottom-0">$ Profit/Loss</td>
+                                            <td class="wd-15p border-bottom-0">Status</td>
+                                            <td class="wd-15p border-bottom-0">Win/Loss Status</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody cl>
+
+                                        <?php
+                                        $db_conn = connect_to_database();
+                                        $account_email = $account_data["email_address"];
+                                        $row = 1;
+
+                                        $stmt = $db_conn->prepare("SELECT * FROM `trades` WHERE userEmail = ? order by id desc limit 25");
+                                        $stmt->bind_param("s", $account_email);
+                                        $stmt->execute();
+                                        $result = $stmt->get_result();
+
+                                        while ($rows = mysqli_fetch_array($result)) {
+
+                                        ?>
+                                            <tr>
+                                                <td>
+                                                    <?php echo $row++ ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo date("Y/M/d h:i a", strtotime($rows["tradeSet"])) ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows["type"] ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows["asset"] ?>
+                                                </td>
+                                                <td>
+                                                    $<?php echo $rows["stakeAmt"] ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows["duration"] ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows["market"] ?>
+                                                </td>
+                                                <td>
+                                                    $ <?php echo $rows["profitLoss"] ?>
+                                                </td>
+                                                <td>
+                                                    <?php
+                                                    if ($rows["status"] == 1) {
+                                                        echo '<span><h6 class="text-warning">Pending..</h6></span>';
+                                                    } elseif ($rows["status"] == 2) {
+                                                        echo '<span ><h6 class="text-success">Completed</h6></span>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php
+                                                    if ($rows["winLoss"] == 1) {
+                                                        echo '<span><h6 class="text-info">Trade on..</h6></span>';
+                                                    } elseif ($rows["status"] == 2) {
+                                                        echo '<span ><h6 class="text-soft-success">+ Win</h6></span>';
+                                                    } elseif ($rows["status"] == 3) {
+                                                        echo '<span class="text-danger"><h6>- Loss</h6></span>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

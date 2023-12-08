@@ -109,7 +109,7 @@ input:-webkit-autofill:focus {
 }
 
 .common-btn {
-    background: #F7630C;
+    background: #C07C1A;
     font-family: rubik, sans-serif;
     font-weight: 500;
     color: #fff;
@@ -168,7 +168,7 @@ input:-webkit-autofill:focus {
 
 .section-title h4 {
     font-weight: 400;
-    color: #F7630C;
+    color: #C07C1A;
     font-size: 18px;
     margin-bottom: -6px;
     line-height: 15px;
@@ -190,7 +190,7 @@ input:-webkit-autofill:focus {
 }
 
 .section-title-dot span {
-    background: #F7630C;
+    background: #C07C1A;
     height: 5px;
     width: 7px;
     display: inline-block;
@@ -231,7 +231,7 @@ input:-webkit-autofill:focus {
     content: "";
     height: 100%;
     width: 100%;
-    background: #F7630C;
+    background: #C07C1A;
     top: 0;
     left: 0;
     z-index: 0;
@@ -469,11 +469,11 @@ input:-webkit-autofill:focus {
 }
 
 .main-nav>ul>li>a.active {
-    color: #F7630C
+    color: #C07C1A
 }
 
 .main-nav>ul>li:hover>a {
-    color: #F7630C
+    color: #C07C1A
 }
 
 .main-nav>ul>li:hover>a:after {
@@ -659,8 +659,8 @@ input:-webkit-autofill:focus {
 
 .hero-area .hero-social li:hover {
     color: #fff;
-    border: 1px solid #F7630C;
-    background: #F7630C
+    border: 1px solid #C07C1A;
+    background: #C07C1A
 }
 
 .hero-area .hero-social li:nth-child(2) {
@@ -747,7 +747,7 @@ input:-webkit-autofill:focus {
 .hero-form button:before {
     content: "";
     position: absolute;
-    background: #F7630C;
+    background: #C07C1A;
     height: 0;
     width: 100%;
     left: 0;
@@ -844,7 +844,7 @@ input:-webkit-autofill:focus {
 
 .single-service-box:before {
     position: absolute;
-    background: #F7630C;
+    background: #C07C1A;
     height: 100%;
     width: 0;
     content: "";
@@ -874,14 +874,14 @@ input:-webkit-autofill:focus {
 
 .service-icon {
     display: inline-block;
-    border: 1px solid #F7630C;
+    border: 1px solid #C07C1A;
     border-top: none;
     padding: 20px 20px 13px;
     border-radius: 0 0 40px 5px
 }
 
 .service-icon i {
-    color: #F7630C;
+    color: #C07C1A;
     font-size: 70px;
     line-height: 0;
     -webkit-transition: .4s;
@@ -902,7 +902,7 @@ input:-webkit-autofill:focus {
 
 .service-hover-icon i {
     font-size: 26px;
-    color: #F7630C;
+    color: #C07C1A;
     padding: 15px 12px;
     border-radius: 10px 0 8px 0;
     background: #fff;
@@ -1052,7 +1052,7 @@ input:-webkit-autofill:focus {
 
 .progress-bar-wrap .progress-bar {
     color: #262626;
-    background-color: #F7630C;
+    background-color: #C07C1A;
     -webkit-transition: width .6s ease;
     transition: width .6s ease;
     font-family: rubik, sans-serif;
@@ -1143,7 +1143,7 @@ input:-webkit-autofill:focus {
 }
 
 .chose-phone-content-box i {
-    color: #F7630C;
+    color: #C07C1A;
     font-size: 33px;
     line-height: 0
 }
@@ -1157,7 +1157,7 @@ input:-webkit-autofill:focus {
 }
 
 .choose-us-btn-wrap .choose-us-btn:hover:before {
-    background-color: #F7630C
+    background-color: #C07C1A
 }
 
 .feature-tab-right-bottom-content {
@@ -1213,7 +1213,7 @@ input:-webkit-autofill:focus {
     display: block;
     font-size: 46px;
     line-height: 0;
-    color: #F7630C;
+    color: #C07C1A;
     margin-bottom: 20px
 }
 
@@ -1284,7 +1284,7 @@ input:-webkit-autofill:focus {
 }
 
 .single-latest-projrct-content i {
-    background: #F7630C;
+    background: #C07C1A;
     color: #fff;
     border-radius: 50%;
     height: 35px;
@@ -1303,12 +1303,12 @@ input:-webkit-autofill:focus {
 .latest-projrct-slide-wrap .owl-next,
 .portfolio-details-img-slide-wrap .owl-prev,
 .portfolio-details-img-slide-wrap .owl-next {
-    border: 1px solid #F7630C;
+    border: 1px solid #C07C1A;
     background: 0 0;
     border-radius: 50%;
     height: 35px;
     width: 35px;
-    color: #F7630C;
+    color: #C07C1A;
     -webkit-transition: .5s;
     transition: .5s
 }
@@ -1343,9 +1343,9 @@ input:-webkit-autofill:focus {
 }
 
 .price-wrap:hover .price-btn {
-    background: #F7630C;
+    background: #C07C1A;
     color: #fff;
-    border: 2px solid #F7630C
+    border: 2px solid #C07C1A
 }
 
 .price-btn:hover:before {
@@ -1357,7 +1357,7 @@ input:-webkit-autofill:focus {
 }
 
 .price-top-box {
-    background: #F7630C;
+    background: #C07C1A;
     padding: 20px 10px;
     position: relative
 }
@@ -1515,7 +1515,7 @@ input:-webkit-autofill:focus {
 }
 
 .cta-btn {
-    background: #F7630C;
+    background: #C07C1A;
     margin-right: 15px
 }
 
@@ -1528,7 +1528,7 @@ input:-webkit-autofill:focus {
 }
 
 .cta-btn-2 {
-    border: 2px solid #F7630C;
+    border: 2px solid #C07C1A;
     background: 0 0;
     padding: 9px 32px;
     margin-left: 15px;
@@ -1537,8 +1537,8 @@ input:-webkit-autofill:focus {
 }
 
 .cta-btn-2:hover {
-    border: 2px solid #F7630C;
-    background: #F7630C
+    border: 2px solid #C07C1A;
+    background: #C07C1A
 }
 
 .cta-btn-2:hover:before {
@@ -1587,7 +1587,7 @@ input:-webkit-autofill:focus {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    background: #F7630C;
+    background: #C07C1A;
     -webkit-transform: translateX(79px);
     transform: translateX(79px);
     visibility: hidden;
@@ -1597,7 +1597,7 @@ input:-webkit-autofill:focus {
 
 .team-social li a {
     display: block;
-    color: #F7630C;
+    color: #C07C1A;
     background: #fff;
     border: 1px solid #fff;
     margin-bottom: 18px;
@@ -1692,11 +1692,11 @@ input:-webkit-autofill:focus {
     height: 40px;
     display: inline-block;
     background: #fff;
-    border: .5px solid #F7630C;
+    border: .5px solid #C07C1A;
     text-align: center;
     font-size: 20px;
     border-radius: 50%;
-    color: #F7630C;
+    color: #C07C1A;
     margin-right: 30px;
     -webkit-transition: .5s;
     transition: .5s
@@ -1728,8 +1728,8 @@ input:-webkit-autofill:focus {
 }
 
 .blog-box-wrap:hover .blog-social span i {
-    border: 1px solid #F7630C;
-    background: #F7630C;
+    border: 1px solid #C07C1A;
+    background: #C07C1A;
     color: #fff
 }
 
@@ -1767,7 +1767,7 @@ input:-webkit-autofill:focus {
 }
 
 .blog-date i {
-    color: #F7630C;
+    color: #C07C1A;
     font-size: 12px
 }
 
@@ -1784,7 +1784,7 @@ input:-webkit-autofill:focus {
 }
 
 .blog-title h4:hover {
-    color: #F7630C
+    color: #C07C1A
 }
 
 .blog-social {
@@ -1799,7 +1799,7 @@ input:-webkit-autofill:focus {
 
 .blog-social li {
     display: inline-block;
-    color: #F7630C;
+    color: #C07C1A;
     margin-right: 5px;
     font-size: 19px;
     visibility: hidden
@@ -1843,7 +1843,7 @@ input:-webkit-autofill:focus {
 }
 
 .blog-social span i {
-    border: 1px solid #F7630C;
+    border: 1px solid #C07C1A;
     font-size: 22px;
     border-radius: 30px;
     display: inline-block;
@@ -1851,7 +1851,7 @@ input:-webkit-autofill:focus {
     width: 55px;
     text-align: center;
     line-height: 25px;
-    color: #F7630C;
+    color: #C07C1A;
     -webkit-transition: all 1s ease 0s;
     transition: all 1s ease 0s
 }
@@ -1886,7 +1886,7 @@ input:-webkit-autofill:focus {
 
 .subscribe-content-form button {
     height: 89%;
-    background: #F7630C
+    background: #C07C1A
 }
 
 .subscribe-content-form button:hover:before {
@@ -1919,7 +1919,7 @@ input:-webkit-autofill:focus {
 }
 
 .footer-link li:hover {
-    color: #F7630C
+    color: #C07C1A
 }
 
 .footer-link li:last-child {
@@ -1933,7 +1933,7 @@ input:-webkit-autofill:focus {
 .footer-social li a {
     display: block;
     font-size: 15px;
-    background: #F7630C;
+    background: #C07C1A;
     -webkit-box-shadow: 0 2px 15px rgba(0, 0, 0, .06);
     box-shadow: 0 2px 15px rgba(0, 0, 0, .06);
     border-radius: 50%;
@@ -1972,7 +1972,7 @@ input:-webkit-autofill:focus {
 }
 
 .footer-post-content h6:last-child {
-    color: #F7630C;
+    color: #C07C1A;
     font-weight: 400;
     font-size: 11px;
     margin-bottom: 0
@@ -2018,7 +2018,7 @@ input:-webkit-autofill:focus {
 .address-icon i {
     font-size: 34px;
     display: inline-block;
-    border: 1px solid #F7630C;
+    border: 1px solid #C07C1A;
     border-radius: 50%;
     height: 60px;
     width: 60px;
@@ -2083,7 +2083,7 @@ input:-webkit-autofill:focus {
 
 .about-company-profile-left-content li span {
     display: inline-block;
-    border: 1px solid #F7630C;
+    border: 1px solid #C07C1A;
     border-radius: 50%;
     width: 30px;
     height: 30px;
@@ -2113,7 +2113,7 @@ input:-webkit-autofill:focus {
 
 .company-year h4 {
     font-size: 20px;
-    color: #F7630C;
+    color: #C07C1A;
     margin-bottom: 0;
     background: #feeeed;
     padding: 20px 35px 20px 20px;
@@ -2153,7 +2153,7 @@ input:-webkit-autofill:focus {
 }
 
 .single-details-content-top h4 i {
-    color: #F7630C;
+    color: #C07C1A;
     font-size: 60px;
     line-height: 0;
     margin-right: 15px
@@ -2195,7 +2195,7 @@ input:-webkit-autofill:focus {
 }
 
 .sidebar-header {
-    background: #F7630C;
+    background: #C07C1A;
     padding: 16px 0
 }
 
@@ -2227,7 +2227,7 @@ input:-webkit-autofill:focus {
 .sidebar-content-list li:before {
     position: absolute;
     content: "";
-    background: #F7630C;
+    background: #C07C1A;
     height: 1px;
     width: 100px;
     left: 50%;
@@ -2237,7 +2237,7 @@ input:-webkit-autofill:focus {
 }
 
 .sidebar-content-list li:hover {
-    color: #F7630C
+    color: #C07C1A
 }
 
 .sidebar-content-list li i {
@@ -2295,7 +2295,7 @@ input:-webkit-autofill:focus {
     width: 100%;
     left: 0;
     top: 0;
-    background: #F7630C;
+    background: #C07C1A;
     opacity: .8;
     z-index: 0
 }
@@ -2356,7 +2356,7 @@ input:-webkit-autofill:focus {
 }
 
 .portfolio-link li.active {
-    background: #F7630C;
+    background: #C07C1A;
     -webkit-box-shadow: 0 2px 15px rgba(0, 0, 0, .06);
     box-shadow: 0 2px 15px rgba(0, 0, 0, .06);
     border-radius: 5px;
@@ -2388,7 +2388,7 @@ input:-webkit-autofill:focus {
 }
 
 .portfolio-details-check i {
-    color: #F7630C;
+    color: #C07C1A;
     font-size: 24px;
     line-height: 13px;
     margin-right: 8px
@@ -2419,7 +2419,7 @@ input:-webkit-autofill:focus {
 
 .portfolio-details-sidebar-content-list li:last-child span {
     font-weight: 400;
-    color: #F7630C;
+    color: #C07C1A;
     float: right;
     margin-left: 12px;
     margin-top: 5px
@@ -2547,7 +2547,7 @@ input:-webkit-autofill:focus {
     font-family: rubik, sans-serif;
     font-weight: 700;
     color: #262626;
-    border: 2px solid #F7630C;
+    border: 2px solid #C07C1A;
     border-radius: 50%;
     height: 32px;
     width: 32px;
@@ -2584,7 +2584,7 @@ input:-webkit-autofill:focus {
 .pagination-wrap li.active a span:last-child {
     display: inline-block;
     border-radius: 50%;
-    background: #F7630C;
+    background: #C07C1A;
     padding: 7px;
     -webkit-transform: translateY(1px);
     transform: translateY(1px)
@@ -2619,7 +2619,7 @@ input:-webkit-autofill:focus {
 }
 
 .blog-search button:hover {
-    background: #F7630C
+    background: #C07C1A
 }
 
 .blog-sidebar-box {
@@ -2636,7 +2636,7 @@ input:-webkit-autofill:focus {
 }
 
 .blog-sidebar-categiry-content li {
-    border-left: 6px solid #F7630C;
+    border-left: 6px solid #C07C1A;
     background: #e9e9ec;
     color: #1f2044;
     font-size: 15px;
@@ -2658,7 +2658,7 @@ input:-webkit-autofill:focus {
     width: 0;
     left: -1px;
     top: 0;
-    background: #F7630C;
+    background: #C07C1A;
     -webkit-transition: .4s;
     transition: .4s;
     z-index: -1;
@@ -2709,12 +2709,12 @@ input:-webkit-autofill:focus {
 }
 
 .blog-popular-post-content h5:hover {
-    color: #F7630C
+    color: #C07C1A
 }
 
 .blog-popular-post-content h6 {
     font-size: 12px;
-    color: #F7630C;
+    color: #C07C1A;
     margin-bottom: 0
 }
 
@@ -2752,8 +2752,8 @@ input:-webkit-autofill:focus {
 }
 
 .blog-tag li:hover {
-    background: #F7630C;
-    border: 1px solid #F7630C;
+    background: #C07C1A;
+    border: 1px solid #C07C1A;
     color: #fff
 }
 
@@ -2769,7 +2769,7 @@ input:-webkit-autofill:focus {
 }
 
 .error-btn {
-    background: #F7630C
+    background: #C07C1A
 }
 
 .error-btn:before {
@@ -2948,7 +2948,7 @@ input:-webkit-autofill:focus {
 }
 
 .contact-office-wrap:hover .contact-office-content h3 {
-    color: #F7630C
+    color: #C07C1A
 }
 
 .contact-office-content {
@@ -3012,7 +3012,7 @@ input:-webkit-autofill:focus {
     content: "\f067";
     -webkit-transition: unset;
     transition: unset;
-    background: #F7630C;
+    background: #C07C1A;
     border-radius: 50%;
     height: 32px;
     width: 32px;
@@ -3029,7 +3029,7 @@ input:-webkit-autofill:focus {
     font-family: "font awesome 5 free";
     font-weight: 900;
     content: "\f068";
-    background: #F7630C;
+    background: #C07C1A;
     border-radius: 50%;
     height: 32px;
     width: 32px;
@@ -3079,7 +3079,7 @@ input:-webkit-autofill:focus {
     height: 100%;
     font-weight: 600;
     font-size: 15px;
-    color: #F7630C;
+    color: #C07C1A;
     position: relative
 }
 
@@ -3096,7 +3096,7 @@ input:-webkit-autofill:focus {
     content: "";
     height: 1px;
     width: 100%;
-    background: #F7630C;
+    background: #C07C1A;
     top: 209%
 }
 
@@ -3124,7 +3124,7 @@ input:-webkit-autofill:focus {
 }
 
 .blog-details-video-wrap:before {
-    background: #F7630C;
+    background: #C07C1A;
     opacity: .4;
     position: absolute;
     content: "";
@@ -3139,7 +3139,7 @@ input:-webkit-autofill:focus {
     line-height: 80px;
     display: inline-block;
     text-align: center;
-    background: #F7630C;
+    background: #C07C1A;
     position: relative
 }
 
@@ -3258,14 +3258,14 @@ input:-webkit-autofill:focus {
     content: "";
     height: 1px;
     width: 100%;
-    background: #F7630C;
+    background: #C07C1A;
     bottom: 182%;
     left: 0
 }
 
 .blog-details-social-tag-wrap .blog-details-social li {
     display: inline-block;
-    color: #F7630C;
+    color: #C07C1A;
     margin-right: 5px;
     font-size: 18px;
     -webkit-transition: .3s;
@@ -3303,7 +3303,7 @@ hr {
 
 .details-comments-title h4:before {
     content: "";
-    background: #F7630C;
+    background: #C07C1A;
     position: absolute;
     height: 1px;
     width: 100%;
@@ -3324,7 +3324,7 @@ hr {
     content: "";
     height: 1px;
     width: 20%;
-    background: #F7630C;
+    background: #C07C1A;
     position: absolute;
     left: 0;
     top: 100%
@@ -3389,7 +3389,7 @@ hr {
 
 .blog-details-contat-input input:focus,
 .blog-details-contat-input textarea:focus {
-    border: 1px solid #F7630C
+    border: 1px solid #C07C1A
 }
 
 .blog-details-contat-input label {
@@ -3407,7 +3407,7 @@ hr {
 }
 
 .blog-details-contat-input .blog-details-page-btn {
-    background: #F7630C;
+    background: #C07C1A;
     padding: 10px 48px
 }
 
@@ -3451,7 +3451,7 @@ hr {
 .sk-cube-grid .sk-cube {
     width: 33%;
     height: 33%;
-    background-color: #F7630C;
+    background-color: #C07C1A;
     float: left;
     -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
     animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out
@@ -3536,7 +3536,7 @@ hr {
     position: fixed;
     bottom: 40px;
     right: 30px;
-    background: #F7630C;
+    background: #C07C1A;
     height: 38px;
     width: 38px;
     text-align: center;
@@ -3627,11 +3627,11 @@ hr {
 }
 
 .menu-toggle-address-info .address-icon i {
-    color: #F7630C
+    color: #C07C1A
 }
 
 .cross-icon {
-    background: #F7630C;
+    background: #C07C1A;
     display: inline-block;
     position: absolute;
     right: 0;

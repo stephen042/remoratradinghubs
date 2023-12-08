@@ -30,6 +30,13 @@
                         </a>
                     </li>
 
+                    <li>
+                        <a href="./authT" class="waves-effect">
+                            <i class="bx bx-bar-chart-square"></i>
+                            <span key="t-chat" class="text-light">View All Trades</span>
+                        </a>
+                    </li>
+
                 <?php
                 } else {
                 ?>
@@ -109,7 +116,7 @@
                 </li>
 
                 <li>
-                    <a href="mailto:info@Remoratradinghubs.live" class="waves-effect">
+                    <a href="mailto:support@remoratradinghubs.com" class="waves-effect">
                         <i class="bx bx-mail-send"></i>
                         <span key="t-chat">Email Support</span>
                     </a>
