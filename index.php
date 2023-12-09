@@ -1,8 +1,3 @@
-<?php
-
-require_once "_servers/contact_form.php";
-
-?>
 <!doctype html>
 
 <html lang="en">

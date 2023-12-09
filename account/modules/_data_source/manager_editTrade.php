@@ -144,7 +144,7 @@
                                 <div class=" row mb-4">
                                     <label class="col-md-3 form-label">Stake Amount</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="$ <?php echo $row["stakeAmt"] ?>" disabled>
+                                        <input type="text" name="stakeAmt" class="form-control" value="$ <?php echo $row["stakeAmt"] ?>" readonly >
                                     </div>
                                 </div>
                                 <div class=" row mb-4">
@@ -185,7 +185,7 @@
                                     <label class="col-md-3 form-label text-success">Profit or Loss Amount for the trade</label>
                                     <div class="col-md-9">
                                         <input class="form-control" type="number" name="profitLoss" required value="<?php echo $row["profitLoss"] ?>" placeholder="eg 100 or 200" required>
-                                        <span class="text-danger">"At win Profit will be added to earnings_bal and loss will not added so just enter 0 if loss"</span>
+                                        <span class="text-danger">"At win Profit will be added to earnings_bal and loss will be minus from acct_bal"</span>
                                     </div>
                                 </div>
                                 <input type="hidden" name="account_id" value="<?php echo $investor_data["account_id"] ?>" >

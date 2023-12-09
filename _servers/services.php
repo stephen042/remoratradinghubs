@@ -955,9 +955,14 @@ function editTrade($data)  {
     if ($data['winLoss'] == 2) {
         $datasource["account_earnings"] = $datasource["account_earnings"] + $data["profitLoss"];
     } elseif ($data['winLoss'] == 3) {
-        $data["profitLoss"] = 0;
-        $datasource["account_earnings"] = $datasource["account_earnings"] + $data["profitLoss"];
+        $datasource["account_balance"] = floatval($datasource["account_balance"]) + floatval($data["stakeAmt"]);
+        $totalLoss = floatval($data["profitLoss"]) - floatval($data["stakeAmt"]);
+        $datasource["account_balance"] = floatval($datasource["account_balance"]) - $totalLoss;
     }
+
+    $stmt = $db_conn->prepare("UPDATE `trades` SET `status` = ? , `winLoss` = ?, `profitLoss` = ? WHERE id = ?");
+    $stmt->bind_param("iisi", $status, $data["winLoss"], $data["profitLoss"], $data["trade_id"]);
+    $stmt->execute();
 
     $datasourceEncoded = json_encode($datasource);
     
@@ -965,10 +970,6 @@ function editTrade($data)  {
     $stmt->bind_param("ss", $datasourceEncoded , $data["account_id"]);
     $stmt->execute();
 
-    $stmt = $db_conn->prepare("UPDATE `trades` SET `status` = ? , `winLoss` = ?, `profitLoss` = ? WHERE id = ?");
-    $stmt->bind_param("iisi", $status, $data["winLoss"], $data["profitLoss"], $data["trade_id"]);
-    $stmt->execute();
-    
     if ($stmt->affected_rows <= 0) {
         $_SESSION["feedback"] = "Failed to initiate Your Request. Please try again later.";
         return false;

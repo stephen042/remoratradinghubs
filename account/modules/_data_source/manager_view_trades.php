@@ -94,10 +94,6 @@
                                         ?>
                                     </td>
                                     <td>
-                                        <form>
-                                            <input type="hidden" name="account_id" value="">
-                                            <button class="badge bg-danger px-1 pt-1 border-0" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="deleteTrade" type="submit"><i class='bx bx-trash'></i></button>
-                                        </form>
                                         <a href="./authTEdit?trade_id=<?=$rows["id"]?>" class="badge bg-primary border-0 px-1 pt-1">Manage <i class='bx bx-edit'></i></a>
                                     </td>
                                 </form>
