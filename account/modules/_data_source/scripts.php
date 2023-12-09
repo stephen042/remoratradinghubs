@@ -104,7 +104,7 @@
 
         $(document).on("keyup", ".amount", function() {
             var value = $(this).val();
-            if (value != "" && value >= 100) {
+            if (value != "" && value >= 10) {
                 $(".amount").attr("style", "border: 1px solid green");
                 $(".sbt").attr("disabled", false);
             }

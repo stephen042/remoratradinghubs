@@ -273,9 +273,9 @@
                                                     <input type="hidden" name="transaction_id" value="<?php echo $transaction_data["transaction_id"] ?>">
                                                     <input type="hidden" name="account_earnings" value="<?php echo $investor_data["account_earnings"] ?>">
 
-                                                    <button class="badge bg-danger px-1 pt-1 border-0" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="cancel_transaction" type="submit"><i class='bx bx-x-circle'></i></button>
+                                                    <button class="btn btn-primary btn-sm px-1 pt-1 border-0" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="cancel_transaction" type="submit"><i class='bx bx-x-circle'></i></button>
 
-                                                    <button class="badge bg-primary border-0 px-1 pt-1" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="approve_transaction" type="submit">Approve <i class='bx bx-badge-check'></i></button>
+                                                    <button class="btn btn-primary btn-sm border-0 px-1 pt-1" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="approve_transaction" type="submit">Approve <i class='bx bx-badge-check'></i></button>
 
                                                 </td>
                                             </form>
