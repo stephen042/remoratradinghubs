@@ -30,7 +30,7 @@
                             <th>Profit/Loss $</th>
                             <th>Status</th>
                             <th>Profit/Loss status</th>
-                            <th>Manage User</th>
+                            <th>Manage User Trade</th>
                         </tr>
                     </thead>
 

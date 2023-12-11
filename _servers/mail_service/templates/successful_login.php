@@ -151,12 +151,6 @@
                 </p>
 
                 <p class="message">
-                    <span>Device: </span>{DEVICE_NAME}
-                    <br>
-                    <span>Time: </span>{TIME_OF_AUTHORIZATION}
-                </p>
-
-                <p class="message">
                     Best regards,
                     <br>
                     <span>Excceedder's Support Team</span>

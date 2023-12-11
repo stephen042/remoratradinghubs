@@ -507,7 +507,7 @@
                             </div>
                             <div class="price-top-box-content">
                                 <h2>Classic Plan</h2>
-                                <h4 class="text1" style="display: block;"><span>$</span>2,000 - <span>$</span>20,000 </h4>
+                                <h4 class="text1" style="display: block;"><span>$</span>5,000 - <span>$</span>20,000 </h4>
                                 <p class="text-light">For Traders with moderate funds</p>
                             </div>
                         </div>

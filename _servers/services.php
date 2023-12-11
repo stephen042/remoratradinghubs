@@ -2,6 +2,7 @@
 
 session_start();
 include "db_conn.php";
+include "../_servers/mail_service/server.php";
 
 function initialize_registration($data)
 {
@@ -94,6 +95,13 @@ function initialize_login($data)
 
     $_SESSION["authorized"] = $datasource["account_id"];
     header("Location: ./");
+
+    try {
+        // calling email function
+        successful_login($datasource);
+    } catch (\Throwable $th) {
+        //throw $th;
+    }
 }
 
 function fetch_account_data($data)
@@ -899,7 +907,8 @@ function Trade($data)
     $datasource["account_balance"] = $datasource["account_balance"] - $data["amount"];
 
     $stmt = $db_conn->prepare("INSERT INTO `trades`                     (`userEmail`,`stakeAmt`,`type`,`asset`,`duration`,`market`,`profitLoss`,`status`,`winLoss`) VALUES (?,?,?,?,?,?,?,?,?)");
-    $stmt->bind_param("sissssiii",
+    $stmt->bind_param(
+        "sissssiii",
         $datasource["email_address"],
         $data["amount"],
         $data["type"],
@@ -914,20 +923,21 @@ function Trade($data)
 
     $datasourceEncoded = json_encode($datasource);
     $stmt = $db_conn->prepare("UPDATE `accounts` SET `datasource` = ? WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
-    $stmt->bind_param("ss", $datasourceEncoded , $data["account_id"]);
+    $stmt->bind_param("ss", $datasourceEncoded, $data["account_id"]);
     $stmt->execute();
 
     if ($stmt->affected_rows <= 0) {
         $_SESSION["feedback"] = "Failed to initiate Trade funding. Please try again later.";
         return false;
-    }else{
+    } else {
         $_SESSION["feedback"] = "Trade has been successfully initiated!";
         return true;
     }
 }
 
-function editTrade($data)  {
-    
+function editTrade($data)
+{
+
     $db_conn = connect_to_database();
 
     $stmt = $db_conn->prepare("SELECT * FROM `accounts` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
@@ -948,7 +958,7 @@ function editTrade($data)  {
     if ($data["winLoss"] == 1) {
         $_SESSION["feedback"] = "Please choose if trade is win or Loss";
         return false;
-    }elseif ($data["winLoss"] == 2 || $data["winLoss"] == 3) {
+    } elseif ($data["winLoss"] == 2 || $data["winLoss"] == 3) {
         $status = 2;
     }
 
@@ -965,17 +975,16 @@ function editTrade($data)  {
     $stmt->execute();
 
     $datasourceEncoded = json_encode($datasource);
-    
+
     $stmt = $db_conn->prepare("UPDATE `accounts` SET `datasource` = ? WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
-    $stmt->bind_param("ss", $datasourceEncoded , $data["account_id"]);
+    $stmt->bind_param("ss", $datasourceEncoded, $data["account_id"]);
     $stmt->execute();
 
     if ($stmt->affected_rows <= 0) {
         $_SESSION["feedback"] = "Failed to initiate Your Request. Please try again later.";
         return false;
-    }else{
+    } else {
         $_SESSION["feedback"] = "Request has been successfully initiated!";
         return true;
     }
-
 }

@@ -669,7 +669,8 @@
                                 <div class="card-body px-4 pb-0">
                                     <div class="d-flex">
                                         <div class="flex-grow-1">
-                                            <h5>Amateur</h5>
+                                            <h5>
+Starter Plan</h5>
                                             <p class="text-muted">ROI = $2,500</p>
                                         </div>
                                         <div class="flex-shrink-0 ms-3">
@@ -682,54 +683,18 @@
                                     </div>
 
                                     <input type="hidden" name="account_id" value="<?php echo $account_data["account_id"] ?>">
-                                    <input type="hidden" name="investment_plan" value="Amateur">
-                                    <input type="hidden" name="amount" value="500">
+                                    <input type="hidden" name="investment_plan" value="
+Starter">
                                     <input type="hidden" name="plan_roi" value="2500">
                                     <input type="hidden" name="duration" value="1 Week">
 
                                     <div class="text-center plan-btn">
+                                        <input type="number" placeholder="Amount" class="waves-effect waves-light my-1" style="color: #343a40 !important;" name="amount" value="" required>
                                         <button type="submit" name="initialize_subscription" class="btn btn-primary btn-sm waves-effect waves-light">Initialize Subscription</button>
                                     </div>
 
                                     <div class="plan-features mt-4 ">
                                         <p><i class="bx bx-checkbox-square text-primary me-2"></i> Min. Deposit: $500.00</p>
-                                        <p><i class="bx bx-checkbox-square text-primary me-2"></i> Max. Deposit: $500.00</p>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="card border-rounded-13 mb-3 mb-sm-0 plan-box border-light-primary">
-                            <form action="" method="post">
-                                <div class="card-body px-4 pb-0">
-                                    <div class="d-flex">
-                                        <div class="flex-grow-1">
-                                            <h5>Professional</h5>
-                                            <p class="text-muted">ROI = $25,000</p>
-                                        </div>
-                                        <div class="flex-shrink-0 ms-3">
-                                            <i class="bx bx-trophy h2 text-primary"></i>
-                                        </div>
-                                    </div>
-
-                                    <div class="py-2">
-                                        <h2><sup><small>$</small></sup> 5,000/ <span class="font-size-13">Per week</span></h2>
-                                    </div>
-
-                                    <input type="hidden" name="account_id" value="<?php echo $account_data["account_id"] ?>">
-                                    <input type="hidden" name="investment_plan" value="Professional">
-                                    <input type="hidden" name="amount" value="5000">
-                                    <input type="hidden" name="plan_roi" value="25000">
-                                    <input type="hidden" name="duration" value="1 Week">
-
-                                    <div class="text-center plan-btn">
-                                        <button type="submit" name="initialize_subscription" class="btn btn-primary btn-sm waves-effect waves-light">Initialize Subscription</button>
-                                    </div>
-
-                                    <div class="plan-features mt-4 ">
-                                        <p><i class="bx bx-checkbox-square text-primary me-2"></i> Min. Deposit: $5,000.00</p>
                                         <p><i class="bx bx-checkbox-square text-primary me-2"></i> Max. Deposit: $5,000.00</p>
                                     </div>
                                 </div>
@@ -743,7 +708,46 @@
                                 <div class="card-body px-4 pb-0">
                                     <div class="d-flex">
                                         <div class="flex-grow-1">
-                                            <h5>Master</h5>
+                                            <h5>Classic Plan</h5>
+                                            <p class="text-muted">ROI = $25,000</p>
+                                        </div>
+                                        <div class="flex-shrink-0 ms-3">
+                                            <i class="bx bx-trophy h2 text-primary"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="py-2">
+                                        <h2><sup><small>$</small></sup> 5,000/ <span class="font-size-13">Per week</span></h2>
+                                    </div>
+
+                                    <input type="hidden" name="account_id" value="<?php echo $account_data["account_id"] ?>">
+                                    <input type="hidden" name="investment_plan" value="Classic">
+
+                                    <input type="hidden" name="plan_roi" value="25000">
+                                    <input type="hidden" name="duration" value="1 Week">
+
+                                    <div class="text-center plan-btn">
+                                        <input type="number" placeholder="Amount" class="waves-effect waves-light my-1" style="color: #343a40 !important;" name="amount" value="" required>
+                                        <button type="submit" name="initialize_subscription" class="btn btn-primary btn-sm waves-effect waves-light">Initialize Subscription</button>
+                                    </div>
+
+                                    <div class="plan-features mt-4 ">
+                                        <p><i class="bx bx-checkbox-square text-primary me-2"></i> Min. Deposit: $5,000.00</p>
+                                        <p><i class="bx bx-checkbox-square text-primary me-2"></i> Max. Deposit: $20,000.00</p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card border-rounded-13 mb-3 mb-sm-0 plan-box border-light-primary">
+                            <form action="" method="post">
+                                <div class="card-body px-4 pb-0">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <h5>
+Premium Plan</h5>
                                             <p class="text-muted">ROI = $50,000</p>
                                         </div>
                                         <div class="flex-shrink-0 ms-3">
@@ -752,22 +756,22 @@
                                     </div>
 
                                     <div class="py-2">
-                                        <h2><sup><small>$</small></sup> 10,000/ <span class="font-size-13">Per week</span></h2>
+                                        <h2><sup><small>$</small></sup> 20,000/ <span class="font-size-13">Per week</span></h2>
                                     </div>
 
                                     <input type="hidden" name="account_id" value="<?php echo $account_data["account_id"] ?>">
-                                    <input type="hidden" name="investment_plan" value="Master">
-                                    <input type="hidden" name="amount" value="10000">
+                                    <input type="hidden" name="investment_plan" value="Premium">
                                     <input type="hidden" name="plan_roi" value="50000">
                                     <input type="hidden" name="duration" value="1 Week">
 
                                     <div class="text-center plan-btn">
+                                        <input type="number" placeholder="Amount" class="waves-effect waves-light my-1" style="color: #343a40 !important;" name="amount" value="" required>
                                         <button type="submit" name="initialize_subscription" class="btn btn-primary btn-sm waves-effect waves-light">Initialize Subscription</button>
                                     </div>
 
                                     <div class="plan-features mt-4 ">
-                                        <p><i class="bx bx-checkbox-square text-primary me-2"></i> Min. Deposit: $10,000.00</p>
-                                        <p><i class="bx bx-checkbox-square text-primary me-2"></i> Max. Deposit: $10,000.00</p>
+                                        <p><i class="bx bx-checkbox-square text-primary me-2"></i> Min. Deposit: $20,000.00</p>
+                                        <p><i class="bx bx-checkbox-square text-primary me-2"></i> Max. Deposit: $150,000.00</p>
                                     </div>
                                 </div>
                             </form>

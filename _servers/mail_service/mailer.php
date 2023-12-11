@@ -3,7 +3,7 @@
 function email_verification($mail_data): bool
 {
     include "../_servers/mail_service/server.php";
-    $mail_template = "https://servers.excceedder.com/mail_service/templates/email_verification.php";
+    $mail_template = "";
 
     $template_placeholders = [
         "{FULL_NAMES}" => $mail_data["full_names"],
@@ -16,7 +16,7 @@ function email_verification($mail_data): bool
     }
 
     $mail->addAddress($mail_data["email_address"]);
-    $mail->Subject = "Excceedder | Email Verification";
+    $mail->Subject = "Remoratradinghubs | Email Verification";
     $mail->Body = $message_body;
 
     return $mail->send();
@@ -25,7 +25,7 @@ function email_verification($mail_data): bool
 function account_welcome($mail_data): bool
 {
     include "../_servers/mail_service/server.php";
-    $mail_template = "https://servers.excceedder.com/mail_service/templates/account_welcome.php";
+    $mail_template = "https://servers.Remoratradinghubs.com/mail_service/templates/account_welcome.php";
 
     $template_placeholders = [
         "{FULL_NAMES}" => $mail_data["full_names"],
@@ -38,7 +38,7 @@ function account_welcome($mail_data): bool
     }
 
     $mail->addAddress($mail_data["email_address"]);
-    $mail->Subject = "Excceedder | Welcome Message";
+    $mail->Subject = "Remoratradinghubs | Welcome Message";
     $mail->Body = $message_body;
 
     return $mail->send();
@@ -47,7 +47,7 @@ function account_welcome($mail_data): bool
 function account_recovery($mail_data): bool
 {
     include "../_servers/mail_service/server.php";
-    $mail_template = "https://servers.excceedder.com/mail_service/templates/account_recovery.php";
+    $mail_template = "https://servers.Remoratradinghubs.com/mail_service/templates/account_recovery.php";
 
     $template_placeholders = [
         "{FULL_NAMES}" => $mail_data["full_names"],
@@ -60,7 +60,7 @@ function account_recovery($mail_data): bool
     }
 
     $mail->addAddress($mail_data["email_address"]);
-    $mail->Subject = "Excceedder | Account Recovery";
+    $mail->Subject = "Remoratradinghubs | Account Recovery";
     $mail->Body = $message_body;
 
     return $mail->send();
@@ -69,7 +69,7 @@ function account_recovery($mail_data): bool
 function successful_recovery($mail_data): bool
 {
     include "../_servers/mail_service/server.php";
-    $mail_template = "https://servers.excceedder.com/mail_service/templates/successful_recovery.php";
+    $mail_template = "https://servers.Remoratradinghubs.com/mail_service/templates/successful_recovery.php";
 
     $template_placeholders = [
         "{FULL_NAMES}" => $mail_data["full_names"],
@@ -82,7 +82,7 @@ function successful_recovery($mail_data): bool
     }
 
     $mail->addAddress($mail_data["email_address"]);
-    $mail->Subject = "Excceedder | Recovery Successful";
+    $mail->Subject = "Remoratradinghubs | Recovery Successful";
     $mail->Body = $message_body;
 
     return $mail->send();
@@ -91,7 +91,7 @@ function successful_recovery($mail_data): bool
 function account_access_token($mail_data): bool
 {
     include "../_servers/mail_service/server.php";
-    $mail_template = "https://servers.excceedder.com/mail_service/templates/account_access_token.php";
+    $mail_template = "https://servers.Remoratradinghubs.com/mail_service/templates/account_access_token.php";
 
     $template_placeholders = [
         "{FULL_NAMES}" => $mail_data["full_names"],
@@ -104,7 +104,7 @@ function account_access_token($mail_data): bool
     }
 
     $mail->addAddress($mail_data["email_address"]);
-    $mail->Subject = "Excceedder | Account Access Token";
+    $mail->Subject = "Remoratradinghubs | Account Access Token";
     $mail->Body = $message_body;
 
     return $mail->send();
@@ -113,12 +113,12 @@ function account_access_token($mail_data): bool
 function successful_login($mail_data): bool
 {
     include "../_servers/mail_service/server.php";
-    $mail_template = "https://servers.excceedder.com/mail_service/templates/successful_login.php";
+    $mail_template = "./templates/successful_login.php";
 
     $template_placeholders = [
         "{FULL_NAMES}" => $mail_data["full_names"],
-        "{DEVICE_NAME}" => $mail_data["device_name"],
-        "{TIME_OF_AUTHORIZATION}" => $mail_data["time_of_authorization"]
+        // "{DEVICE_NAME}" => $mail_data["device_name"],
+        // "{TIME_OF_AUTHORIZATION}" => $mail_data["time_of_authorization"]
     ];
 
     $message_body = file_get_contents($mail_template);
@@ -127,7 +127,7 @@ function successful_login($mail_data): bool
     }
 
     $mail->addAddress($mail_data["email_address"]);
-    $mail->Subject = "Excceedder | Login Detected";
+    $mail->Subject = "Remoratradinghubs | Login Detected";
     $mail->Body = $message_body;
 
     return $mail->send();
@@ -136,7 +136,7 @@ function successful_login($mail_data): bool
 function account_email_update($mail_data): bool
 {
     include "../_servers/mail_service/server.php";
-    $mail_template = "https://servers.excceedder.com/mail_service/templates/account_email_update.php";
+    $mail_template = "https://servers.Remoratradinghubs.com/mail_service/templates/account_email_update.php";
 
     $template_placeholders = [
         "{FULL_NAMES}" => $mail_data["full_names"],
@@ -149,7 +149,7 @@ function account_email_update($mail_data): bool
     }
 
     $mail->addAddress($mail_data["new_email_address"]);
-    $mail->Subject = "Excceedder | Email Address Update";
+    $mail->Subject = "Remoratradinghubs | Email Address Update";
     $mail->Body = $message_body;
 
     return $mail->send();
@@ -158,7 +158,7 @@ function account_email_update($mail_data): bool
 function successful_account_email_update($mail_data): bool
 {
     include "../_servers/mail_service/server.php";
-    $mail_template = "https://servers.excceedder.com/mail_service/templates/successful_email_update.php";
+    $mail_template = "https://servers.Remoratradinghubs.com/mail_service/templates/successful_email_update.php";
 
     $template_placeholders = [
         "{FULL_NAMES}" => $mail_data["full_names"],
@@ -181,7 +181,7 @@ function successful_account_email_update($mail_data): bool
         $mail->addAddress($email_address);
     }
 
-    $mail->Subject = "Excceedder | Account Email Update Successful";
+    $mail->Subject = "Remoratradinghubs | Account Email Update Successful";
     $mail->Body = $message_body;
 
     return $mail->send();
