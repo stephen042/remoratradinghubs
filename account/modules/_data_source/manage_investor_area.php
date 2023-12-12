@@ -329,7 +329,7 @@
                                             <form action="./authu?investor_id=<?php echo $investor_id ?>" method="post">
                                                 <td class="fw-bold"><?php echo $investment_data["investment_plan"] ?></td>
                                                 <td>$<?php echo number_format($investment_data["amount"], 2) ?></td>
-                                                <td class="fw-bold">$<?php echo  number_format($investment_data["plan_roi"], 2) ?></td>
+                                                <td class="fw-bold">%<?php echo  number_format($investment_data["plan_roi"], 2) ?></td>
                                                 <td><?php echo $investment_data["investment_date"] ?></td>
                                                 <td><?php echo $investment_data["duration"] ?></td>
                                                 <td><?php echo $investment_data["investment_status"] ?></td>

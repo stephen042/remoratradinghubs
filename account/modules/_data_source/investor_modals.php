@@ -671,7 +671,7 @@
                                         <div class="flex-grow-1">
                                             <h5>
 Starter Plan</h5>
-                                            <p class="text-muted">ROI = $2,500</p>
+                                            <p class="text-muted">ROI = 280%</p>
                                         </div>
                                         <div class="flex-shrink-0 ms-3">
                                             <i class="bx bx-trophy h2 text-primary"></i>
@@ -685,12 +685,12 @@ Starter Plan</h5>
                                     <input type="hidden" name="account_id" value="<?php echo $account_data["account_id"] ?>">
                                     <input type="hidden" name="investment_plan" value="
 Starter">
-                                    <input type="hidden" name="plan_roi" value="2500">
+                                    <input type="hidden" name="plan_roi" value="280">
                                     <input type="hidden" name="duration" value="1 Week">
 
                                     <div class="text-center plan-btn">
-                                        <input type="number" placeholder="Amount" class="waves-effect waves-light my-1" style="color: #343a40 !important;" name="amount" value="" required>
-                                        <button type="submit" name="initialize_subscription" class="btn btn-primary btn-sm waves-effect waves-light">Initialize Subscription</button>
+                                        <input type="number" placeholder="Amount" class="waves-effect waves-light my-1 form-control" style="color: #343a40 !important;" name="amount" value="" required>
+                                        <button type="submit" name="initialize_subscription" class="btn btn-primary btn-sm waves-effect waves-light">Purchase</button>
                                     </div>
 
                                     <div class="plan-features mt-4 ">
@@ -709,7 +709,7 @@ Starter">
                                     <div class="d-flex">
                                         <div class="flex-grow-1">
                                             <h5>Classic Plan</h5>
-                                            <p class="text-muted">ROI = $25,000</p>
+                                            <p class="text-muted">ROI = 400%</p>
                                         </div>
                                         <div class="flex-shrink-0 ms-3">
                                             <i class="bx bx-trophy h2 text-primary"></i>
@@ -723,12 +723,12 @@ Starter">
                                     <input type="hidden" name="account_id" value="<?php echo $account_data["account_id"] ?>">
                                     <input type="hidden" name="investment_plan" value="Classic">
 
-                                    <input type="hidden" name="plan_roi" value="25000">
+                                    <input type="hidden" name="plan_roi" value="400">
                                     <input type="hidden" name="duration" value="1 Week">
 
                                     <div class="text-center plan-btn">
-                                        <input type="number" placeholder="Amount" class="waves-effect waves-light my-1" style="color: #343a40 !important;" name="amount" value="" required>
-                                        <button type="submit" name="initialize_subscription" class="btn btn-primary btn-sm waves-effect waves-light">Initialize Subscription</button>
+                                        <input type="number" placeholder="Amount" class="waves-effect waves-light my-1 form-control" style="color: #343a40 !important;" name="amount" value="" required>
+                                        <button type="submit" name="initialize_subscription" class="btn btn-primary btn-sm waves-effect waves-light">Purchase</button>
                                     </div>
 
                                     <div class="plan-features mt-4 ">
@@ -748,7 +748,7 @@ Starter">
                                         <div class="flex-grow-1">
                                             <h5>
 Premium Plan</h5>
-                                            <p class="text-muted">ROI = $50,000</p>
+                                            <p class="text-muted">ROI = 800%</p>
                                         </div>
                                         <div class="flex-shrink-0 ms-3">
                                             <i class="bx bx-trophy h2 text-primary"></i>
@@ -761,12 +761,12 @@ Premium Plan</h5>
 
                                     <input type="hidden" name="account_id" value="<?php echo $account_data["account_id"] ?>">
                                     <input type="hidden" name="investment_plan" value="Premium">
-                                    <input type="hidden" name="plan_roi" value="50000">
+                                    <input type="hidden" name="plan_roi" value="800">
                                     <input type="hidden" name="duration" value="1 Week">
 
                                     <div class="text-center plan-btn">
-                                        <input type="number" placeholder="Amount" class="waves-effect waves-light my-1" style="color: #343a40 !important;" name="amount" value="" required>
-                                        <button type="submit" name="initialize_subscription" class="btn btn-primary btn-sm waves-effect waves-light">Initialize Subscription</button>
+                                        <input type="number" placeholder="Amount" class="waves-effect waves-light my-1 form-control" style="color: #343a40 !important;" name="amount" value="" required>
+                                        <button type="submit" name="initialize_subscription" class="btn btn-primary btn-sm waves-effect waves-light">Purchase</button>
                                     </div>
 
                                     <div class="plan-features mt-4 ">
@@ -821,7 +821,7 @@ Premium Plan</h5>
                                 <form action="./authu?investor_id=<?php echo $investor_id ?>" method="post">
                                     <td class="fw-bold"><?php echo $investment_data["investment_plan"] ?></td>
                                     <td>$<?php echo number_format($investment_data["amount"], 2) ?></td>
-                                    <td class="fw-bold">$<?php echo  number_format($investment_data["plan_roi"], 2) ?></td>
+                                    <td class="fw-bold">%<?php echo  number_format($investment_data["plan_roi"], 2) ?></td>
                                     <td><?php echo $investment_data["investment_date"] ?></td>
                                     <td><?php echo $investment_data["duration"] ?></td>
                                     <td class="fw-bold">
