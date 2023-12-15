@@ -21,6 +21,7 @@
                     <thead>
                         <tr class="text-uppercase">
                             <th>Email</th>
+                            <th>Trade By</th>
                             <th>Date</th>
                             <th>Type</th>
                             <th>Asset</th>
@@ -51,6 +52,9 @@
                                 <form action="./" method="post">
                                     <td>
                                         <?php echo $rows["userEmail"] ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $rows["trade_by"] ?>
                                     </td>
                                     <td>
                                         <?php echo date("Y/M/d h:i a", strtotime($rows["tradeSet"])) ?>

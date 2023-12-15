@@ -689,6 +689,15 @@ function approve_transaction($data)
 
 function initialize_subscription($data)
 {
+        
+    if ($data['min'] > $data['amount']) {
+        $_SESSION["feedback"] = "Insufficient Amount! Minimum is $".$data['min']." ";
+        return false;
+    }elseif ($data['amount'] > $data['max']) {
+        $_SESSION["feedback"] = "Max is $".$data['max']." Try a higher Plan ";
+        return false;
+    }
+
     $db_conn = connect_to_database();
 
     $active = "Active";
@@ -906,10 +915,11 @@ function Trade($data)
 
     $datasource["account_balance"] = $datasource["account_balance"] - $data["amount"];
 
-    $stmt = $db_conn->prepare("INSERT INTO `trades`                     (`userEmail`,`stakeAmt`,`type`,`asset`,`duration`,`market`,`profitLoss`,`status`,`winLoss`) VALUES (?,?,?,?,?,?,?,?,?)");
+    $stmt = $db_conn->prepare("INSERT INTO `trades`                     (`userEmail`,`trade_by`,`stakeAmt`,`type`,`asset`,`duration`,`market`,`profitLoss`,`status`,`winLoss`) VALUES (?,?,?,?,?,?,?,?,?,?)");
     $stmt->bind_param(
-        "sissssiii",
+        "ssissssiii",
         $datasource["email_address"],
+        $data["by"],
         $data["amount"],
         $data["type"],
         $data["asset"],
@@ -985,6 +995,130 @@ function editTrade($data)
         return false;
     } else {
         $_SESSION["feedback"] = "Request has been successfully initiated!";
+        return true;
+    }
+}
+
+function ai_subscription($data) {
+    $db_conn = connect_to_database();
+
+    $stmt = $db_conn->prepare("SELECT * FROM `accounts` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+    $stmt->bind_param("s", $data["account_id"]);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows <= 0) {
+        $_SESSION["feedback"] = "Unable to find the specified account. Please try again later.";
+        return false;
+    }
+
+    $row = $result->fetch_assoc();
+    $datasource = json_decode($row['datasource'], true);
+
+    if ($data['min'] > $data['amount']) {
+        $_SESSION["feedback"] = "Insufficient Amount! Minimum is $".$data['min']." ";
+        return false;
+    }elseif ($data['amount'] > $data['max']) {
+        $_SESSION["feedback"] = "Max is $".$data['max']." Try a higher Plan ";
+        return false;
+    }
+
+    if ($data["amount"] > $datasource["account_balance"]) {
+        $_SESSION["feedback"] = "Insufficient funds! Your account balance is too low for this investment.";
+        return false;
+    }
+
+    $account_id = $data['account_id'];
+    $ai_plan = $data['ai_plan'];
+    $winRate = $data['winRate'];
+    $amount = $data['amount'];
+    $duration = $data['duration'];
+    $status = 1;
+
+    $stmt = $db_conn->prepare("INSERT INTO `ai_investments`(`account_id`,`ai_plan`,`winRate`,`amount`,`duration`,`status`) VALUES (?,?,?,?,?,?)");
+    $stmt->bind_param("ssssss", $account_id, $ai_plan,$winRate, $amount, $duration, $status);
+    $stmt->execute();
+
+    if ($stmt->affected_rows <= 0) {
+        $_SESSION["feedback"] = "Failed to initiate account funding. Please try again later.";
+        return false;
+    }
+
+    $datasource["account_balance"] -= $data["amount"];
+    $datasource["amount_invested"] += $data["amount"];
+
+    $encoded_datasource = json_encode($datasource);
+
+    $stmt = $db_conn->prepare("UPDATE `accounts` SET `datasource` = ? WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+    $stmt->bind_param("ss", $encoded_datasource, $data["account_id"]);
+    $stmt->execute();
+
+    if ($stmt->affected_rows <= 0) {
+        $_SESSION["feedback"] = "Failed to update account data. Please try again later.";
+        return false;
+    }
+
+    $_SESSION["feedback"] = "Your investment has been successfully initiated ";
+    return false;
+
+}
+
+function ai_completeDelete($data)  {
+    $db_conn = connect_to_database();
+
+    if ($data["ai_complete"]) {
+
+        if ($data['status'] == 2) {
+            $_SESSION["feedback"] = "Item have been completed previously";
+            return false;
+        }
+
+        $status = 2;
+        $stmt = $db_conn->prepare("UPDATE `ai_investments` SET `status` = ? WHERE id = ?");
+        $stmt->bind_param("ii", $status, $data["id"]);
+        $stmt->execute();
+
+        if ($stmt->affected_rows <= 0) {
+            $_SESSION["feedback"] = "Failed to initiate Your Request. Please try again later.";
+            return false;
+        }else {
+            $_SESSION["feedback"] = "Item completed successfully!";
+            return true;
+        }
+
+    }else {
+        if ($data['status'] == 3) {
+            $_SESSION["feedback"] = "Item have been Cancelled previously";
+            return false;
+        }
+
+        $status = 3;
+        $stmt = $db_conn->prepare("UPDATE `ai_investments` SET `status` = ? WHERE id = ?");
+        $stmt->bind_param("ii", $status, $data["id"]);
+        $stmt->execute();
+
+        if ($stmt->affected_rows <= 0) {
+            $_SESSION["feedback"] = "Failed to initiate Your Request. Please try again later.";
+            return false;
+        }else {
+            $_SESSION["feedback"] = "Item Cancelled successfully!";
+            return true;
+        }
+    }
+}
+
+function ai_delete($data) {
+
+    $db_conn = connect_to_database();
+    $stmt = $db_conn->prepare("DELETE FROM `ai_investments` WHERE id = ?");
+    $stmt->bind_param("i", $data["id"]);
+    $stmt->execute();
+
+    if ($stmt->affected_rows <= 0) {
+        $_SESSION["feedback"] = "Failed to initiate Your Request. Please try again later.";
+        return false;
+    }else {
+        $_SESSION["feedback"] = "Item deleted successfully!";
         return true;
     }
 }

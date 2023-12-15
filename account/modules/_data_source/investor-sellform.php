@@ -90,7 +90,7 @@
                 <span class="input-group-text mt-1" id="validatedInputGroupPrepend">
                     <span class="">Current balance:</span>
                     <span class="text-success ms-1">
-                        $ 0
+                        $ <?php echo number_format($account_data['account_balance'], 2) ?>
                     </span>
                 </span>
             </div>
@@ -122,5 +122,6 @@
             </div>
         </div>
     </div>
+    <input name="by" value="user" type="hidden">
     <button class="btn btn-danger mt-4 mb-0 col-12 sbt" type="submit" name="sellTrade" disabled>Trade</button>
 </form>

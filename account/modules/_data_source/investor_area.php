@@ -288,6 +288,7 @@
                                     <thead>
                                         <tr>
                                             <td class="wd-15p border-bottom-0">#</td>
+                                            <td class="wd-15p border-bottom-0">Trade By</td>
                                             <td class="wd-15p border-bottom-0">Date</td>
                                             <td class="wd-15p border-bottom-0">Type</td>
                                             <td class="wd-15p border-bottom-0">Asset</td>
@@ -299,7 +300,7 @@
                                             <td class="wd-15p border-bottom-0">Win/Loss Status</td>
                                         </tr>
                                     </thead>
-                                    <tbody cl>
+                                    <tbody>
 
                                         <?php
                                         $db_conn = connect_to_database();
@@ -317,6 +318,9 @@
                                             <tr>
                                                 <td>
                                                     <?php echo $row++ ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['trade_by']?>
                                                 </td>
                                                 <td>
                                                     <?php echo date("Y/M/d h:i a", strtotime($rows["tradeSet"])) ?>

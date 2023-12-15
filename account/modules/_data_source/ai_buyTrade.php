@@ -1,7 +1,7 @@
-<form class="needs-validation" method="post" novalidate >
+<form class="needs-validation" method="post" novalidate>
     <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="form-group col-12">
-            <input type="hidden" name="account_id" value="<?php echo $account_data["account_id"] ?>">
+            <input type="hidden" name="account_id" value="<?php echo $investor_data["account_id"] ?>">
             <input type="hidden" name="market" value="Buy">
             <label class="form-label text-bold">Type:
                 <i class="fa fa-question-circle" data-bs-placement="top" data-bs-toggle="tooltip" title="Choose your choice of market"></i>
@@ -90,7 +90,7 @@
                 <span class="input-group-text mt-1" id="validatedInputGroupPrepend">
                     <span class="">Current balance:</span>
                     <span class="text-success ms-1">
-                        $ <?php echo number_format($account_data['account_balance'], 2) ?>
+                        $ <?php echo number_format($investor_data['account_balance'], 2) ?>
                     </span>
                 </span>
             </div>
@@ -122,7 +122,7 @@
             </div>
         </div>
     </div>
-    <input name="by" value="user" type="hidden">
+    <input name="by" value="Ai" type="hidden">
     <!-- <input class="btn btn-primary mt-4 mb-0 col-12 sbt" type="submit" value="Trade" name="buyTrade" > -->
     <button class="btn btn-info mt-4 mb-0 col-12 sbt" type="submit" name="buyTrade" disabled>Trade</button>
 </form>

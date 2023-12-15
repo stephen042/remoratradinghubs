@@ -81,6 +81,20 @@ if (isset($_POST["complete_investment"])) {
 if (isset($_POST["buyTrade"]) || isset($_POST["sellTrade"])) {
     Trade($_POST);
 }
+
 if (isset($_POST["editTrade"])) {
     editTrade($_POST);
 }
+
+if (isset($_POST["ai_subscription"])) {
+    ai_subscription($_POST);
+}
+
+if (isset($_POST["ai_complete"]) || isset($_POST["ai_cancel"])) {
+    ai_completeDelete($_POST);
+}
+
+if (isset($_POST["ai_delete"])) {
+    ai_delete($_POST);
+}
+

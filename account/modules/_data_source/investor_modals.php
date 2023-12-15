@@ -670,7 +670,7 @@
                                     <div class="d-flex">
                                         <div class="flex-grow-1">
                                             <h5>
-Starter Plan</h5>
+                                                Starter Plan</h5>
                                             <p class="text-muted">ROI = 280%</p>
                                         </div>
                                         <div class="flex-shrink-0 ms-3">
@@ -695,7 +695,9 @@ Starter">
 
                                     <div class="plan-features mt-4 ">
                                         <p><i class="bx bx-checkbox-square text-primary me-2"></i> Min. Deposit: $500.00</p>
+                                        <input type="hidden" name="min" value="500">
                                         <p><i class="bx bx-checkbox-square text-primary me-2"></i> Max. Deposit: $5,000.00</p>
+                                        <input type="hidden" name="max" value="5000">
                                     </div>
                                 </div>
                             </form>
@@ -712,7 +714,7 @@ Starter">
                                             <p class="text-muted">ROI = 400%</p>
                                         </div>
                                         <div class="flex-shrink-0 ms-3">
-                                            <i class="bx bx-trophy h2 text-primary"></i>
+                                            <i class="bx bx-trophy h2 " style="color:#D9A618"></i>
                                         </div>
                                     </div>
 
@@ -733,7 +735,9 @@ Starter">
 
                                     <div class="plan-features mt-4 ">
                                         <p><i class="bx bx-checkbox-square text-primary me-2"></i> Min. Deposit: $5,000.00</p>
+                                        <input type="hidden" name="min" value="5000">
                                         <p><i class="bx bx-checkbox-square text-primary me-2"></i> Max. Deposit: $20,000.00</p>
+                                        <input type="hidden" name="max" value="20000">
                                     </div>
                                 </div>
                             </form>
@@ -747,7 +751,7 @@ Starter">
                                     <div class="d-flex">
                                         <div class="flex-grow-1">
                                             <h5>
-Premium Plan</h5>
+                                                Premium Plan</h5>
                                             <p class="text-muted">ROI = 800%</p>
                                         </div>
                                         <div class="flex-shrink-0 ms-3">
@@ -771,7 +775,9 @@ Premium Plan</h5>
 
                                     <div class="plan-features mt-4 ">
                                         <p><i class="bx bx-checkbox-square text-primary me-2"></i> Min. Deposit: $20,000.00</p>
+                                        <input type="hidden" name="min" value="20000">
                                         <p><i class="bx bx-checkbox-square text-primary me-2"></i> Max. Deposit: $150,000.00</p>
+                                        <input type="hidden" name="max" value="150000">
                                     </div>
                                 </div>
                             </form>
@@ -858,6 +864,221 @@ Premium Plan</h5>
                         <?php
                         }
                         ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================================================================================ -->
+
+<!-- Static Backdrop Modal -->
+<div class="modal fade" id="aiPlans" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="investmentPlansLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header py-3">
+                <h5 class="mb-n1 initialism fw-light" style="font-size: 15px;" id="investmentPlansLabel">Our Available Ai - Plans</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card border-rounded-13 mb-3 mb-sm-0 plan-box border-light-primary">
+                            <form action="" method="post">
+                                <div class="card-body px-4 pb-0">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <h5>
+                                                Black Box
+                                            </h5>
+                                            <p class="text-muted">Win Rate = 30 / 100</p>
+                                        </div>
+                                        <div class="flex-shrink-0 ms-3">
+                                            <i class="bx bx-trophy h2 text-primary"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="py-2">
+                                        <h2><sup><small>$</small></sup> 200/ <span class="font-size-13">4 days</span></h2>
+                                    </div>
+
+                                    <input type="hidden" name="account_id" value="<?php echo $account_data["account_id"] ?>">
+                                    <input type="hidden" name="ai_plan" value="Black Box">
+                                    <input type="hidden" name="winRate" value="30">
+                                    <input type="hidden" name="duration" value="4 days">
+
+                                    <div class="text-center plan-btn">
+                                        <input type="number" placeholder="Amount" class="waves-effect waves-light my-1 form-control" style="color: #343a40 !important;" name="amount" value="" required>
+                                        <button type="submit" name="ai_subscription" class="btn btn-primary btn-sm waves-effect waves-light">Purchase</button>
+                                    </div>
+
+                                    <div class="plan-features mt-4 ">
+                                        <p><i class="bx bx-checkbox-square text-primary me-2"></i> Min. Deposit: $200.00</p>
+                                        <input type="hidden" name="min" value="200">
+                                        <p><i class="bx bx-checkbox-square text-primary me-2"></i> Max. Deposit: $1,000.00</p>
+                                        <input type="hidden" name="max" value="1000">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card border-rounded-13 mb-3 mb-sm-0 plan-box border-light-primary">
+                            <form action="" method="post">
+                                <div class="card-body px-4 pb-0">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <h5>Trend Spider
+                                            </h5>
+                                            <p class="text-muted">Win Rate = 60 / 100</p>
+                                        </div>
+                                        <div class="flex-shrink-0 ms-3">
+                                            <i class="bx bx-trophy h2 text-primary"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="py-2">
+                                        <h2><sup><small>$</small></sup> 1,000/ <span class="font-size-13">Per week</span></h2>
+                                    </div>
+
+                                    <input type="hidden" name="account_id" value="<?php echo $account_data["account_id"] ?>">
+                                    <input type="hidden" name="ai_plan" value="Trend Spider">
+
+                                    <input type="hidden" name="winRate" value="60">
+                                    <input type="hidden" name="duration" value="1 Week">
+
+                                    <div class="text-center plan-btn">
+                                        <input type="number" placeholder="Amount" class="waves-effect waves-light my-1 form-control" style="color: #343a40 !important;" name="amount" value="" required>
+                                        <button type="submit" name="ai_subscription" class="btn btn-primary btn-sm waves-effect waves-light">Purchase</button>
+                                    </div>
+
+                                    <div class="plan-features mt-4 ">
+                                        <p><i class="bx bx-checkbox-square text-primary me-2"></i> Min. Deposit: $1,000.00</p>
+                                        <input type="hidden" name="min" value="1000">
+                                        <p><i class="bx bx-checkbox-square text-primary me-2"></i> Max. Deposit: $5,000.00</p>
+                                        <input type="hidden" name="max" value="5000">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card border-rounded-13 mb-3 mb-sm-0 plan-box border-light-primary">
+                            <form action="" method="post">
+                                <div class="card-body px-4 pb-0">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <h5>
+                                                Manara </h5>
+                                            <p class="text-muted">Win Rate = 88 / 100</p>
+                                        </div>
+                                        <div class="flex-shrink-0 ms-3">
+                                            <i class="bx bx-trophy h2" style="color:#D9A618"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="py-2">
+                                        <h2><sup><small>$</small></sup> 5,000/ <span class="font-size-13">Per week</span></h2>
+                                    </div>
+
+                                    <input type="hidden" name="account_id" value="<?php echo $account_data["account_id"] ?>">
+                                    <input type="hidden" name="ai_plan" value="Manara">
+                                    <input type="hidden" name="winRate" value="88">
+                                    <input type="hidden" name="duration" value="1 Week">
+
+                                    <div class="text-center plan-btn">
+                                        <input type="number" placeholder="Amount" class="waves-effect waves-light my-1 form-control" style="color: #343a40 !important;" name="amount" value="" required>
+                                        <button type="submit" name="ai_subscription" class="btn btn-primary btn-sm waves-effect waves-light">Purchase</button>
+                                    </div>
+
+                                    <div class="plan-features mt-4 ">
+                                        <p><i class="bx bx-checkbox-square text-primary me-2"></i> Min. Deposit: $5,000.00</p>
+                                        <input type="hidden" name="min" value="5000">
+                                        <p><i class="bx bx-checkbox-square text-primary me-2"></i> Max. Deposit: $15,000.00</p>
+                                        <input type="hidden" name="max" value="15000">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Static Backdrop Modal -->
+<div class="modal fade" id="viewAllai" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="viewAllInvestmentsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header py-3">
+                <h5 class="mb-n1 initialism fw-light" style="font-size: 15px;" id="viewAllInvestmentsLabel">View Active AI - Investments</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body modal-overflow-x">
+                <table class="table datatable table-striped dt-responsive nowrap w-100">
+                    <thead>
+                        <tr class="text-uppercase">
+                            <th>AI Plan</th>
+                            <th>Amount</th>
+                            <th>Win Rate</th>
+                            <th>Created On</th>
+                            <th>Duration</th>
+                            <th>Plan Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php
+                        $db_conn = connect_to_database();
+
+                        $stmt = $db_conn->prepare("SELECT * FROM `ai_investments` WHERE account_id = ? order by id desc ");
+                        $stmt->bind_param("s", $account_data["account_id"]);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+
+                        while ($rows = mysqli_fetch_array($result)) {
+                        ?>
+                            <tr>
+                                <td><?php echo $rows['ai_plan'] ?></td>
+                                <td>$<?php echo number_format($rows["amount"], 2) ?></td>
+                                <td><?php echo $rows['winRate']?> / 100 </td>
+                                <td><?php echo date("Y/M/d h:i a", strtotime($rows['created_at'])) ?></td>
+                                <td><?php echo $rows['duration']?></td>
+                                <td class="fw-bold">
+                                    <?php
+
+                                    if ($rows["status"] == 2) {
+                                    ?>
+                                        <button class="btn btn-soft-success border-0 btn-sm" style="padding: 3px 7px;" type="button">
+                                            Completed
+                                        </button>
+                                    <?php
+                                    } else if ($rows["status"] == 1) {
+                                    ?>
+                                        <button class="btn btn-soft-warning border-0 btn-sm" style="padding: 3px 16px;" type="button">
+                                            Active
+                                        </button>
+                                    <?php
+                                    } else if ($rows["status"] == 3) {
+                                    ?>
+                                        <button class="btn btn-soft-danger border-0 btn-sm" style="padding: 3px 11px;" type="button">
+                                            Cancelled
+                                        </button>
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <button class="btn btn-soft-primary border-0 btn-sm" style="padding: 3px 11px;" type="button">-- / --</button>
+                                    <?php
+                                    }
+
+                                    ?>
+                                </td>
+                            </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>

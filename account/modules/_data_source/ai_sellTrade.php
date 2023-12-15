@@ -1,8 +1,8 @@
-<form class="needs-validation" method="post" novalidate >
+<form class="needs-validation" method="post" novalidate>
     <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="form-group col-12">
-            <input type="hidden" name="account_id" value="<?php echo $account_data["account_id"] ?>">
-            <input type="hidden" name="market" value="Buy">
+            <input type="hidden" name="account_id" value="<?php echo $investor_data["account_id"] ?>">
+            <input type="hidden" name="market" value="Sell">
             <label class="form-label text-bold">Type:
                 <i class="fa fa-question-circle" data-bs-placement="top" data-bs-toggle="tooltip" title="Choose your choice of market"></i>
             </label>
@@ -62,23 +62,23 @@
         <div class="fx">
             <div class="form-group col-12">
                 <label class="form-label text-bold">Asset:</label>
-                <select class="form-control form-select select2 fx" id="forex" name="asset" style="width: 100%;" data-bs-placeholder="Select">
-                    <option value="AUD/CAD">AUD/CAD</option>
-                    <option value="USD/CHF">USD/CHF</option>
-                    <option value="CHF/JPY">CHF/JPY</option>
-                    <option value="GBP/USD">GBP/USD</option>
-                    <option value="EUR/AUD">EUR/AUD</option>
-                    <option value="EUR/CHF">EUR/CHF</option>
-                    <option value="AUD/USD">AUD/USD</option>
-                    <option value="AUD/NZD">AUD/NZD</option>
-                    <option value="AUD/JPY">AUD/JPY</option>
-                    <option value="EUR/JPY">EUR/JPY</option>
-                    <option value="GBP/JPY">GBP/JPY</option>
-                    <option value="EUR/USD">EUR/USD</option>
-                    <option value="NZD/USD">NZD/USD</option>
-                    <option value="EUR/CAD">EUR/CAD</option>
-                    <option value="EUR/GBP">EUR/GBP</option>
-                    <option value="GBP/CHF">GBP/CHF</option>
+                <select class="form-control form-select select2 fx" name="asset" style="width: 100%;" data-bs-placeholder="Select">
+                    <option value="AUDCAD">AUD/CAD</option>
+                    <option value="USDCHF">USD/CHF</option>
+                    <option value="CHFJPY">CHF/JPY</option>
+                    <option value="GBPUSD">GBP/USD</option>
+                    <option value="EURAUD">EUR/AUD</option>
+                    <option value="EURCHF">EUR/CHF</option>
+                    <option value="AUDUSD">AUD/USD</option>
+                    <option value="AUDNZD">AUD/NZD</option>
+                    <option value="AUDJPY">AUD/JPY</option>
+                    <option value="EURJPY">EUR/JPY</option>
+                    <option value="GBPJPY">GBP/JPY</option>
+                    <option value="EURUSD">EUR/USD</option>
+                    <option value="NZDUSD">NZD/USD</option>
+                    <option value="EURCAD">EUR/CAD</option>
+                    <option value="EURGBP">EUR/GBP</option>
+                    <option value="GBPCHF">GBP/CHF</option>
                 </select>
             </div>
         </div>
@@ -90,7 +90,7 @@
                 <span class="input-group-text mt-1" id="validatedInputGroupPrepend">
                     <span class="">Current balance:</span>
                     <span class="text-success ms-1">
-                        $ <?php echo number_format($account_data['account_balance'], 2) ?>
+                        $ <?php echo number_format($investor_data['account_balance'], 2) ?>
                     </span>
                 </span>
             </div>
@@ -122,7 +122,6 @@
             </div>
         </div>
     </div>
-    <input name="by" value="user" type="hidden">
-    <!-- <input class="btn btn-primary mt-4 mb-0 col-12 sbt" type="submit" value="Trade" name="buyTrade" > -->
-    <button class="btn btn-info mt-4 mb-0 col-12 sbt" type="submit" name="buyTrade" disabled>Trade</button>
+    <input name="by" value="Ai" type="hidden">
+    <button class="btn btn-danger mt-4 mb-0 col-12 sbt" type="submit" name="sellTrade" disabled>Trade</button>
 </form>

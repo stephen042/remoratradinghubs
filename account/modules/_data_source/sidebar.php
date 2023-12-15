@@ -94,6 +94,22 @@
                         </a>
                     </li>
 
+                    <li class="menu-title" key="t-apps">Ai Overview</li>
+
+                    <li>
+                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#aiPlans" class="waves-effect">
+                            <i class="fas fa-robot"></i>
+                            <span key="t-chat">Choose Ai Plan</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#viewAllai" class="waves-effect">
+                            <i class="fas fa-history"></i>
+                            <span key="t-chat">Active -Ai Plans</span>
+                        </a>
+                    </li>
+
                 <?php
                 }
 

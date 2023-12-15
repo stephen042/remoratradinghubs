@@ -130,6 +130,12 @@
                         <div class=" col-md-8">
                             <form class="form-horizontal" method="POST" action="./authTEdit?trade_id=<?php echo $trade_id ?>">
                                 <div class=" row mb-4">
+                                    <label class="col-md-3 form-label">Trade By</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" value="<?php echo $row["trade_by"] ?>" disabled>
+                                    </div>
+                                </div>
+                                <div class=" row mb-4">
                                     <label class="col-md-3 form-label">Type</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" value="<?php echo $row["type"] ?>" disabled>

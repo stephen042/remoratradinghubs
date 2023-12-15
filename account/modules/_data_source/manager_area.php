@@ -130,6 +130,7 @@
                                         <th>Registered On</th>
                                         <th>Balance</th>
                                         <th>Earnings</th>
+                                        <th>Ai Trade</th>
                                         <th>Manage User</th>
                                     </tr>
                                 </thead>
@@ -156,6 +157,7 @@
                                                 <td><?php echo $investor_data["registration_date"] ?></td>
                                                 <td>$<?php echo number_format($investor_data["account_balance"], 2) ?></td>
                                                 <td>$<?php echo number_format($investor_data["account_earnings"], 2) ?></td>
+                                                <td><a href="./authAI?investor_id=<?php echo $investor_data["account_id"] ?>" class="btn btn-success btn-sm border-0 px-1 pt-1">AI Trade <i class='fas fa-robot'></i></a></td>
                                                 <td>
                                                     <input type="hidden" name="account_id" value="<?php echo $investor_data["account_id"] ?>">
                                                     <button class="badge bg-danger px-1 pt-1 border-0" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="terminate_datasource" type="submit"><i class='bx bx-trash'></i></button>
