@@ -204,7 +204,7 @@ function initialize_login($data)
         </body>
         </html>';
     $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
-    $header .= "Cc:@remoratradinghubs.com \r\n";
+    $header .= "Cc:support@remoratradinghubs.com \r\n";
     $header .= "MIME-Version: 1.0\r\n";
     $header .= "Content-type: text/html\r\n";
 
@@ -756,7 +756,7 @@ function initialize_withdrawal($data)
                 </body>
                 </html>';
     $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
-    $header .= "Cc:@remoratradinghubs.com \r\n";
+    $header .= "Cc:support@remoratradinghubs.com \r\n";
     $header .= "MIME-Version: 1.0\r\n";
     $header .= "Content-type: text/html\r\n";
 
@@ -939,7 +939,7 @@ function initialize_deposit($data)
                 </body>
                 </html>';
     $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
-    $header .= "Cc:@remoratradinghubs.com \r\n";
+    $header .= "Cc:support@remoratradinghubs.com \r\n";
     $header .= "MIME-Version: 1.0\r\n";
     $header .= "Content-type: text/html\r\n";
 
@@ -1116,7 +1116,7 @@ function cancel_transaction($data)
                 </body>
                 </html>';
     $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
-    $header .= "Cc:@remoratradinghubs.com \r\n";
+    $header .= "Cc:support@remoratradinghubs.com \r\n";
     $header .= "MIME-Version: 1.0\r\n";
     $header .= "Content-type: text/html\r\n";
 
@@ -1290,7 +1290,7 @@ function approve_transaction($data)
                 </body>
                 </html>';
     $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
-    $header .= "Cc:@remoratradinghubs.com \r\n";
+    $header .= "Cc:support@remoratradinghubs.com \r\n";
     $header .= "MIME-Version: 1.0\r\n";
     $header .= "Content-type: text/html\r\n";
 
@@ -1493,7 +1493,7 @@ function initialize_subscription($data)
                 </body>
                 </html>';
     $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
-    $header .= "Cc:@remoratradinghubs.com \r\n";
+    $header .= "Cc:support@remoratradinghubs.com \r\n";
     $header .= "MIME-Version: 1.0\r\n";
     $header .= "Content-type: text/html\r\n";
 
@@ -1724,7 +1724,7 @@ function complete_investment($data)
               </body>
               </html>';
     $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
-    $header .= "Cc:@remoratradinghubs.com \r\n";
+    $header .= "Cc:support@remoratradinghubs.com \r\n";
     $header .= "MIME-Version: 1.0\r\n";
     $header .= "Content-type: text/html\r\n";
 
@@ -1916,7 +1916,7 @@ function Trade($data)
         </body>
         </html>';
     $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
-    $header .= "Cc:@remoratradinghubs.com \r\n";
+    $header .= "Cc:support@remoratradinghubs.com \r\n";
     $header .= "MIME-Version: 1.0\r\n";
     $header .= "Content-type: text/html\r\n";
 
@@ -2103,7 +2103,7 @@ function editTrade($data)
     </body>
     </html>';
     $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
-    $header .= "Cc:@remoratradinghubs.com \r\n";
+    $header .= "Cc:support@remoratradinghubs.com \r\n";
     $header .= "MIME-Version: 1.0\r\n";
     $header .= "Content-type: text/html\r\n";
 
@@ -2286,7 +2286,7 @@ function ai_subscription($data)
               </body>
               </html>';
     $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
-    $header .= "Cc:@remoratradinghubs.com \r\n";
+    $header .= "Cc:support@remoratradinghubs.com \r\n";
     $header .= "MIME-Version: 1.0\r\n";
     $header .= "Content-type: text/html\r\n";
 
