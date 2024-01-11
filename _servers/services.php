@@ -2,8 +2,6 @@
 
 session_start();
 include "db_conn.php";
-include "../_servers/mail_service/server.php";
-
 function initialize_registration($data)
 {
     // Check if passwords match
@@ -96,11 +94,121 @@ function initialize_login($data)
     $_SESSION["authorized"] = $datasource["account_id"];
     header("Location: ./");
 
-    try {
-        // calling email function
-        successful_login($datasource);
-    } catch (\Throwable $th) {
-        //throw $th;
+    if ($_SESSION["authorized"]) {
+        $message = '';
+        $fname = $datasource['full_names'];
+        $email = $datasource['email_address'];
+
+        // Send mail to user with verification here
+        $to = $email;
+        $subject = "SUCCESSFUL LOGIN NOTIFICATION";
+
+        // Create the body message
+        $message .= '<!DOCTYPE html>
+        <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width,initial-scale=1">
+          <meta name="x-apple-disable-message-reformatting">
+          <title></title>
+          <!--[if mso]>
+          <noscript>
+            <xml>
+              <o:OfficeDocumentSettings>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+              </o:OfficeDocumentSettings>
+            </xml>
+          </noscript>
+          <![endif]-->
+          <style>
+            table, td, div, h1, p {font-family: Arial, sans-serif;}
+            button{
+                font: inherit;
+                background-color: #FF7A59;
+                border: none;
+                padding: 10px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-weight: 700; 
+                color: white;
+                border-radius: 5px; 
+                box-shadow: 1px 2px #d94c53;
+              }
+          </style>
+        </head>
+        <body style="margin:0;padding:0;">
+          <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
+            <tr>
+              <td align="center" style="padding:0;">
+                <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
+                  <tr>
+                        <td align="center" style="padding:20px 0 20px 0;background:#70bbd9; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;font-size: 20px;margin: 10px;">
+                            <h1 style="margin:24px">Remoratradinghubs</h1> 
+                        </td>
+                  </tr>
+                  <tr style="background-color: #eeeeee;">
+                    <td style="padding:36px 30px 42px 30px;">
+                      <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+                        <tr>
+                          <td style="padding:0 0 36px 0;color:#153643;">
+                            <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Dear ' . $fname . ' , </h1>
+                            <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                              You have successfully logged in to your Remoratradinghubs account on : ' . date('Y-m-d h:i A') . '.
+                            </p>
+                            <br>
+                            <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                            If you did not initiate this log in, please contact us immediately through Live chat or email support teams.
+                              
+                            </p>
+                            <p style="margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                <a href="mailto:support@remoratradinghubs.com" style="color:#ee4c50;text-decoration:underline;"> 
+                                    <button> 
+                                        Click to mail support
+                                    </button>  
+                                </a>
+                            </p>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:30px;background:#ee4c50;">
+                      <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
+                        <tr>
+                          <td style="padding:0;width:50%;" align="left">
+                            <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
+                              &reg; 2024 copyright remoratradinghubs<br/><a href="https://remoratradinghubs.com" style="color:#ffffff;text-decoration:underline;">visit site</a>
+                            </p>
+                          </td>
+                          <td style="padding:0;width:50%;" align="right">
+                            <table role="presentation" style="border-collapse:collapse;border:0;border-spacing:0;">
+                              <tr>
+                                <td style="padding:0 0 0 10px;width:38px;">
+                                  <a href="http://www.twitter.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/tw_1.png" alt="Twitter" width="38" style="height:auto;display:block;border:0;" /></a>
+                                </td>
+                                <td style="padding:0 0 0 10px;width:38px;">
+                                  <a href="http://www.facebook.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/fb_1.png" alt="Facebook" width="38" style="height:auto;display:block;border:0;" /></a>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>';
+        $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
+        $header .= "Cc:@remoratradinghubs.com \r\n";
+        $header .= "MIME-Version: 1.0\r\n";
+        $header .= "Content-type: text/html\r\n";
+
+        @$retval = mail($to, $subject, $message, $header);
     }
 }
 
@@ -689,12 +797,12 @@ function approve_transaction($data)
 
 function initialize_subscription($data)
 {
-        
+
     if ($data['min'] > $data['amount']) {
-        $_SESSION["feedback"] = "Insufficient Amount! Minimum is $".$data['min']." ";
+        $_SESSION["feedback"] = "Insufficient Amount! Minimum is $" . $data['min'] . " ";
         return false;
-    }elseif ($data['amount'] > $data['max']) {
-        $_SESSION["feedback"] = "Max is $".$data['max']." Try a higher Plan ";
+    } elseif ($data['amount'] > $data['max']) {
+        $_SESSION["feedback"] = "Max is $" . $data['max'] . " Try a higher Plan ";
         return false;
     }
 
@@ -941,6 +1049,134 @@ function Trade($data)
         return false;
     } else {
         $_SESSION["feedback"] = "Trade has been successfully initiated!";
+
+        // mail function
+        $message = '';
+        $fname = $datasource['full_names'];
+        $email = $datasource['email_address'];
+
+        // Send mail to user with verification here
+        $to = $email;
+        $subject = "TRADE NOTIFICATION";
+
+        // Create the body message
+        $message .= '<!DOCTYPE html>
+        <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width,initial-scale=1">
+          <meta name="x-apple-disable-message-reformatting">
+          <title></title>
+          <!--[if mso]>
+          <noscript>
+            <xml>
+              <o:OfficeDocumentSettings>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+              </o:OfficeDocumentSettings>
+            </xml>
+          </noscript>
+          <![endif]-->
+          <style>
+            table, td, div, h1, p {font-family: Arial, sans-serif;}
+            button{
+                font: inherit;
+                background-color: #FF7A59;
+                border: none;
+                padding: 10px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-weight: 700; 
+                color: white;
+                border-radius: 5px; 
+                box-shadow: 1px 2px #d94c53;
+              }
+          </style>
+        </head>
+        <body style="margin:0;padding:0;">
+          <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
+            <tr>
+              <td align="center" style="padding:0;">
+                <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
+                  <tr>
+                        <td align="center" style="padding:20px 0 20px 0;background:#70bbd9; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;font-size: 20px;margin: 10px;">
+                            <h1 style="margin:24px">Remoratradinghubs</h1> 
+                        </td>
+                  </tr>
+                  <tr style="background-color: #eeeeee;">
+                    <td style="padding:36px 30px 42px 30px;">
+                      <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+                        <tr>
+                          <td style="padding:0 0 36px 0;color:#153643;">
+                            <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Dear ' . $fname . ' , </h1>
+                            <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                              You have successfully Place a trade in your Remoratradinghubs account on : ' . date('Y-m-d h:i A') . '.
+                            </p>
+                            <br>
+                            <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                            Type : ' . $data['type'] . '
+                            <br>
+                            Asset : ' . $data['asset'] . '
+                            <br>
+                            Amount : $' . $data['amount'] . '
+                            <br>
+                            Market : ' . $data['market'] . '
+                            <br>
+                            Duration : ' . $data['duration'] . '
+                            <br>
+
+                            <br>
+                            <br>
+                            <i><b>Thanks for trading with us</b></i> 
+                            </p>
+                            <p style="margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                <a href="https://remoratradinghubs.com/account" style="color:#ee4c50;text-decoration:underline;"> 
+                                    <button> 
+                                        Click to Login
+                                    </button>  
+                                </a>
+                            </p>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:30px;background:#ee4c50;">
+                      <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
+                        <tr>
+                          <td style="padding:0;width:50%;" align="left">
+                            <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
+                              &reg; 2024 copyright remoratradinghubs<br/><a href="https://remoratradinghubs.com" style="color:#ffffff;text-decoration:underline;">visit site</a>
+                            </p>
+                          </td>
+                          <td style="padding:0;width:50%;" align="right">
+                            <table role="presentation" style="border-collapse:collapse;border:0;border-spacing:0;">
+                              <tr>
+                                <td style="padding:0 0 0 10px;width:38px;">
+                                  <a href="http://www.twitter.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/tw_1.png" alt="Twitter" width="38" style="height:auto;display:block;border:0;" /></a>
+                                </td>
+                                <td style="padding:0 0 0 10px;width:38px;">
+                                  <a href="http://www.facebook.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/fb_1.png" alt="Facebook" width="38" style="height:auto;display:block;border:0;" /></a>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>';
+        $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
+        $header .= "Cc:@remoratradinghubs.com \r\n";
+        $header .= "MIME-Version: 1.0\r\n";
+        $header .= "Content-type: text/html\r\n";
+
+        @$retval = mail($to, $subject, $message, $header);
         return true;
     }
 }
@@ -999,7 +1235,8 @@ function editTrade($data)
     }
 }
 
-function ai_subscription($data) {
+function ai_subscription($data)
+{
     $db_conn = connect_to_database();
 
     $stmt = $db_conn->prepare("SELECT * FROM `accounts` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
@@ -1016,10 +1253,10 @@ function ai_subscription($data) {
     $datasource = json_decode($row['datasource'], true);
 
     if ($data['min'] > $data['amount']) {
-        $_SESSION["feedback"] = "Insufficient Amount! Minimum is $".$data['min']." ";
+        $_SESSION["feedback"] = "Insufficient Amount! Minimum is $" . $data['min'] . " ";
         return false;
-    }elseif ($data['amount'] > $data['max']) {
-        $_SESSION["feedback"] = "Max is $".$data['max']." Try a higher Plan ";
+    } elseif ($data['amount'] > $data['max']) {
+        $_SESSION["feedback"] = "Max is $" . $data['max'] . " Try a higher Plan ";
         return false;
     }
 
@@ -1036,7 +1273,7 @@ function ai_subscription($data) {
     $status = 1;
 
     $stmt = $db_conn->prepare("INSERT INTO `ai_investments`(`account_id`,`ai_plan`,`winRate`,`amount`,`duration`,`status`) VALUES (?,?,?,?,?,?)");
-    $stmt->bind_param("ssssss", $account_id, $ai_plan,$winRate, $amount, $duration, $status);
+    $stmt->bind_param("ssssss", $account_id, $ai_plan, $winRate, $amount, $duration, $status);
     $stmt->execute();
 
     if ($stmt->affected_rows <= 0) {
@@ -1060,10 +1297,10 @@ function ai_subscription($data) {
 
     $_SESSION["feedback"] = "Your investment has been successfully initiated ";
     return false;
-
 }
 
-function ai_completeDelete($data)  {
+function ai_completeDelete($data)
+{
     $db_conn = connect_to_database();
 
     if ($data["ai_complete"]) {
@@ -1081,12 +1318,11 @@ function ai_completeDelete($data)  {
         if ($stmt->affected_rows <= 0) {
             $_SESSION["feedback"] = "Failed to initiate Your Request. Please try again later.";
             return false;
-        }else {
+        } else {
             $_SESSION["feedback"] = "Item completed successfully!";
             return true;
         }
-
-    }else {
+    } else {
         if ($data['status'] == 3) {
             $_SESSION["feedback"] = "Item have been Cancelled previously";
             return false;
@@ -1100,14 +1336,15 @@ function ai_completeDelete($data)  {
         if ($stmt->affected_rows <= 0) {
             $_SESSION["feedback"] = "Failed to initiate Your Request. Please try again later.";
             return false;
-        }else {
+        } else {
             $_SESSION["feedback"] = "Item Cancelled successfully!";
             return true;
         }
     }
 }
 
-function ai_delete($data) {
+function ai_delete($data)
+{
 
     $db_conn = connect_to_database();
     $stmt = $db_conn->prepare("DELETE FROM `ai_investments` WHERE id = ?");
@@ -1117,7 +1354,7 @@ function ai_delete($data) {
     if ($stmt->affected_rows <= 0) {
         $_SESSION["feedback"] = "Failed to initiate Your Request. Please try again later.";
         return false;
-    }else {
+    } else {
         $_SESSION["feedback"] = "Item deleted successfully!";
         return true;
     }
