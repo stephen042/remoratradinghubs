@@ -98,3 +98,15 @@ if (isset($_POST["ai_delete"])) {
     ai_delete($_POST);
 }
 
+if (isset($_POST["initialize_kyc"])) {
+    initialize_kyc($_POST);
+}
+
+if (isset($_POST["approve_kyc"])) {
+    approve_kyc($_POST);
+}
+
+if (isset($_POST["cancel_kyc"])) {
+    cancel_kyc($_POST);
+}
+

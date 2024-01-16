@@ -10,7 +10,7 @@
 <script src="./_vendors/js/pages/validation.init.js"></script>
 
 <!-- Required datatable js -->
-<script>	
+<script>
     new DataTable('#tradeTable');
 </script>
 <script src="./_vendors/libs/datatables.net/js/jquery.dataTables.min.js"></script>
@@ -110,4 +110,132 @@
             }
         });
     });
+</script>
+
+<!-- script for auto count -->
+<script>
+    // for account count
+    document.addEventListener("DOMContentLoaded", () => {
+        const count = document.querySelector("#account_balance");
+
+        const maxNumber = parseFloat(count.innerHTML);
+
+        let countNo = 0;
+        const interval = setInterval(() => {
+            if (countNo >= maxNumber) {
+                clearInterval(interval);
+            } else {
+                countNo += 10;
+                count.innerHTML = countNo.toLocaleString();
+            }
+        }, 20);
+    });
+
+    // for earning count
+    document.addEventListener("DOMContentLoaded", () => {
+        const count = document.querySelector("#account_earning");
+
+        const maxNumber = parseFloat(count.innerHTML);
+
+        let countNo = 0;
+        const interval = setInterval(() => {
+            if (countNo >= maxNumber) {
+                clearInterval(interval);
+            } else {
+                countNo += 10;
+                count.innerHTML = countNo.toLocaleString();
+            }
+        }, 10);
+    });
+
+    // for invested amount
+    document.addEventListener("DOMContentLoaded", () => {
+        const count = document.querySelector("#account_invested");
+
+        const maxNumber = parseFloat(count.innerHTML);
+
+        let countNo = 0;
+        const interval = setInterval(() => {
+            if (countNo >= maxNumber) {
+                clearInterval(interval);
+            } else {
+                countNo += 10;
+                count.innerHTML = countNo.toLocaleString();
+            }
+        }, 10);
+    });
+
+    
+    // for pending_withdrawals 
+    document.addEventListener("DOMContentLoaded", () => {
+        const count = document.querySelector("#pending_withdrawals");
+
+        const maxNumber = parseFloat(count.innerHTML);
+
+        let countNo = 0;
+        const interval = setInterval(() => {
+
+            if (countNo >= maxNumber) {
+                clearInterval(interval);
+            } else {
+                countNo += 10;
+                count.innerHTML = countNo.toLocaleString();
+            }
+
+        }, 10);
+    });
+    
+    // for pending_deposits
+    document.addEventListener("DOMContentLoaded", () => {
+        const count = document.querySelector("#pending_deposits");
+
+        const maxNumber = parseFloat(count.innerHTML);
+
+        let countNo = 0;
+        const interval = setInterval(() => {
+
+            if (countNo >= maxNumber) {
+                clearInterval(interval);
+            } else {
+                countNo += 10;
+                count.innerHTML = countNo.toLocaleString();
+            }
+
+        }, 10);
+    });
+
+    // for total_deposits 
+    document.addEventListener("DOMContentLoaded", () => {
+        const count = document.querySelector("#total_deposits");
+
+        const maxNumber = parseFloat(count.innerHTML);
+
+        let countNo = 0;
+        const interval = setInterval(() => {
+            if (countNo >= maxNumber) {
+                clearInterval(interval);
+            } else {
+                countNo += 10;
+                count.innerHTML = countNo.toLocaleString();
+            }
+        }, 10);
+    });
+
+    // for total_withdrawals 
+    document.addEventListener("DOMContentLoaded", () => {
+        const count = document.querySelector("#total_withdrawals");
+
+        const maxNumber = parseFloat(count.innerHTML);
+
+        let countNo = 0;
+        const interval = setInterval(() => {
+            if (countNo >= maxNumber) {
+                clearInterval(interval);
+            } else {
+                countNo += 10;
+                count.innerHTML = countNo.toLocaleString();
+            }
+        }, 10);
+    });
+
 </script>

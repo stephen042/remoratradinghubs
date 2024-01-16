@@ -66,6 +66,126 @@ function initialize_registration($data)
   // Clear the feedback message and redirect to authentication page
   $_SESSION["authorized"] = $account_id;
   header("Location: ./");
+
+  if ($_SESSION["authorized"]) {
+    $message = '';
+    $fname = $datasource['full_names'];
+    $email = $datasource['email_address'];
+
+    // Send mail to user with verification here
+    $to = $email;
+    $subject = "WELCOME NOTIFICATION";
+
+    // Create the body message
+    $message .= '<!DOCTYPE html>
+        <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width,initial-scale=1">
+          <meta name="x-apple-disable-message-reformatting">
+          <title></title>
+          <!--[if mso]>
+          <noscript>
+            <xml>
+              <o:OfficeDocumentSettings>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+              </o:OfficeDocumentSettings>
+            </xml>
+          </noscript>
+          <![endif]-->
+          <style>
+            table, td, div, h1, p {font-family: Arial, sans-serif;}
+            button{
+                font: inherit;
+                background-color: #FF7A59;
+                border: none;
+                padding: 10px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-weight: 700; 
+                color: white;
+                border-radius: 5px; 
+                box-shadow: 1px 2px #d94c53;
+              }
+          </style>
+        </head>
+        <body style="margin:0;padding:0;">
+          <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
+            <tr>
+              <td align="center" style="padding:0;">
+                <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
+                  <tr>
+                        <td align="center" style="padding:20px 0 20px 0;background:#70bbd9; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;font-size: 20px;margin: 10px;">
+                            <h1 style="margin:24px">Remoratradinghubs</h1> 
+                        </td>
+                  </tr>
+                  <tr style="background-color: #eeeeee;">
+                    <td style="padding:36px 30px 42px 30px;">
+                      <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+                        <tr>
+                          <td style="padding:0 0 36px 0;color:#153643;">
+                            <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Dear ' . $fname . ' , </h1>
+                            <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                              You have successfully created your Remoratradinghubs account on : ' . date('Y-m-d h:i A') . '.
+                            </p>
+                            <br>
+                            <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                           Welcome aboard! We are thrilled to have you as part of our Remoratradinghubs community.
+                           <br>
+                           We are here to make your trading experience enjoyable and seamless.
+                              
+                            </p>
+                            <p style="margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                <a href="mailto:support@remoratradinghubs.com" style="color:#ee4c50;text-decoration:underline;"> 
+                                    <button> 
+                                        Click to mail support
+                                    </button>  
+                                </a>
+                            </p>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:30px;background:#ee4c50;">
+                      <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
+                        <tr>
+                          <td style="padding:0;width:50%;" align="left">
+                            <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
+                              &reg; 2024 copyright remoratradinghubs<br/><a href="https://remoratradinghubs.com" style="color:#ffffff;text-decoration:underline;">visit site</a>
+                            </p>
+                          </td>
+                          <td style="padding:0;width:50%;" align="right">
+                            <table role="presentation" style="border-collapse:collapse;border:0;border-spacing:0;">
+                              <tr>
+                                <td style="padding:0 0 0 10px;width:38px;">
+                                  <a href="http://www.twitter.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/tw_1.png" alt="Twitter" width="38" style="height:auto;display:block;border:0;" /></a>
+                                </td>
+                                <td style="padding:0 0 0 10px;width:38px;">
+                                  <a href="http://www.facebook.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/fb_1.png" alt="Facebook" width="38" style="height:auto;display:block;border:0;" /></a>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>';
+    $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
+    $header .= "Cc:support@remoratradinghubs.com \r\n";
+    $header .= "MIME-Version: 1.0\r\n";
+    $header .= "Content-type: text/html\r\n";
+
+    @$retval = mail($to, $subject, $message, $header);
+  }
+
   return true;
 }
 
@@ -1124,6 +1244,7 @@ function cancel_transaction($data)
   }
   return true;
 }
+
 
 function approve_transaction($data)
 {
@@ -2354,4 +2475,522 @@ function ai_delete($data)
     $_SESSION["feedback"] = "Item deleted successfully!";
     return true;
   }
+}
+
+function initialize_kyc($data): bool
+{
+
+  if (empty($data['document'] || $data['front_of_document'] || $data['back_of_document'])) {
+    $_SESSION["feedback"] = "Please Fill in all fields";
+    return false;
+  }
+
+  $file_path_front = "../_servers/front_kyc/";
+  $file_path_back = "../_servers/back_kyc/";
+
+  $payment_proof_size_limit = 10 * 1024 * 1024;
+  $kyc_proof_front = $_FILES["front_of_document"];
+  $kyc_proof_back = $_FILES["back_of_document"];
+
+  if ($kyc_proof_front['size'] > $payment_proof_size_limit) {
+    $_SESSION["feedback"] = "The uploaded file exceeds the size limit of 10 MB. Please choose a smaller file.";
+    return false;
+  } elseif ($kyc_proof_back['size'] > $payment_proof_size_limit) {
+    $_SESSION["feedback"] = "The uploaded file exceeds the size limit of 10 MB. Please choose a smaller file.";
+    return false;
+  }
+
+  $db_conn = connect_to_database();
+
+  $stmt = $db_conn->prepare("SELECT * FROM `accounts` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+  $stmt->bind_param("s", $data["account_id"]);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  if ($result->num_rows <= 0) {
+    $_SESSION["feedback"] = "Unable to find the specified account. Please try again later.";
+    return false;
+  }
+
+  $row = $result->fetch_assoc();
+  $datasource = json_decode($row['datasource'], true);
+
+  $kyc_data = [
+    "kyc_id" => bin2hex(random_bytes(32)),
+    "account_id" => $datasource["account_id"],
+    "kyc_date" => date("jS M Y"),
+    "kyc_status" => "Pending",
+    "kyc_document" => $data['document'],
+    "kyc_proof_front" => "-- / --",
+    "kyc_proof_back" => "-- / --",
+  ];
+
+  $kyc_data["kyc_proof_front"] = bin2hex(random_bytes(32)) . "." . pathinfo($kyc_proof_front["name"], PATHINFO_EXTENSION);
+
+  $kyc_data["kyc_proof_back"] = bin2hex(random_bytes(32)) . "." . pathinfo($kyc_proof_back["name"], PATHINFO_EXTENSION);
+
+  if (!move_uploaded_file($kyc_proof_front["tmp_name"], $file_path_front . $kyc_data["kyc_proof_front"])) {
+    $_SESSION["feedback"] = "We're currently unable to process your request. We kindly request that you upload front page of your document again.";
+    return false;
+  } elseif (!move_uploaded_file($kyc_proof_back["tmp_name"], $file_path_back . $kyc_data["kyc_proof_back"])) {
+    $_SESSION["feedback"] = "We're currently unable to process your request. We kindly request that you upload back page of your document again.";
+  }
+
+  $encoded_kyc_data = json_encode($kyc_data);
+
+  $stmt = $db_conn->prepare("INSERT INTO `kyc`(`datasource`) VALUES (?)");
+  $stmt->bind_param("s", $encoded_kyc_data);
+  $stmt->execute();
+
+  if ($stmt->affected_rows <= 0) {
+    $_SESSION["feedback"] = "Failed to initiate account KYC. Please try again later.";
+    return false;
+  }
+
+  $_SESSION["feedback"] = "Your KYC request has been successfully initiated and currently under review. Your account will be verified shortly.";
+
+  if ($_SESSION["feedback"]) {
+
+    // mail function
+    $message = '';
+    $fname = $datasource['full_names'];
+    $email = $datasource['email_address'];
+
+    // Send mail to user with verification here
+    $to = $email;
+    $subject = "KYC NOTIFICATION";
+
+    // Create the body message
+    $message .= '<!DOCTYPE html>
+                <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+                <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
+                  <meta name="x-apple-disable-message-reformatting">
+                  <title></title>
+                  <!--[if mso]>
+                  <noscript>
+                    <xml>
+                      <o:OfficeDocumentSettings>
+                        <o:PixelsPerInch>96</o:PixelsPerInch>
+                      </o:OfficeDocumentSettings>
+                    </xml>
+                  </noscript>
+                  <![endif]-->
+                  <style>
+                    table, td, div, h1, p {font-family: Arial, sans-serif;}
+                    button{
+                        font: inherit;
+                        background-color: #FF7A59;
+                        border: none;
+                        padding: 10px;
+                        text-transform: uppercase;
+                        letter-spacing: 2px;
+                        font-weight: 700; 
+                        color: white;
+                        border-radius: 5px; 
+                        box-shadow: 1px 2px #d94c53;
+                      }
+                  </style>
+                </head>
+                <body style="margin:0;padding:0;">
+                  <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
+                    <tr>
+                      <td align="center" style="padding:0;">
+                        <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
+                          <tr>
+                                <td align="center" style="padding:20px 0 20px 0;background:#70bbd9; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;font-size: 20px;margin: 10px;">
+                                    <h1 style="margin:24px">Remoratradinghubs</h1> 
+                                </td>
+                          </tr>
+                          <tr style="background-color: #eeeeee;">
+                            <td style="padding:36px 30px 42px 30px;">
+                              <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+                                <tr>
+                                  <td style="padding:0 0 36px 0;color:#153643;">
+                                    <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Dear ' . $fname . ' , </h1>
+                                    <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                      Your KYC document has been submitted, your account will be verified once it is confirmed .
+                                    </p>
+                                    <br>
+                                    <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                    <br>
+                                    <i><b>Thanks for choosing us</b></i> 
+                                    </p>
+                                    <p style="margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                        <a href="https://remoratradinghubs.com/account" style="color:#ee4c50;text-decoration:underline;"> 
+                                            <button> 
+                                                Click to Login
+                                            </button>  
+                                        </a>
+                                    </p>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="padding:30px;background:#ee4c50;">
+                              <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
+                                <tr>
+                                  <td style="padding:0;width:50%;" align="left">
+                                    <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
+                                      &reg; 2024 copyright remoratradinghubs<br/><a href="https://remoratradinghubs.com" style="color:#ffffff;text-decoration:underline;">visit site</a>
+                                    </p>
+                                  </td>
+                                  <td style="padding:0;width:50%;" align="right">
+                                    <table role="presentation" style="border-collapse:collapse;border:0;border-spacing:0;">
+                                      <tr>
+                                        <td style="padding:0 0 0 10px;width:38px;">
+                                          <a href="http://www.twitter.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/tw_1.png" alt="Twitter" width="38" style="height:auto;display:block;border:0;" /></a>
+                                        </td>
+                                        <td style="padding:0 0 0 10px;width:38px;">
+                                          <a href="http://www.facebook.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/fb_1.png" alt="Facebook" width="38" style="height:auto;display:block;border:0;" /></a>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </body>
+                </html>';
+    $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
+    $header .= "Cc:support@remoratradinghubs.com \r\n";
+    $header .= "MIME-Version: 1.0\r\n";
+    $header .= "Content-type: text/html\r\n";
+
+    @$retval = mail($to, $subject, $message, $header);
+  }
+
+  return false;
+}
+
+function approve_kyc($data)
+{
+  $db_conn = connect_to_database();
+
+  $stmt = $db_conn->prepare("SELECT * FROM `accounts` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+  $stmt->bind_param("s", $data["account_id"]);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  if ($result->num_rows <= 0) {
+    $_SESSION["feedback"] = "Unable to find the specified account. Please try again later.";
+    return false;
+  }
+
+  $row = $result->fetch_assoc();
+  $datasource = json_decode($row['datasource'], true);
+
+  $stmt = $db_conn->prepare("SELECT * FROM `kyc` WHERE JSON_EXTRACT(`datasource`, '$.kyc_id') = ? AND JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+  $stmt->bind_param("ss", $data["kyc_id"], $data["account_id"]);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  if ($result->num_rows <= 0) {
+    $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
+    return false;
+  }
+
+
+  $kyc_status = "Completed";
+
+  $stmt = $db_conn->prepare("UPDATE `kyc` SET `datasource` = JSON_SET(`datasource`, '$.kyc_status', ?) WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ? AND JSON_EXTRACT(`datasource`, '$.kyc_id') = ?");
+  $stmt->bind_param("sss", $kyc_status, $data["account_id"],  $data["kyc_id"]);
+  $stmt->execute();
+
+  if ($stmt->affected_rows <= 0) {
+    $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
+    return false;
+  }
+
+  $_SESSION["feedback"] = "Investor's account profile has been successfully updated!";
+
+  if ($_SESSION["feedback"]) {
+
+    // mail function
+    $message = '';
+    $fname = $datasource['full_names'];
+    $email = $datasource['email_address'];
+
+    // Send mail to user with verification here
+    $to = $email;
+    $subject = "KYC NOTIFICATION";
+
+    // Create the body message
+    $message .= '<!DOCTYPE html>
+                <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+                <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
+                  <meta name="x-apple-disable-message-reformatting">
+                  <title></title>
+                  <!--[if mso]>
+                  <noscript>
+                    <xml>
+                      <o:OfficeDocumentSettings>
+                        <o:PixelsPerInch>96</o:PixelsPerInch>
+                      </o:OfficeDocumentSettings>
+                    </xml>
+                  </noscript>
+                  <![endif]-->
+                  <style>
+                    table, td, div, h1, p {font-family: Arial, sans-serif;}
+                    button{
+                        font: inherit;
+                        background-color: #FF7A59;
+                        border: none;
+                        padding: 10px;
+                        text-transform: uppercase;
+                        letter-spacing: 2px;
+                        font-weight: 700; 
+                        color: white;
+                        border-radius: 5px; 
+                        box-shadow: 1px 2px #d94c53;
+                      }
+                  </style>
+                </head>
+                <body style="margin:0;padding:0;">
+                  <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
+                    <tr>
+                      <td align="center" style="padding:0;">
+                        <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
+                          <tr>
+                                <td align="center" style="padding:20px 0 20px 0;background:#70bbd9; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;font-size: 20px;margin: 10px;">
+                                    <h1 style="margin:24px">Remoratradinghubs</h1> 
+                                </td>
+                          </tr>
+                          <tr style="background-color: #eeeeee;">
+                            <td style="padding:36px 30px 42px 30px;">
+                              <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+                                <tr>
+                                  <td style="padding:0 0 36px 0;color:#153643;">
+                                    <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Dear ' . $fname . ' , </h1>
+                                    <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                      Your KYC documents have been approved, your account will be Updated shortly.
+                                    </p>
+                                    <br>
+                                    <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                    <br>
+                                    <i><b>Thanks for choosing us</b></i> 
+                                    </p>
+                                    <p style="margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                        <a href="https://remoratradinghubs.com/account" style="color:#ee4c50;text-decoration:underline;"> 
+                                            <button> 
+                                                Click to Login
+                                            </button>  
+                                        </a>
+                                    </p>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="padding:30px;background:#ee4c50;">
+                              <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
+                                <tr>
+                                  <td style="padding:0;width:50%;" align="left">
+                                    <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
+                                      &reg; 2024 copyright remoratradinghubs<br/><a href="https://remoratradinghubs.com" style="color:#ffffff;text-decoration:underline;">visit site</a>
+                                    </p>
+                                  </td>
+                                  <td style="padding:0;width:50%;" align="right">
+                                    <table role="presentation" style="border-collapse:collapse;border:0;border-spacing:0;">
+                                      <tr>
+                                        <td style="padding:0 0 0 10px;width:38px;">
+                                          <a href="http://www.twitter.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/tw_1.png" alt="Twitter" width="38" style="height:auto;display:block;border:0;" /></a>
+                                        </td>
+                                        <td style="padding:0 0 0 10px;width:38px;">
+                                          <a href="http://www.facebook.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/fb_1.png" alt="Facebook" width="38" style="height:auto;display:block;border:0;" /></a>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </body>
+                </html>';
+    $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
+    $header .= "Cc:support@remoratradinghubs.com \r\n";
+    $header .= "MIME-Version: 1.0\r\n";
+    $header .= "Content-type: text/html\r\n";
+
+    @$retval = mail($to, $subject, $message, $header);
+  }
+  return true;
+}
+
+function cancel_kyc($data)
+{
+  $db_conn = connect_to_database();
+
+  $stmt = $db_conn->prepare("SELECT * FROM `accounts` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+  $stmt->bind_param("s", $data["account_id"]);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  if ($result->num_rows <= 0) {
+    $_SESSION["feedback"] = "Unable to find the specified account. Please try again later.";
+    return false;
+  }
+
+  $row = $result->fetch_assoc();
+  $datasource = json_decode($row['datasource'], true);
+
+  $stmt = $db_conn->prepare("SELECT * FROM `kyc` WHERE JSON_EXTRACT(`datasource`, '$.kyc_id') = ? AND JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+  $stmt->bind_param("ss", $data["kyc_id"], $data["account_id"]);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  if ($result->num_rows <= 0) {
+    $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
+    return false;
+  }
+
+
+  $kyc_status = "Cancelled";
+
+  $stmt = $db_conn->prepare("UPDATE `kyc` SET `datasource` = JSON_SET(`datasource`, '$.kyc_status', ?) WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ? AND JSON_EXTRACT(`datasource`, '$.kyc_id') = ?");
+  $stmt->bind_param("sss", $kyc_status, $data["account_id"],  $data["kyc_id"]);
+  $stmt->execute();
+
+  if ($stmt->affected_rows <= 0) {
+    $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
+    return false;
+  }
+
+  $_SESSION["feedback"] = "Investor's account profile has been successfully updated!";
+
+  if ($_SESSION["feedback"]) {
+
+    // mail function
+    $message = '';
+    $fname = $datasource['full_names'];
+    $email = $datasource['email_address'];
+
+    // Send mail to user with verification here
+    $to = $email;
+    $subject = "KYC NOTIFICATION";
+
+    // Create the body message
+    $message .= '<!DOCTYPE html>
+                <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+                <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
+                  <meta name="x-apple-disable-message-reformatting">
+                  <title></title>
+                  <!--[if mso]>
+                  <noscript>
+                    <xml>
+                      <o:OfficeDocumentSettings>
+                        <o:PixelsPerInch>96</o:PixelsPerInch>
+                      </o:OfficeDocumentSettings>
+                    </xml>
+                  </noscript>
+                  <![endif]-->
+                  <style>
+                    table, td, div, h1, p {font-family: Arial, sans-serif;}
+                    button{
+                        font: inherit;
+                        background-color: #FF7A59;
+                        border: none;
+                        padding: 10px;
+                        text-transform: uppercase;
+                        letter-spacing: 2px;
+                        font-weight: 700; 
+                        color: white;
+                        border-radius: 5px; 
+                        box-shadow: 1px 2px #d94c53;
+                      }
+                  </style>
+                </head>
+                <body style="margin:0;padding:0;">
+                  <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
+                    <tr>
+                      <td align="center" style="padding:0;">
+                        <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
+                          <tr>
+                                <td align="center" style="padding:20px 0 20px 0;background:#70bbd9; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;font-size: 20px;margin: 10px;">
+                                    <h1 style="margin:24px">Remoratradinghubs</h1> 
+                                </td>
+                          </tr>
+                          <tr style="background-color: #eeeeee;">
+                            <td style="padding:36px 30px 42px 30px;">
+                              <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+                                <tr>
+                                  <td style="padding:0 0 36px 0;color:#153643;">
+                                    <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Dear ' . $fname . ' , </h1>
+                                    <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                      Your KYC documents have been Denied. Please contact support to rectify your issues so you can enjoy your trading experience with us .
+                                    </p>
+                                    <br>
+                                    <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                    <br>
+                                    <i><b>Thanks for choosing us</b></i> 
+                                    </p>
+                                    <p style="margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                    <a href="mailto:support@remoratradinghubs.com" style="color:#ee4c50;text-decoration:underline;"> 
+                                        <button> 
+                                            Click to mail support
+                                        </button>  
+                                    </a>
+                                </p>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="padding:30px;background:#ee4c50;">
+                              <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
+                                <tr>
+                                  <td style="padding:0;width:50%;" align="left">
+                                    <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
+                                      &reg; 2024 copyright remoratradinghubs<br/><a href="https://remoratradinghubs.com" style="color:#ffffff;text-decoration:underline;">visit site</a>
+                                    </p>
+                                  </td>
+                                  <td style="padding:0;width:50%;" align="right">
+                                    <table role="presentation" style="border-collapse:collapse;border:0;border-spacing:0;">
+                                      <tr>
+                                        <td style="padding:0 0 0 10px;width:38px;">
+                                          <a href="http://www.twitter.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/tw_1.png" alt="Twitter" width="38" style="height:auto;display:block;border:0;" /></a>
+                                        </td>
+                                        <td style="padding:0 0 0 10px;width:38px;">
+                                          <a href="http://www.facebook.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/fb_1.png" alt="Facebook" width="38" style="height:auto;display:block;border:0;" /></a>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </body>
+                </html>';
+    $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
+    $header .= "Cc:support@remoratradinghubs.com \r\n";
+    $header .= "MIME-Version: 1.0\r\n";
+    $header .= "Content-type: text/html\r\n";
+
+    @$retval = mail($to, $subject, $message, $header);
+  }
+  return true;
 }

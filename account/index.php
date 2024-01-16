@@ -13,6 +13,16 @@ $datasources = fetch_account_data($_SESSION['authorized']);
 $account_data = $datasources["investor_datasource"];
 $manager_data = $datasources["manager_datasource"];
 
+$db_conn = connect_to_database(); 
+
+$stmt = $db_conn->prepare("SELECT * FROM `kyc` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+$stmt->bind_param("s", $account_data["account_id"]);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$row = $result->fetch_assoc();
+$datasource_kyc = json_decode($row['datasource'], true);
+
 ?>
 
 <head>
@@ -178,7 +188,6 @@ $manager_data = $datasources["manager_datasource"];
                         $withdrawal_amount = json_decode($row['withdrawal_amount'], true);
                         $total_withdrawals += $withdrawal_amount;
                     }
-
                     //  Include investor area module
                     include "./modules/_data_source/investor_area.php";
                 }

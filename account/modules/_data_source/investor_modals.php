@@ -554,6 +554,72 @@
 </div>
 
 <!-- Static Backdrop Modal -->
+<div class="modal fade" id="KycVerification" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="KycVerificationLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header py-3">
+                <h5 class="mb-n1 initialism fw-light" style="font-size: 15px;" id="KycVerificationLabel">Process KYC Verification</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <?php
+            $db_conn = connect_to_database();
+
+            $stmt = $db_conn->prepare("SELECT * FROM `kyc` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+            $stmt->bind_param("s", $account_data["account_id"]);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            $row = $result->fetch_assoc();
+            $datasource = json_decode($row['datasource'], true);
+
+            ?>
+            <form method="post" action="./" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label for="obtained_transaction_token" class="form-label">Choose Preferred Document</label>
+                            <select id="walletSelect" class="form-select border-light-primary" required name="document">
+                                <option selected value="">-- Select Document --</option>
+                                <option value="Driver's license">Driver's license</option>
+                                <option value="Passport ID">Passport ID</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3 col-md-4">
+                            <label for="payment_proof" class="form-label">Front Page of document</label>
+                            <input type="file" class="form-control border-light-primary" required name="front_of_document">
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="payment_proof" class="form-label">Back Page of document</label>
+                            <input type="file" class="form-control border-light-primary" required name="back_of_document">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer py-2 d-flex">
+                    <input type="hidden" name="account_id" value="<?php echo $account_data["account_id"] ?>">
+                    <button type="reset" class="btn" data-bs-dismiss="modal" style="border: 1px dashed #343a40;">Reset <i class='bx bx-reset'></i></button>
+                    <?php if ($datasource['kyc_status'] == "Pending") { ?>
+                        <button class="btn btn-warning" disabled>
+                            Pending <i class='bx bx-save'></i>
+                        </button>
+                    <?php }elseif ($datasource['kyc_status'] == "Completed") { ?>
+                        <button class="btn btn-success" disabled>
+                            verified <i class='bx bx-save'></i>
+                        </button>
+                   <?php }else { ?>
+                        <button type="submit" class="ms-auto btn btn-primary" name="initialize_kyc">
+                            Submit <i class='bx bx-save'></i>
+                        </button>                        
+                    <?php } ?>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Static Backdrop Modal -->
 <div class="modal fade" id="viewAccountActivities" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="viewAccountActivitiesLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
@@ -1045,9 +1111,9 @@ Starter">
                             <tr>
                                 <td><?php echo $rows['ai_plan'] ?></td>
                                 <td>$<?php echo number_format($rows["amount"], 2) ?></td>
-                                <td><?php echo $rows['winRate']?> / 100 </td>
+                                <td><?php echo $rows['winRate'] ?> / 100 </td>
                                 <td><?php echo date("Y/M/d h:i a", strtotime($rows['created_at'])) ?></td>
-                                <td><?php echo $rows['duration']?></td>
+                                <td><?php echo $rows['duration'] ?></td>
                                 <td class="fw-bold">
                                     <?php
 

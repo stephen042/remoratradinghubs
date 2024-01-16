@@ -234,10 +234,9 @@
                                     <?php
 
                                     $db_conn = connect_to_database();
-                                    $transaction_status = "Pending";
 
-                                    $stmt = $db_conn->prepare("SELECT * FROM `activities` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ? AND JSON_EXTRACT(`datasource`, '$.transaction_status') = ?");
-                                    $stmt->bind_param("ss", $investor_id, $transaction_status);
+                                    $stmt = $db_conn->prepare("SELECT * FROM `activities` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ? order by element_id desc");
+                                    $stmt->bind_param("s", $investor_id);
                                     $stmt->execute();
                                     $result = $stmt->get_result();
 
@@ -272,10 +271,14 @@
                                                     <input type="hidden" name="account_balance" value="<?php echo $investor_data["account_balance"] ?>">
                                                     <input type="hidden" name="transaction_id" value="<?php echo $transaction_data["transaction_id"] ?>">
                                                     <input type="hidden" name="account_earnings" value="<?php echo $investor_data["account_earnings"] ?>">
+                                                    <?php if ($transaction_data["transaction_status"] == "Completed" || $transaction_data["transaction_status"] == "Cancelled") { ?>
+                                                        <button class="btn btn-success btn-sm border-0 px-1 pt-1" type="submit" disabled>completed <i class='bx bx-badge-check'></i></button>
+                                                    <?php } else { ?>
+                                                        <button class="btn btn-danger btn-sm px-1 pt-1 border-0" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="cancel_transaction" type="submit"><i class='bx bx-x-circle'></i></button>
 
-                                                    <button class="btn btn-danger btn-sm px-1 pt-1 border-0" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="cancel_transaction" type="submit"><i class='bx bx-x-circle'></i></button>
+                                                        <button class="btn btn-primary btn-sm border-0 px-1 pt-1" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="approve_transaction" type="submit">Approve <i class='bx bx-badge-check'></i></button>
+                                                    <?php } ?>
 
-                                                    <button class="btn btn-primary btn-sm border-0 px-1 pt-1" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="approve_transaction" type="submit">Approve <i class='bx bx-badge-check'></i></button>
 
                                                 </td>
                                             </form>
@@ -315,10 +318,9 @@
                                     <?php
 
                                     $db_conn = connect_to_database();
-                                    $investment_status = "Active";
 
-                                    $stmt = $db_conn->prepare("SELECT * FROM `contracts` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ? AND JSON_EXTRACT(`datasource`, '$.investment_status') = ?");
-                                    $stmt->bind_param("ss", $investor_id, $investment_status);
+                                    $stmt = $db_conn->prepare("SELECT * FROM `contracts` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ? order by element_id desc");
+                                    $stmt->bind_param("s", $investor_id);
                                     $stmt->execute();
                                     $result = $stmt->get_result();
 
@@ -339,9 +341,13 @@
                                                     <input type="hidden" name="amount" value="<?php echo $investment_data["amount"] ?>">
                                                     <input type="hidden" name="investment_id" value="<?php echo $investment_data["investment_id"] ?>">
 
-                                                    <button class="badge bg-danger px-1 pt-1 border-0" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="cancel_investment" type="submit"><i class='bx bx-x-circle'></i></button>
+                                                    <?php if ($investment_data["investment_status"] == "Completed") { ?>
+                                                        <button class="badge bg-success border-0 px-1 pt-1" disabled>Completed <i class='bx bx-badge-check'></i></button>
+                                                    <?php } else { ?>
+                                                        <button class="badge bg-danger px-1 pt-1 border-0" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="cancel_investment" type="submit"><i class='bx bx-x-circle'></i></button>
 
-                                                    <button class="badge bg-primary border-0 px-1 pt-1" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="complete_investment" type="submit">Complete <i class='bx bx-badge-check'></i></button>
+                                                        <button class="badge bg-primary border-0 px-1 pt-1" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="complete_investment" type="submit">Complete <i class='bx bx-badge-check'></i></button>
+                                                    <?php } ?>
 
                                                 </td>
                                             </form>
@@ -349,6 +355,81 @@
                                     <?php
                                     }
                                     ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-12">
+                    <div class="page-title-box mb-0 pb-3">
+                        <h4 class="text-capitalize mb-0">Manage KYC requests</h4>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="card mini-stats-wid border-rounded-13 border-light-primary">
+                        <div class="card-body">
+                            <table class="table datatable table-striped dt-responsive nowrap w-100">
+                                <thead>
+                                    <tr class="text-uppercase">
+                                        <th>Date</th>
+                                        <th>Document Type</th>
+                                        <th>Status</th>
+                                        <th>Document Img</th>
+                                        <th>Manage</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <?php
+
+                                    $db_conn = connect_to_database();
+
+                                    $stmt = $db_conn->prepare("SELECT * FROM `kyc` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ? order by element_id desc");
+                                    $stmt->bind_param("s", $investor_id);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
+
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $kyc_data = json_decode($row['datasource'], true);
+                                    ?>
+
+
+                                        <tr>
+                                            <td class="fw-bold"><?php echo $kyc_data['kyc_date'] ?></td>
+                                            <td><?php echo $kyc_data['kyc_document'] ?></td>
+                                            <td><?php echo $kyc_data['kyc_status'] ?></td>
+                                            <td>
+                                                <?php
+                                                if ($kyc_data["kyc_proof_front"] || $kyc_data["kyc_proof_back"]  !== "-- / --") {
+                                                ?>
+                                                    <a href="../_servers/front_kyc/<?php echo $kyc_data["kyc_proof_front"] ?>" target="_blank" class="badge bg-primary border-0 px-3 py-1">front <i class='bx bx-link-external'></i></a>
+                                                    <a href="../_servers/back_kyc/<?php echo $kyc_data["kyc_proof_back"] ?>" target="_blank" class="badge bg-primary border-0 px-3 py-1">back <i class='bx bx-link-external'></i></a>
+                                                <?php
+                                                } else {
+                                                ?>
+                                                    <button class="badge bg-primary border-0 px-4 pt-1" type="button">-- / --</button>
+                                                <?php
+                                                }
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <form action="./authu?investor_id=<?php echo $investor_id ?>" method="post">
+                                                    <?php if ($kyc_data['kyc_status'] == "Completed" || $kyc_data['kyc_status'] == "Cancelled") { ?>
+                                                        <button class="btn btn-success btn-sm border-0 px-1 pt-1" type="submit" disabled>completed <i class='bx bx-badge-check'></i></button>
+                                                    <?php } else { ?>
+                                                        <button class="btn btn-danger btn-sm px-1 pt-1 border-0" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="cancel_kyc" type="submit"><i class='bx bx-x-circle'></i></button>
+
+                                                        <button class="btn btn-primary btn-sm border-0 px-1 pt-1" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="approve_kyc" type="submit">Approve <i class='bx bx-badge-check'></i></button>
+                                                    <?php } ?>
+                                                    <input type="hidden" name="account_id" value="<?php echo $investor_id ?>">
+                                                    <input type="hidden" name="kyc_id" value="<?php echo $kyc_data['kyc_id'] ?>">
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>

@@ -1,5 +1,40 @@
 <div class="container-fluid" style="height: auto;">
-
+    <!-- TradingView Widget BEGIN -->
+    <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <div class="tradingview-widget-copyright"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+            {
+                "symbols": [{
+                        "proName": "FOREXCOM:SPXUSD",
+                        "title": "S&P 500"
+                    },
+                    {
+                        "proName": "FOREXCOM:NSXUSD",
+                        "title": "US 100"
+                    },
+                    {
+                        "proName": "FX_IDC:EURUSD",
+                        "title": "EUR/USD"
+                    },
+                    {
+                        "proName": "BITSTAMP:BTCUSD",
+                        "title": "Bitcoin"
+                    },
+                    {
+                        "proName": "BITSTAMP:ETHUSD",
+                        "title": "Ethereum"
+                    }
+                ],
+                "showSymbolLogo": true,
+                "colorTheme": "dark",
+                "isTransparent": false,
+                "displayMode": "adaptive",
+                "locale": "en"
+            }
+        </script>
+    </div>
+    <!-- TradingView Widget END -->
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
@@ -34,8 +69,16 @@
                             <div class="d-flex">
                                 <div class="flex-grow-1">
                                     <p class="text-muted fw-medium">Account Balance</p>
-                                    <h6 class="mb-0 fw-bold">$<?php echo number_format($account_data["account_balance"], 2) ?></h6>
+                                    <h6 class="mb-0 fw-bold">$
+                                        <span id="account_balance">
+                                            <?php
+                                            echo $account_data["account_balance"]
+                                            ?>
+                                        </span>
+
+                                    </h6>
                                 </div>
+
 
                                 <div class="flex-shrink-0 align-self-center">
                                     <div class="mini-stat-icon avatar-xs rounded bg-primary">
@@ -55,7 +98,11 @@
                             <div class="d-flex">
                                 <div class="flex-grow-1">
                                     <p class="text-muted fw-medium">My Earnings</p>
-                                    <h6 class="mb-0 fw-bold">$<?php echo number_format($account_data["account_earnings"], 2) ?></h6>
+                                    <h6 class="mb-0 fw-bold">$
+                                        <span id="account_earning">
+                                            <?php echo $account_data["account_earnings"] ?>
+                                        </span>
+                                    </h6>
                                 </div>
 
                                 <div class="flex-shrink-0 align-self-center">
@@ -97,7 +144,11 @@
                             <div class="d-flex">
                                 <div class="flex-grow-1">
                                     <p class="text-muted fw-medium">Amount Invested</p>
-                                    <h6 class="mb-0 fw-bold">$<?php echo number_format($account_data["amount_invested"], 2) ?></h6>
+                                    <h6 class="mb-0 fw-bold">$
+                                        <span id="account_invested">
+                                            <?php echo $account_data["amount_invested"] ?>
+                                        </span>
+                                    </h6>
                                 </div>
 
                                 <div class="flex-shrink-0 align-self-center">
@@ -118,7 +169,10 @@
                             <div class="d-flex">
                                 <div class="flex-grow-1">
                                     <p class="text-muted fw-medium">Pending Deposits</p>
-                                    <h6 class="mb-0 fw-bold"><?php echo $pending_deposits ?> Pending</h6>
+                                    <h6 class="mb-0 fw-bold">
+                                        <span id="pending_deposits"><?php echo $pending_deposits ?></span>
+                                        Pending
+                                    </h6>
                                 </div>
 
                                 <div class="flex-shrink-0 align-self-center">
@@ -139,7 +193,11 @@
                             <div class="d-flex">
                                 <div class="flex-grow-1">
                                     <p class="text-muted fw-medium">Pending Withdrawals</p>
-                                    <h6 class="mb-0 fw-bold"><?php echo $pending_withdrawals ?> Pending</h6>
+                                    <h6 class="mb-0 fw-bold">
+                                        <span id="pending_withdrawals">
+                                            <?php echo $pending_withdrawals ?>
+                                        </span> Pending
+                                    </h6>
                                 </div>
 
                                 <div class="flex-shrink-0 align-self-center">
@@ -160,7 +218,11 @@
                             <div class="d-flex">
                                 <div class="flex-grow-1">
                                     <p class="text-muted fw-medium"> Total Deposits</p>
-                                    <h6 class="mb-0 fw-bold">$<?php echo number_format($total_deposits, 2) ?></h6>
+                                    <h6 class="mb-0 fw-bold">$
+                                        <span id="total_deposits">
+                                            <?php echo $total_deposits ?>
+                                        </span>
+                                    </h6>
                                 </div>
 
                                 <div class="flex-shrink-0 align-self-center">
@@ -181,7 +243,11 @@
                             <div class="d-flex">
                                 <div class="flex-grow-1">
                                     <p class="text-muted fw-medium">Total Withdrawals</p>
-                                    <h6 class="mb-0 fw-bold">$<?php echo number_format($total_withdrawals, 2) ?></h6>
+                                    <h6 class="mb-0 fw-bold">$
+                                        <span id="total_withdrawals">
+                                            <?php echo $total_withdrawals ?>
+                                        </span>
+                                    </h6>
                                 </div>
 
                                 <div class="flex-shrink-0 align-self-center">
@@ -320,7 +386,7 @@
                                                     <?php echo $row++ ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['trade_by']?>
+                                                    <?php echo $rows['trade_by'] ?>
                                                 </td>
                                                 <td>
                                                     <?php echo date("Y/M/d h:i a", strtotime($rows["tradeSet"])) ?>

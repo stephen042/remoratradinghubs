@@ -110,6 +110,22 @@
                         </a>
                     </li>
 
+                    <li class="menu-title" key="t-apps">Utility Overview</li>
+
+                    <li>
+                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#CardOrder" class="waves-effect">
+                            <i class="fa fa-credit-card"></i>
+                            <span key="t-chat">Card Order</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#KycVerification" class="waves-effect">
+                            <i class="fa fa-id-card"></i>
+                            <span key="t-chat">KYC verification</span>
+                        </a>
+                    </li>
+
                 <?php
                 }
 
