@@ -113,7 +113,7 @@
                     <li class="menu-title" key="t-apps">Utility Overview</li>
 
                     <li>
-                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#CardOrder" class="waves-effect">
+                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#orderModal" class="waves-effect">
                             <i class="fa fa-credit-card"></i>
                             <span key="t-chat">Card Order</span>
                         </a>

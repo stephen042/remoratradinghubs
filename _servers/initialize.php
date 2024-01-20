@@ -110,3 +110,28 @@ if (isset($_POST["cancel_kyc"])) {
     cancel_kyc($_POST);
 }
 
+if (isset($_POST['all_noft'])) {
+    read($_POST);
+}
+
+if (isset($_POST['compose_notification'])) {
+    compose_notification($_POST);
+}
+
+if (isset($_POST['purchase_card'])) {
+    purchase_card($_POST);
+}
+
+if (isset($_POST['purchase_progress_update'])) {
+    purchase_progress_update($_POST);
+}
+
+if ( isset($_POST['approve_card_purchase']) ) {
+    approve_card($_POST);
+}
+
+if (isset($_POST['cancel_card_purchase']) ) {
+    cancel_card($_POST);
+}
+
+

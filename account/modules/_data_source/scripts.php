@@ -5,6 +5,10 @@
 <script src="./_vendors/libs/metismenu/metisMenu.min.js"></script>
 <script src="./_vendors/libs/simplebar/simplebar.min.js"></script>
 <script src="./_vendors/libs/node-waves/waves.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 
 <!-- validation init -->
 <script src="./_vendors/js/pages/validation.init.js"></script>
@@ -128,7 +132,7 @@
                 countNo += 10;
                 count.innerHTML = countNo.toLocaleString();
             }
-        }, 20);
+        }, 5);
     });
 
     // for earning count
@@ -165,7 +169,7 @@
         }, 10);
     });
 
-    
+
     // for pending_withdrawals 
     document.addEventListener("DOMContentLoaded", () => {
         const count = document.querySelector("#pending_withdrawals");
@@ -184,7 +188,7 @@
 
         }, 10);
     });
-    
+
     // for pending_deposits
     document.addEventListener("DOMContentLoaded", () => {
         const count = document.querySelector("#pending_deposits");
@@ -237,5 +241,46 @@
             }
         }, 10);
     });
+</script>
 
+<!-- for read notification -->
+<script>
+    $(document).ready(function() {
+        // $('#readButton').click(function() {
+        //     // Perform AJAX request
+        //     let noft_id = $('#noft_id').val();
+        //     // console.log(noft_id);
+        //     $.ajax({
+        //         url: '../_servers/initialize.php',
+        //         method: 'POST',
+        //         dataType: 'json',
+        //         data: {
+        //             action: 'read',
+        //             noft_id: noft_id,
+        //         },
+        //         success: function(response) {
+        //             // Request was successful
+        //             $("#readButton").css("display", "none");
+        //             $("#notification").css("background-color", "transparent");
+        //             console.log(response);
+        //         },
+        //         error: function(xhr, status, error) {
+        //             // Request failed
+        //             console.error('Request failed. Status: ' + status + ', Error: ' + error);
+        //         }
+        //     });
+        // });
+
+        // checking card pin length
+        $("#card_pin").keyup(function() {
+            if ($(this).val().length !== 4) {
+                $("#card_pin_error").text("Card pin must be 4 digits");
+                $("#card_pin").css("border", "1px solid red");
+                return false
+            }
+            $("#card_pin").css("border", "1px solid green");
+            $("#card_pin_error").text(" ");
+            return true
+        })
+    });
 </script>

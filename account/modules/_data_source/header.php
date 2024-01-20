@@ -21,41 +21,59 @@
         </div>
 
         <div class="d-flex">
+            <?php
+
+            $db_conn = connect_to_database();
+
+            $stmt = $db_conn->prepare("SELECT * FROM `notification` WHERE `account_id` = ? order by element_id desc limit 10");
+            $stmt->bind_param("s", $account_data["account_id"]);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            $stmt = $db_conn->prepare("SELECT COUNT(*) AS active_count FROM `notification` WHERE noft_status = ? AND `account_id` = ?");
+            $active = "Active";
+            $stmt->bind_param("ss", $active, $account_data["account_id"]);
+            $stmt->execute();
+
+            $stmt->bind_result($noft_active_count);
+            $stmt->fetch();
+            $stmt->close();
+            ?>
 
             <div class="dropdown d-inline-block my-4 mx-1">
-                <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                    <i class="bx bx-bell" style="font-size: 20px;"></i>
-                    <sup class="badge bg-primary badge-number">4</sup>
-                </a><!-- End Notification Icon -->
-
+                <?php if ($account_data["account_role"] == "Investor") {  ?>
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <i class="bx bx-bell" style="font-size: 20px;"></i>
+                        <sup class="badge bg-primary badge-number"><?php echo $noft_active_count ?></sup>
+                    </a><!-- End Notification Icon -->
+                <?php } ?>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications overflow-auto p-3" style="max-height: 80vh;min-width:300px;">
                     <li class="dropdown-header">
-                        <h5>You have 4 new notifications</h5>
+                        <h5>You have <?php echo $noft_active_count ?> new notifications</h5>
+                        <form action="./" method="post">
+                            <button name="all_noft" type="submit" class="btn btn-primary btn-sm float-end"> mark all as read</button>
+                            <input type="hidden" value="<?php echo $account_data["account_id"] ?>" name="account_id">
+                        </form>
 
                     </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
+                    <?php while ($notifications = $result->fetch_assoc()) { ?>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <?php
+                        $bg = ($notifications['noft_status'] == 'Active') ? 'alert-info' : 'alert-transparent';
+                        
+                        ?>
+                        <li class="notification-item">
+                            <div class="alert <?= $bg ?>" id="notification">
+                                <h5><?php echo $notifications["noft_category"] ?></h5>
+                                <p><?php echo $notifications["noft_msg"] ?></p>
+                                <input type="hidden" value="<?= $notifications['noft_id'] ?>" id="noft_id">
+                            </div>
+                        </li>
 
-                    <li class="notification-item">
-                        <div>
-                            <h4>Lorem Ipsum</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>30 min. ago</p>
-                        </div>
-                    </li>
+                    <?php } ?>
 
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li class="notification-item">
-                        <div>
-                            <h4>Atque rerum nesciunt</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>1 hr. ago</p>
-                        </div>
-                    </li>
 
                 </ul><!-- End Notification Dropdown Items -->
 
@@ -79,26 +97,26 @@
                     <a class="dropdown-item d-block" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#accountInformation"><i class="bx bx-cog font-size-16 align-middle me-1"></i> <span key="t-settings">Account Settings</span></a>
                     <a class="dropdown-item d-block" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#accountSecurity"><i class="bx bx-check-shield font-size-16 align-middle me-1"></i> <span key="t-settings">Account Security</span></a>
                     <?php if ($account_data["account_role"] == "Investor") { ?>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item d-block" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#KycVerification"><i class="fas fa-profile font-size-16 align-middle me-1"></i> <span key="t-settings">KYC status</span></a>
-                    <a class="dropdown-item d-block" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#KycVerification">
-                        <?php if ($datasource_kyc['kyc_status'] == "Pending") { ?>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item d-block" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#KycVerification"><i class="fas fa-profile font-size-16 align-middle me-1"></i> <span key="t-settings">KYC status</span></a>
+                        <a class="dropdown-item d-block" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#KycVerification">
+                            <?php if ($datasource_kyc['kyc_status'] == "Pending") { ?>
 
-                            <span key="t-settings" class="btn btn-warning btn-sm">
-                                <?php echo $datasource_kyc['kyc_status'] ?>
-                            </span>
-                        <?php } elseif ($datasource_kyc['kyc_status'] == "Completed") { ?>
+                                <span key="t-settings" class="btn btn-warning btn-sm">
+                                    <?php echo $datasource_kyc['kyc_status'] ?>
+                                </span>
+                            <?php } elseif ($datasource_kyc['kyc_status'] == "Completed") { ?>
 
-                            <span key="t-settings" class="btn btn-success btn-sm">
-                                Verified
-                            </span>
-                        <?php } else { ?>
+                                <span key="t-settings" class="btn btn-success btn-sm">
+                                    Verified
+                                </span>
+                            <?php } else { ?>
 
-                            <span key="t-settings" class="btn btn-danger btn-sm">
-                               UNVERIFIED
-                            </span>
-                        <?php } ?>
-                    </a>
+                                <span key="t-settings" class="btn btn-danger btn-sm">
+                                    UNVERIFIED
+                                </span>
+                            <?php } ?>
+                        </a>
                     <?php } ?>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger" href="./authx"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">End Session</span></a>

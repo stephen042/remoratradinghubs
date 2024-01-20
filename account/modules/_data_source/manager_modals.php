@@ -405,3 +405,37 @@
         </div>
     </div>
 </div>
+<!-- Static Backdrop Modal -->
+<div class="modal fade" id="composeNotification" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="eWalletsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header py-3">
+                <h5 class="mb-n1 initialism fw-light" style="font-size: 15px;" id="eWalletsLabel">Compose Notification For User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="./authu?investor_id=<?php echo $investor_id ?>">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label for="Notification" class="form-label">Notification Category</label>
+                            <input type="text" class="form-control" value="" id="Notification" placeholder="Eg INVESTMENT NOTIFICATION" name="noft_category" required >
+                        </div>
+                        <div class="mb-3 col-12">
+                            <label for="Notification" class="form-label">Notification Message</label>
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Notification Message" id="floatingTextarea" style="height: 100px;" name="noft_msg" required></textarea>
+                                <label for="floatingTextarea">Compose Here</label>
+                            </div>
+                        </div>
+                        <hr>
+                        <span class="text-danger">Kindly review your write up before sending.</span>
+                    </div>
+                    <div class="modal-footer py-2 d-flex">
+                        <input type="hidden" name="account_id" value="<?php echo $investor_id ?>">
+                        <button type="reset" class="btn" data-bs-dismiss="modal" style="border: 1px dashed #343a40;">Cancel <i class='bx bx-reset'></i></button>
+                        <button type="submit" class="ms-auto btn btn-primary" name="compose_notification">Send <i class='bx bx-save'></i></button>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>

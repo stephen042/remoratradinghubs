@@ -11,8 +11,18 @@
     </div>
     <!-- end page title -->
 
-    <button class="btn btn-primary btn-sm" onclick="window.location.href='./'"><i class="mdi mdi-arrow-left me-1"></i> back</button>
+    <div class="row">
+        <div class="col col-6">
+            <button class="btn btn-primary btn-sm float-start" onclick="window.location.href='./'"><i class="mdi mdi-arrow-left me-1"></i> back</button>
+        </div>
+        <div class="col col-6">
+            <button class="btn btn-primary btn-md float-end" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#composeNotification">
+                <i class="bx bx-bell"></i> Compose Notification
+            </button>
+        </div>
+    </div>
     <hr>
+
 
     <?php
     if (isset($_SESSION['feedback'])) {
@@ -339,6 +349,7 @@
 
                                                     <input type="hidden" name="account_id" value="<?php echo $investor_id ?>">
                                                     <input type="hidden" name="amount" value="<?php echo $investment_data["amount"] ?>">
+                                                    <input type="hidden" name="investment_plan" value="<?php echo $investment_data["investment_plan"] ?>">
                                                     <input type="hidden" name="investment_id" value="<?php echo $investment_data["investment_id"] ?>">
 
                                                     <?php if ($investment_data["investment_status"] == "Completed") { ?>
@@ -361,6 +372,84 @@
                     </div>
                 </div>
 
+
+                <div class="col-12">
+                    <div class="page-title-box mb-0 pb-3">
+                        <h4 class="text-capitalize mb-0">Manage Card Purchase requests</h4>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="card mini-stats-wid border-rounded-13 border-light-primary">
+                        <div class="card-body">
+                            <table class="table datatable table-striped dt-responsive nowrap w-100">
+                                <thead>
+                                    <tr class="text-uppercase">
+                                        <th>Date</th>
+                                        <th>Delivery Address</th>
+                                        <th>Pin</th>
+                                        <th>Wallet Address [ BTC ]</th>
+                                        <th>Purchase Cost USD</th>
+                                        <th>Purchase progressbar</th>
+                                        <th>Status</th>
+                                        <th>Manage</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <?php
+
+                                    $db_conn = connect_to_database();
+
+                                    $stmt = $db_conn->prepare("SELECT * FROM `card_purchase` WHERE account_id = ? order by element_id desc");
+                                    $stmt->bind_param("s", $investor_id);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
+
+
+                                    while ($card_data = mysqli_fetch_assoc($result)) {
+                                        
+                                    ?>
+
+
+                                        <tr>
+                                            <td class="fw-bold"><?php echo $card_data['created_at'] ?></td>
+                                            <td><?php echo $card_data['delivery_address'] ?></td>
+                                            <td><?php echo $card_data['pin'] ?></td>
+                                            <td><?php echo $card_data['purchase_address'] ?></td>
+                                            <td><?php echo $card_data['purchase_cost'] ?></td>
+                                            <td>
+                                            <form action="./authu?investor_id=<?php echo $investor_id ?>" method="post">
+                                            <input type="number" style="overflow-x: scroll;width: 80px" name="purchase_progress" value="<?=$card_data['purchase_progress']?>" placeholder="<?=$card_data['purchase_progress']?>" min="0" max="100">
+                                                <button type="submit" name="purchase_progress_update" class="btn btn-primary btn-sm border-0 px-1 pt-1" <?php if ($card_data['purchase_status'] == "Cancelled" || $card_data['purchase_status'] == "Pending") { ?> disabled <?php } ?> >Update</button>
+                                                <input type="hidden" name="account_id" value="<?php echo $investor_id ?>">
+                                                <input type="hidden" name="purchase_id" value="<?php echo $card_data['purchase_id'] ?>">
+                                            </form>
+                                                
+                                            </td>
+                                            <td> <button class="btn btn-warning btn-sm border-0 px-1 pt-1"> <?php echo $card_data['purchase_status'] ?></button></td>
+                                            <td>
+                                                <form action="./authu?investor_id=<?php echo $investor_id ?>" method="post">
+                                                    <?php if ($card_data['purchase_status'] == "Approved" ) { ?>
+                                                        <button class="btn btn-success btn-sm border-0 px-1 pt-1" type="submit" disabled>Approved <i class='bx bx-badge-check'></i></button>
+                                                    <?php }elseif ($card_data['purchase_status'] == "Cancelled") {?>
+                                                        <button class="btn btn-success btn-sm border-0 px-1 pt-1" type="submit" disabled>Cancelled <i class='bx bx-badge-check'></i></button>
+                                                    <?php } else { ?>
+                                                        <button class="btn btn-danger btn-sm px-1 pt-1 border-0" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="cancel_card_purchase" type="submit"><i class='bx bx-x-circle'></i></button>
+
+                                                        <button class="btn btn-primary btn-sm border-0 px-1 pt-1" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="approve_card_purchase" type="submit">Approve <i class='bx bx-badge-check'></i></button>
+                                                    <?php } ?>
+                                                    <input type="hidden" name="account_id" value="<?php echo $investor_id ?>">
+                                                    <input type="hidden" name="purchase_id" value="<?php echo $card_data['purchase_id'] ?>">
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="col-12">
                     <div class="page-title-box mb-0 pb-3">

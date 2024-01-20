@@ -403,6 +403,19 @@ function update_account_information($data)
     return false;
   }
 
+  if ($_SESSION["feedback"]) {
+
+    $noft_id = bin2hex(random_bytes(20));
+    $account_id = $data["account_id"];
+    $noft_category = 'Account Information Update';
+    $noft_msg = "Hello " . $datasource['full_names'] . " We're pleased to inform you that your account information has been successfully modified and updated in our system.";
+    $noft_status = 'Active';
+
+    $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+    $stmt->execute();
+  }
+
   $_SESSION["feedback"] = "We're pleased to inform you that your account information has been successfully modified and updated in our system.";
   return true;
 }
@@ -443,6 +456,20 @@ function update_account_security($data)
   if ($stmt->affected_rows <= 0) {
     $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
     return false;
+  }
+
+
+  if ($_SESSION["feedback"]) {
+
+    $noft_id = bin2hex(random_bytes(20));
+    $account_id = $data["account_id"];
+    $noft_category = 'Account Security Update';
+    $noft_msg = "Hello " . $datasource['full_names'] . " We're pleased to inform you that your account password has been successfully updated in our system.";
+    $noft_status = 'Active';
+
+    $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+    $stmt->execute();
   }
 
   $_SESSION["feedback"] = "We're pleased to inform you that your account information has been successfully modified and updated in our system.";
@@ -764,6 +791,21 @@ function initialize_withdrawal($data)
   }
 
   $_SESSION["feedback"] = "Your withdrawal request has been successfully initiated and is currently under review. Your funds will be arriving in your wallet shortly.";
+
+
+  if ($_SESSION["feedback"]) {
+
+    $noft_id = bin2hex(random_bytes(20));
+    $account_id = $data["account_id"];
+    $noft_category = 'WITHDRAWAL REQUEST NOTIFICATION';
+    $noft_msg = "Hello " . $datasource['full_names'] . " We're pleased to that your withdrawal request has been successfully initiated and is currently under review. Your funds will be arriving in your wallet shortly.";
+    $noft_status = 'Active';
+
+    $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+    $stmt->execute();
+  }
+
   if ($_SESSION["feedback"]) {
 
     // mail function
@@ -947,6 +989,20 @@ function initialize_deposit($data)
 
   $_SESSION["feedback"] = "Your deposit request has been successfully initiated and is currently under review. Your funds will be arriving in your account balance shortly.";
 
+
+  if ($_SESSION["feedback"]) {
+
+    $noft_id = bin2hex(random_bytes(20));
+    $account_id = $data["account_id"];
+    $noft_category = 'DEPOSIT REQUEST NOTIFICATION';
+    $noft_msg = "Hello " . $datasource['full_names'] . " We're pleased to that your Deposit request has been successfully initiated and is currently under review. Your funds will be arriving in your wallet shortly.";
+    $noft_status = 'Active';
+
+    $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+    $stmt->execute();
+  }
+
   if ($_SESSION["feedback"]) {
 
     // mail function
@@ -1008,7 +1064,7 @@ function initialize_deposit($data)
                                   <td style="padding:0 0 36px 0;color:#153643;">
                                     <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Dear ' . $fname . ' , </h1>
                                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                                      Your Deposit of $' . $data["amount"] . ' has been submitted, your account will be credited once it is confirmed .
+                                      Your Deposit Request of $' . $data["amount"] . ' has been submitted, your account will be credited once it is confirmed .
                                     </p>
                                     <br>
                                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
@@ -1122,6 +1178,20 @@ function cancel_transaction($data)
 
   $_SESSION["feedback"] = "Investor's account has been successfully updated!";
 
+
+  if ($_SESSION["feedback"]) {
+
+    $noft_id = bin2hex(random_bytes(20));
+    $account_id = $data["account_id"];
+    $noft_category = 'DEPOSIT REQUEST NOTIFICATION';
+    $noft_msg = "Hello " . $datasource['full_names'] . " Your Deposit of $" . $data["amount"] . " has been Cancelled. Your account will not be credited. Please contact support to rectify your issues so you can enjoy your trading experience with us. ";
+    $noft_status = 'Active';
+
+    $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+    $stmt->execute();
+  }
+
   if ($_SESSION["feedback"]) {
 
     // mail function
@@ -1183,7 +1253,7 @@ function cancel_transaction($data)
                                   <td style="padding:0 0 36px 0;color:#153643;">
                                     <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Dear ' . $fname . ' , </h1>
                                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                                      Your Deposit of $' . $data["amount"] . ' has been Cancelled. Your account will not be credited. 
+                                      Your Deposit of $' . $data["amount"] . ' has been Cancelled. Your account will not be credited. Please contact support to rectify your issues so you can enjoy your trading experience with us.
                                       <br>
                                       Contact Us for more information. 
                                     </p>
@@ -1298,6 +1368,20 @@ function approve_transaction($data)
   }
 
   $_SESSION["feedback"] = "Investor's account has been successfully updated!";
+
+
+  if ($_SESSION["feedback"]) {
+
+    $noft_id = bin2hex(random_bytes(20));
+    $account_id = $data["account_id"];
+    $noft_category = 'DEPOSIT APPROVE NOTIFICATION';
+    $noft_msg = "Hello " . $datasource['full_names'] . " Your Deposit of $" . $data["amount"] . " has been approved your account is credited already.";
+    $noft_status = 'Active';
+
+    $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+    $stmt->execute();
+  }
 
   if ($_SESSION["feedback"]) {
 
@@ -1501,6 +1585,20 @@ function initialize_subscription($data)
 
   $_SESSION["feedback"] = "Your investment has been successfully initiated and is currently active. Please note that this plan will expire after 7 days!";
 
+
+  if ($_SESSION["feedback"]) {
+
+    $noft_id = bin2hex(random_bytes(20));
+    $account_id = $data["account_id"];
+    $noft_category = 'SUBSCRIPTION NOTIFICATION';
+    $noft_msg = "Hello " . $datasource['full_names'] . " Your subscription on " . $data["investment_plan"] . " plan of $" . $data['amount'] . " has been purchased successfully..";
+    $noft_status = 'Active';
+
+    $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+    $stmt->execute();
+  }
+
   if ($_SESSION["feedback"]) {
 
     // mail function
@@ -1562,7 +1660,7 @@ function initialize_subscription($data)
                                   <td style="padding:0 0 36px 0;color:#153643;">
                                     <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Dear ' . $fname . ' , </h1>
                                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                                      Your subscription on ' . $data["investment_plan"] . ' of 
+                                      Your subscription on ' . $data["investment_plan"] . ' plan of 
                                        $' . $data['amount'] . ' has been purchased successfully.
                                     </p>
                                     <br>
@@ -1676,6 +1774,20 @@ function cancel_investment($data)
   }
 
   $_SESSION["feedback"] = "Investor's account has been successfully updated!";
+
+  if ($_SESSION["feedback"]) {
+
+    $noft_id = bin2hex(random_bytes(20));
+    $account_id = $data["account_id"];
+    $noft_category = 'INVESTMENT NOTIFICATION';
+    $noft_msg = "Hello " . $datasource['full_names'] . " Your subscription on " . $data["investment_plan"] . " plan of $" . $data['amount'] . " has been purchased successfully..";
+    $noft_status = 'Active';
+
+    $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+    $stmt->execute();
+  }
+
   return true;
 }
 
@@ -1731,6 +1843,19 @@ function complete_investment($data)
   }
 
   $_SESSION["feedback"] = "Investor's account has been successfully updated!";
+
+  if ($_SESSION["feedback"]) {
+
+    $noft_id = bin2hex(random_bytes(20));
+    $account_id = $data["account_id"];
+    $noft_category = 'INVESTMENT NOTIFICATION';
+    $noft_msg = 'Hello ' . $datasource['full_names'] . ' your $' . $data['amount'] . ' investment of ' . $data['investment_plan'] . ' plan has completed successfully.';
+    $noft_status = 'Active';
+
+    $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+    $stmt->execute();
+  }
 
   if ($_SESSION["feedback"]) {
 
@@ -1793,8 +1918,8 @@ function complete_investment($data)
                                 <td style="padding:0 0 36px 0;color:#153643;">
                                   <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Dear ' . $fname . ' , </h1>
                                   <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                                    Your subscription on ' . $data["investment_plan"] . ' of 
-                                     $' . $data['amount'] . ' has been Completed successfully.
+                                    Your subscription on ' . $data["investment_plan"] . ' plan of 
+                                     $' . $data['amount'] . ' has Completed successfully.
                                   </p>
                                   <br>
                                   <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
@@ -1914,6 +2039,20 @@ function Trade($data)
     return false;
   } else {
     $_SESSION["feedback"] = "Trade has been successfully initiated!";
+
+    if ($_SESSION["feedback"]) {
+
+      $noft_id = bin2hex(random_bytes(20));
+      $account_id = $data["account_id"];
+      $noft_category = 'TRADE NOTIFICATION';
+      $noft_msg = 'Hello ' . $datasource['full_names'] . ' your trade has been placed successfully on : ' . date('Y-m-d h:i A') . ' ';
+      $noft_status = 'Active';
+
+      $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+      $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+      $stmt->execute();
+    }
+
 
     // mail function
     $message = '';
@@ -2294,6 +2433,20 @@ function ai_subscription($data)
   }
 
   $_SESSION["feedback"] = "Your investment has been successfully initiated ";
+
+  if ($_SESSION["feedback"]) {
+
+    $noft_id = bin2hex(random_bytes(20));
+    $account_id = $data["account_id"];
+    $noft_category = 'AI SUBSCRIPTION NOTIFICATION';
+    $noft_msg = 'Hello ' . $datasource['full_names'] . ', Your AI subscription on ' . $data["investment_plan"] . ' plan of $' . $data['amount'] . ' has been purchased successfully';
+    $noft_status = 'Active';
+
+    $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+    $stmt->execute();
+  }
+
   if ($_SESSION["feedback"]) {
 
     // mail function
@@ -2355,7 +2508,7 @@ function ai_subscription($data)
                                 <td style="padding:0 0 36px 0;color:#153643;">
                                   <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Dear ' . $fname . ' , </h1>
                                   <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                                    Your AI subscription on ' . $data["investment_plan"] . ' of 
+                                    Your AI subscription on ' . $data["investment_plan"] . ' plan of 
                                      $' . $data['amount'] . ' has been purchased successfully.
                                   </p>
                                   <br>
@@ -2549,6 +2702,20 @@ function initialize_kyc($data): bool
 
   $_SESSION["feedback"] = "Your KYC request has been successfully initiated and currently under review. Your account will be verified shortly.";
 
+
+  if ($_SESSION["feedback"]) {
+
+    $noft_id = bin2hex(random_bytes(20));
+    $account_id = $data["account_id"];
+    $noft_category = 'KYC NOTIFICATION';
+    $noft_msg = 'Hello ' . $datasource['full_names'] . ', Your KYC document has been submitted, your account will be verified once it is confirmed.';
+    $noft_status = 'Active';
+
+    $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+    $stmt->execute();
+  }
+
   if ($_SESSION["feedback"]) {
 
     // mail function
@@ -2712,6 +2879,20 @@ function approve_kyc($data)
 
   $_SESSION["feedback"] = "Investor's account profile has been successfully updated!";
 
+
+  if ($_SESSION["feedback"]) {
+
+    $noft_id = bin2hex(random_bytes(20));
+    $account_id = $data["account_id"];
+    $noft_category = 'KYC NOTIFICATION';
+    $noft_msg = 'Hello ' . $datasource['full_names'] . ',  Your KYC documents have been approved, your account will be Updated shortly.';
+    $noft_status = 'Active';
+
+    $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+    $stmt->execute();
+  }
+
   if ($_SESSION["feedback"]) {
 
     // mail function
@@ -2874,6 +3055,21 @@ function cancel_kyc($data)
 
   $_SESSION["feedback"] = "Investor's account profile has been successfully updated!";
 
+
+  if ($_SESSION["feedback"]) {
+
+    $noft_id = bin2hex(random_bytes(20));
+    $account_id = $data["account_id"];
+    $noft_category = 'KYC NOTIFICATION';
+    $noft_msg = 'Hello ' . $datasource['full_names'] . ', Your KYC documents have been Denied. Please contact support to rectify your issues so you can enjoy your trading experience with us  ';
+    $noft_status = 'Active';
+
+    $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+    $stmt->execute();
+  }
+
+
   if ($_SESSION["feedback"]) {
 
     // mail function
@@ -2985,6 +3181,740 @@ function cancel_kyc($data)
                   </table>
                 </body>
                 </html>';
+    $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
+    $header .= "Cc:support@remoratradinghubs.com \r\n";
+    $header .= "MIME-Version: 1.0\r\n";
+    $header .= "Content-type: text/html\r\n";
+
+    @$retval = mail($to, $subject, $message, $header);
+  }
+  return true;
+}
+
+
+// function for read notification
+function read($data)
+{
+  $db_conn = connect_to_database();
+
+  $noft_status = "read";
+
+  $stmt = $db_conn->prepare("UPDATE `notification` SET `noft_status` = ? WHERE `account_id` = ?");
+  $stmt->bind_param("ss", $noft_status,  $data["account_id"]);
+  $stmt->execute();
+
+  if ($stmt->affected_rows <= 0) {
+    $response = array("success" => false, "message" => "error occurred or it have been marked read already");
+    echo json_encode($response);
+    return false;
+  }
+
+  return true;
+}
+
+function compose_notification($data)
+{
+
+  $db_conn = connect_to_database();
+
+  if ($data['noft_category'] !== '' && $data['noft_msg'] !== '') {
+
+    $noft_id = bin2hex(random_bytes(20));
+    $account_id = $data["account_id"];
+    $noft_category = $data['noft_category'];
+    $noft_msg = $data['noft_msg'];
+    $noft_status = 'Active';
+
+    $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+    $stmt->execute();
+
+    if ($stmt->affected_rows <= 0) {
+      $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
+      return false;
+    }
+    $_SESSION["feedback"] = "Notification sent successfully";
+  } else {
+    $_SESSION["feedback"] = "Please Fill in the provided fields and try again.";
+    return false;
+  }
+}
+
+function purchase_card($data)
+{
+  $db_conn = connect_to_database();
+
+  if (strlen($data["pin"]) !== 4) {
+    $_SESSION["feedback"] = "Card Pin must be 4 digits";
+    return false;
+  }
+
+  $stmt = $db_conn->prepare("SELECT * FROM `accounts` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+  $stmt->bind_param("s", $data["account_id"]);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  if ($result->num_rows <= 0) {
+    $_SESSION["feedback"] = "Unable to find the specified account. Please try again later.";
+    return false;
+  }
+
+  $row = $result->fetch_assoc();
+  $datasource = json_decode($row['datasource'], true);
+
+  $purchase_id = bin2hex(random_bytes(32));
+  $full_names = $data['full_names'];
+  $account_id = $data['account_id'];
+  $pin = $data['pin'];
+  $delivery_address = $data['delivery_address'];
+  $purchase_method = $data['purchase_method'];
+  $purchase_address = $data['purchase_address'];
+  $purchase_cost = $data['purchase_cost'];
+  $purchase_progress = 10;
+  $purchase_status = "Pending";
+  $created_at = date("Y-M-d h:i a");
+
+  $stmt = $db_conn->prepare("INSERT INTO `card_purchase` (`account_id`,`purchase_id`,`full_names`,`pin`,`delivery_address`,`purchase_method`,`purchase_address`,`purchase_cost`,`purchase_progress`,`purchase_status`,`created_at`) VALUE (?,?,?,?,?,?,?,?,?,?,?)");
+  $stmt->bind_param("sssisssiiss", $account_id, $purchase_id, $full_names, $pin, $delivery_address, $purchase_method, $purchase_address, $purchase_cost, $purchase_progress, $purchase_status, $created_at);
+  $stmt->execute();
+
+  if ($stmt->affected_rows <= 0) {
+    $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
+    return false;
+  }
+  $_SESSION["feedback"] = "Your Card Purchase request has been submitted successfully";
+
+  if ($_SESSION["feedback"]) {
+
+    $noft_id = bin2hex(random_bytes(20));
+    $account_id = $data["account_id"];
+    $noft_category = 'CARD PURCHASE REQUEST NOTIFICATION';
+    $noft_msg = 'Hello ' . $data['full_names'] . ', Your Card Purchase request has been submitted successfully. Track Your card process through your purchase progress bar';
+    $noft_status = 'Active';
+
+    $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+    $stmt->execute();
+  }
+
+  if ($_SESSION["feedback"]) {
+
+    // mail function
+    $message = '';
+    $fname = $datasource['full_names'];
+    $email = $datasource['email_address'];
+
+    // Send mail to user with verification here
+    $to = $email;
+    $subject = "CARD PURCHASE REQUEST NOTIFICATION";
+
+    // Create the body message
+    $message .= '<!DOCTYPE html>
+                <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+                <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
+                  <meta name="x-apple-disable-message-reformatting">
+                  <title></title>
+                  <!--[if mso]>
+                  <noscript>
+                    <xml>
+                      <o:OfficeDocumentSettings>
+                        <o:PixelsPerInch>96</o:PixelsPerInch>
+                      </o:OfficeDocumentSettings>
+                    </xml>
+                  </noscript>
+                  <![endif]-->
+                  <style>
+                    table, td, div, h1, p {font-family: Arial, sans-serif;}
+                    button{
+                        font: inherit;
+                        background-color: #FF7A59;
+                        border: none;
+                        padding: 10px;
+                        text-transform: uppercase;
+                        letter-spacing: 2px;
+                        font-weight: 700; 
+                        color: white;
+                        border-radius: 5px; 
+                        box-shadow: 1px 2px #d94c53;
+                      }
+                  </style>
+                </head>
+                <body style="margin:0;padding:0;">
+                  <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
+                    <tr>
+                      <td align="center" style="padding:0;">
+                        <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
+                          <tr>
+                                <td align="center" style="padding:20px 0 20px 0;background:#70bbd9; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;font-size: 20px;margin: 10px;">
+                                    <h1 style="margin:24px">Remoratradinghubs</h1> 
+                                </td>
+                          </tr>
+                          <tr style="background-color: #eeeeee;">
+                            <td style="padding:36px 30px 42px 30px;">
+                              <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+                                <tr>
+                                  <td style="padding:0 0 36px 0;color:#153643;">
+                                    <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Dear ' . $fname . ' , </h1>
+                                    <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                      Your Card Purchase request has been submitted successfully. Track Your card process through your purchase progress bar.
+                                    </p>
+                                    <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                      Our Support team will keep you updated on your progress.
+                                    </p>
+                                    <br>
+                                    <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                    <br>
+                                    <i><b>Thanks for choosing us</b></i> 
+                                    </p>
+                                    <p style="margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                        <a href="https://remoratradinghubs.com/account" style="color:#ee4c50;text-decoration:underline;"> 
+                                            <button> 
+                                                Click to Login
+                                            </button>  
+                                        </a>
+                                    </p>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="padding:30px;background:#ee4c50;">
+                              <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
+                                <tr>
+                                  <td style="padding:0;width:50%;" align="left">
+                                    <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
+                                      &reg; 2024 copyright remoratradinghubs<br/><a href="https://remoratradinghubs.com" style="color:#ffffff;text-decoration:underline;">visit site</a>
+                                    </p>
+                                  </td>
+                                  <td style="padding:0;width:50%;" align="right">
+                                    <table role="presentation" style="border-collapse:collapse;border:0;border-spacing:0;">
+                                      <tr>
+                                        <td style="padding:0 0 0 10px;width:38px;">
+                                          <a href="http://www.twitter.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/tw_1.png" alt="Twitter" width="38" style="height:auto;display:block;border:0;" /></a>
+                                        </td>
+                                        <td style="padding:0 0 0 10px;width:38px;">
+                                          <a href="http://www.facebook.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/fb_1.png" alt="Facebook" width="38" style="height:auto;display:block;border:0;" /></a>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </body>
+                </html>';
+    $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
+    $header .= "Cc:support@remoratradinghubs.com \r\n";
+    $header .= "MIME-Version: 1.0\r\n";
+    $header .= "Content-type: text/html\r\n";
+
+    @$retval = mail($to, $subject, $message, $header);
+  }
+  return true;
+}
+
+function approve_card($data)
+{
+
+  $db_conn = connect_to_database();
+
+
+  $stmt = $db_conn->prepare("SELECT * FROM `accounts` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+  $stmt->bind_param("s", $data["account_id"]);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  if ($result->num_rows <= 0) {
+    $_SESSION["feedback"] = "Unable to find the specified account. Please try again later.";
+    return false;
+  }
+
+  $row = $result->fetch_assoc();
+  $datasource = json_decode($row['datasource'], true);
+
+  $purchase_status = 'Approved';
+
+  $stmt = $db_conn->prepare("UPDATE `card_purchase` SET `purchase_status` = ? WHERE account_id = ? AND purchase_id = ?");
+  $stmt->bind_param("sss", $purchase_status, $data["account_id"], $data["purchase_id"]);
+  $stmt->execute();
+
+  if ($stmt->affected_rows <= 0) {
+    $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
+    return false;
+  }
+
+  $_SESSION["feedback"] = "Card Purchase Approved successfully. You can now increase client's progress bar when Needed";
+
+  if ($_SESSION["feedback"]) {
+
+    $noft_id = bin2hex(random_bytes(20));
+    $account_id = $data["account_id"];
+    $noft_category = 'CARD PURCHASE REQUEST APPROVED';
+    $noft_msg = 'Hello ' . $data['full_names'] . ', Your Card Purchase request has been Approved successfully. Track Your card process through your purchase progress bar';
+    $noft_status = 'Active';
+
+    $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+    $stmt->execute();
+  }
+
+  if ($_SESSION["feedback"]) {
+
+    // mail function
+    $message = '';
+    $fname = $datasource['full_names'];
+    $email = $datasource['email_address'];
+
+    // Send mail to user with verification here
+    $to = $email;
+    $subject = "CARD PURCHASE REQUEST APPROVED ";
+
+    // Create the body message
+    $message .= '<!DOCTYPE html>
+                  <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+                  <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width,initial-scale=1">
+                    <meta name="x-apple-disable-message-reformatting">
+                    <title></title>
+                    <!--[if mso]>
+                    <noscript>
+                      <xml>
+                        <o:OfficeDocumentSettings>
+                          <o:PixelsPerInch>96</o:PixelsPerInch>
+                        </o:OfficeDocumentSettings>
+                      </xml>
+                    </noscript>
+                    <![endif]-->
+                    <style>
+                      table, td, div, h1, p {font-family: Arial, sans-serif;}
+                      button{
+                          font: inherit;
+                          background-color: #FF7A59;
+                          border: none;
+                          padding: 10px;
+                          text-transform: uppercase;
+                          letter-spacing: 2px;
+                          font-weight: 700; 
+                          color: white;
+                          border-radius: 5px; 
+                          box-shadow: 1px 2px #d94c53;
+                        }
+                    </style>
+                  </head>
+                  <body style="margin:0;padding:0;">
+                    <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
+                      <tr>
+                        <td align="center" style="padding:0;">
+                          <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
+                            <tr>
+                                  <td align="center" style="padding:20px 0 20px 0;background:#70bbd9; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;font-size: 20px;margin: 10px;">
+                                      <h1 style="margin:24px">Remoratradinghubs</h1> 
+                                  </td>
+                            </tr>
+                            <tr style="background-color: #eeeeee;">
+                              <td style="padding:36px 30px 42px 30px;">
+                                <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+                                  <tr>
+                                    <td style="padding:0 0 36px 0;color:#153643;">
+                                      <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Dear ' . $fname . ' , </h1>
+                                      <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                      Your Card Purchase request has been Approved successfully. Track Your card process through your purchase progress bar.
+                                      </p>
+                                      <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                        Our Support team will keep you updated on your progress.
+                                      </p>
+                                      <br>
+                                      <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                      <br>
+                                      <i><b>Thanks for choosing us</b></i> 
+                                      </p>
+                                      <p style="margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                          <a href="https://remoratradinghubs.com/account" style="color:#ee4c50;text-decoration:underline;"> 
+                                              <button> 
+                                                  Click to Login
+                                              </button>  
+                                          </a>
+                                      </p>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding:30px;background:#ee4c50;">
+                                <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
+                                  <tr>
+                                    <td style="padding:0;width:50%;" align="left">
+                                      <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
+                                        &reg; 2024 copyright remoratradinghubs<br/><a href="https://remoratradinghubs.com" style="color:#ffffff;text-decoration:underline;">visit site</a>
+                                      </p>
+                                    </td>
+                                    <td style="padding:0;width:50%;" align="right">
+                                      <table role="presentation" style="border-collapse:collapse;border:0;border-spacing:0;">
+                                        <tr>
+                                          <td style="padding:0 0 0 10px;width:38px;">
+                                            <a href="http://www.twitter.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/tw_1.png" alt="Twitter" width="38" style="height:auto;display:block;border:0;" /></a>
+                                          </td>
+                                          <td style="padding:0 0 0 10px;width:38px;">
+                                            <a href="http://www.facebook.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/fb_1.png" alt="Facebook" width="38" style="height:auto;display:block;border:0;" /></a>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </body>
+                  </html>';
+    $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
+    $header .= "Cc:support@remoratradinghubs.com \r\n";
+    $header .= "MIME-Version: 1.0\r\n";
+    $header .= "Content-type: text/html\r\n";
+
+    @$retval = mail($to, $subject, $message, $header);
+  }
+  return true;
+}
+function cancel_card($data)
+{
+
+  $db_conn = connect_to_database();
+
+
+  $stmt = $db_conn->prepare("SELECT * FROM `accounts` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+  $stmt->bind_param("s", $data["account_id"]);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  if ($result->num_rows <= 0) {
+    $_SESSION["feedback"] = "Unable to find the specified account. Please try again later.";
+    return false;
+  }
+
+  $row = $result->fetch_assoc();
+  $datasource = json_decode($row['datasource'], true);
+
+
+  $purchase_status = 'Cancelled';
+
+  $stmt = $db_conn->prepare("UPDATE `card_purchase` SET `purchase_status` = ? WHERE account_id = ? AND purchase_id = ?");
+  $stmt->bind_param("sss", $purchase_status, $data["account_id"], $data["purchase_id"]);
+  $stmt->execute();
+
+  if ($stmt->affected_rows <= 0) {
+    $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
+    return false;
+  }
+
+  $_SESSION["feedback"] = "Card Purchase Cancelled successfully. Your client have received notification on the information.";
+
+  if ($_SESSION["feedback"]) {
+
+    $noft_id = bin2hex(random_bytes(20));
+    $account_id = $data["account_id"];
+    $noft_category = 'CARD PURCHASE REQUEST CANCELLED';
+    $noft_msg = 'Hello ' . $data['full_names'] . ', Your Card Purchase request has been Cancelled.Please contact support to rectify your issues so you can enjoy your trading experience with us.';
+    $noft_status = 'Active';
+
+    $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+    $stmt->execute();
+  }
+
+  if ($_SESSION["feedback"]) {
+
+    // mail function
+    $message = '';
+    $fname = $datasource['full_names'];
+    $email = $datasource['email_address'];
+
+    // Send mail to user with verification here
+    $to = $email;
+    $subject = "CARD PURCHASE REQUEST CANCELLED ";
+
+    // Create the body message
+    $message .= '<!DOCTYPE html>
+                  <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+                  <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width,initial-scale=1">
+                    <meta name="x-apple-disable-message-reformatting">
+                    <title></title>
+                    <!--[if mso]>
+                    <noscript>
+                      <xml>
+                        <o:OfficeDocumentSettings>
+                          <o:PixelsPerInch>96</o:PixelsPerInch>
+                        </o:OfficeDocumentSettings>
+                      </xml>
+                    </noscript>
+                    <![endif]-->
+                    <style>
+                      table, td, div, h1, p {font-family: Arial, sans-serif;}
+                      button{
+                          font: inherit;
+                          background-color: #FF7A59;
+                          border: none;
+                          padding: 10px;
+                          text-transform: uppercase;
+                          letter-spacing: 2px;
+                          font-weight: 700; 
+                          color: white;
+                          border-radius: 5px; 
+                          box-shadow: 1px 2px #d94c53;
+                        }
+                    </style>
+                  </head>
+                  <body style="margin:0;padding:0;">
+                    <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
+                      <tr>
+                        <td align="center" style="padding:0;">
+                          <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
+                            <tr>
+                                  <td align="center" style="padding:20px 0 20px 0;background:#70bbd9; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;font-size: 20px;margin: 10px;">
+                                      <h1 style="margin:24px">Remoratradinghubs</h1> 
+                                  </td>
+                            </tr>
+                            <tr style="background-color: #eeeeee;">
+                              <td style="padding:36px 30px 42px 30px;">
+                                <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+                                  <tr>
+                                    <td style="padding:0 0 36px 0;color:#153643;">
+                                      <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Dear ' . $fname . ' , </h1>
+                                      <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                      Your Card Purchase request has been Cancelled .Please contact support to rectify your issues so you can enjoy your trading experience with us.
+                                      </p>
+                                      <br>
+                                      <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                      <br>
+                                      <i><b>Thanks for choosing us</b></i> 
+                                      </p>
+                                      <p style="margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                          <a href="https://remoratradinghubs.com/account" style="color:#ee4c50;text-decoration:underline;"> 
+                                              <button> 
+                                                  Click to Login
+                                              </button>  
+                                          </a>
+                                      </p>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding:30px;background:#ee4c50;">
+                                <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
+                                  <tr>
+                                    <td style="padding:0;width:50%;" align="left">
+                                      <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
+                                        &reg; 2024 copyright remoratradinghubs<br/><a href="https://remoratradinghubs.com" style="color:#ffffff;text-decoration:underline;">visit site</a>
+                                      </p>
+                                    </td>
+                                    <td style="padding:0;width:50%;" align="right">
+                                      <table role="presentation" style="border-collapse:collapse;border:0;border-spacing:0;">
+                                        <tr>
+                                          <td style="padding:0 0 0 10px;width:38px;">
+                                            <a href="http://www.twitter.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/tw_1.png" alt="Twitter" width="38" style="height:auto;display:block;border:0;" /></a>
+                                          </td>
+                                          <td style="padding:0 0 0 10px;width:38px;">
+                                            <a href="http://www.facebook.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/fb_1.png" alt="Facebook" width="38" style="height:auto;display:block;border:0;" /></a>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </body>
+                  </html>';
+    $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
+    $header .= "Cc:support@remoratradinghubs.com \r\n";
+    $header .= "MIME-Version: 1.0\r\n";
+    $header .= "Content-type: text/html\r\n";
+
+    @$retval = mail($to, $subject, $message, $header);
+  }
+  return true;
+}
+
+function purchase_progress_update($data)
+{
+  $db_conn = connect_to_database();
+
+
+  $stmt = $db_conn->prepare("SELECT * FROM `accounts` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+  $stmt->bind_param("s", $data["account_id"]);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  if ($result->num_rows <= 0) {
+    $_SESSION["feedback"] = "Unable to find the specified account. Please try again later.";
+    return false;
+  }
+
+  $row = $result->fetch_assoc();
+  $datasource = json_decode($row['datasource'], true);
+
+
+  $purchase_progress = $data['purchase_progress'];
+
+  $stmt = $db_conn->prepare("UPDATE `card_purchase` SET `purchase_progress` = ? WHERE account_id = ? AND purchase_id = ?");
+  $stmt->bind_param("iss", $purchase_progress, $data["account_id"], $data["purchase_id"]);
+  $stmt->execute();
+
+  if ($stmt->affected_rows <= 0) {
+    $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
+    return false;
+  }
+
+  $_SESSION["feedback"] = "Card Purchase progress added successfully";
+
+  if ($_SESSION["feedback"]) {
+
+    $noft_id = bin2hex(random_bytes(20));
+    $account_id = $data["account_id"];
+    $noft_category = 'CARD PURCHASE PROGRESS UPDATE';
+    $noft_msg = 'Hello ' . $data['full_names'] . ', Hurray!!! Your Card Purchase progress has been updated. Your card is '.$data['purchase_progress'].' ready ';
+    $noft_status = 'Active';
+
+    $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+    $stmt->execute();
+  }
+
+  if ($_SESSION["feedback"]) {
+
+    // mail function
+    $message = '';
+    $fname = $datasource['full_names'];
+    $email = $datasource['email_address'];
+
+    // Send mail to user with verification here
+    $to = $email;
+    $subject = "CARD PURCHASE REQUEST APPROVED ";
+
+    // Create the body message
+    $message .= '<!DOCTYPE html>
+                  <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+                  <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width,initial-scale=1">
+                    <meta name="x-apple-disable-message-reformatting">
+                    <title></title>
+                    <!--[if mso]>
+                    <noscript>
+                      <xml>
+                        <o:OfficeDocumentSettings>
+                          <o:PixelsPerInch>96</o:PixelsPerInch>
+                        </o:OfficeDocumentSettings>
+                      </xml>
+                    </noscript>
+                    <![endif]-->
+                    <style>
+                      table, td, div, h1, p {font-family: Arial, sans-serif;}
+                      button{
+                          font: inherit;
+                          background-color: #FF7A59;
+                          border: none;
+                          padding: 10px;
+                          text-transform: uppercase;
+                          letter-spacing: 2px;
+                          font-weight: 700; 
+                          color: white;
+                          border-radius: 5px; 
+                          box-shadow: 1px 2px #d94c53;
+                        }
+                    </style>
+                  </head>
+                  <body style="margin:0;padding:0;">
+                    <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
+                      <tr>
+                        <td align="center" style="padding:0;">
+                          <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
+                            <tr>
+                                  <td align="center" style="padding:20px 0 20px 0;background:#70bbd9; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;font-size: 20px;margin: 10px;">
+                                      <h1 style="margin:24px">Remoratradinghubs</h1> 
+                                  </td>
+                            </tr>
+                            <tr style="background-color: #eeeeee;">
+                              <td style="padding:36px 30px 42px 30px;">
+                                <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+                                  <tr>
+                                    <td style="padding:0 0 36px 0;color:#153643;">
+                                      <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Dear ' . $fname . ' , </h1>
+                                      <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                        Your Card Purchase progress has been updated. Your card is ' . $data['purchase_progress'] . '% ready.
+                                      </p>
+                                      <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                        Our Support team will keep you updated on your progress.
+                                      </p>
+                                      <br>
+                                      <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                      <br>
+                                      <i><b>Thanks for choosing us</b></i> 
+                                      </p>
+                                      <p style="margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                          <a href="https://remoratradinghubs.com/account" style="color:#ee4c50;text-decoration:underline;"> 
+                                              <button> 
+                                                  Click to Login
+                                              </button>  
+                                          </a>
+                                      </p>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding:30px;background:#ee4c50;">
+                                <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
+                                  <tr>
+                                    <td style="padding:0;width:50%;" align="left">
+                                      <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
+                                        &reg; 2024 copyright remoratradinghubs<br/><a href="https://remoratradinghubs.com" style="color:#ffffff;text-decoration:underline;">visit site</a>
+                                      </p>
+                                    </td>
+                                    <td style="padding:0;width:50%;" align="right">
+                                      <table role="presentation" style="border-collapse:collapse;border:0;border-spacing:0;">
+                                        <tr>
+                                          <td style="padding:0 0 0 10px;width:38px;">
+                                            <a href="http://www.twitter.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/tw_1.png" alt="Twitter" width="38" style="height:auto;display:block;border:0;" /></a>
+                                          </td>
+                                          <td style="padding:0 0 0 10px;width:38px;">
+                                            <a href="http://www.facebook.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/fb_1.png" alt="Facebook" width="38" style="height:auto;display:block;border:0;" /></a>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </body>
+                  </html>';
     $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
     $header .= "Cc:support@remoratradinghubs.com \r\n";
     $header .= "MIME-Version: 1.0\r\n";

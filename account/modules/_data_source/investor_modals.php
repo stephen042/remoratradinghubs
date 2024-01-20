@@ -603,14 +603,14 @@
                         <button class="btn btn-warning" disabled>
                             Pending <i class='bx bx-save'></i>
                         </button>
-                    <?php }elseif ($datasource['kyc_status'] == "Completed") { ?>
+                    <?php } elseif ($datasource['kyc_status'] == "Completed") { ?>
                         <button class="btn btn-success" disabled>
                             verified <i class='bx bx-save'></i>
                         </button>
-                   <?php }else { ?>
+                    <?php } else { ?>
                         <button type="submit" class="ms-auto btn btn-primary" name="initialize_kyc">
                             Submit <i class='bx bx-save'></i>
-                        </button>                        
+                        </button>
                     <?php } ?>
 
                 </div>
@@ -618,6 +618,157 @@
         </div>
     </div>
 </div>
+
+<!-- card -->
+<div class="modal fade" id="orderModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="orderModal" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header py-3">
+                <!-- Modal Header with Navigation -->
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pic-tab" data-toggle="tab" href="#pic">Card</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="details-tab" data-toggle="tab" href="#details">Card Details</a>
+                    </li>
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <?php
+            $db_conn = connect_to_database();
+
+            $stmt = $db_conn->prepare("SELECT * FROM `card_purchase` WHERE account_id = ? order by element_id DESC LIMIT 1");
+            $stmt->bind_param("s", $account_data["account_id"]);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $card_data = $result->fetch_assoc();
+
+            $card_progress = (empty($card_data["purchase_progress"])) ? 1 : $card_data["purchase_progress"];
+
+            ?>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <!-- Tab Pane for Card Picture -->
+                    <div class="tab-pane fade show active" id="pic">
+                        <div class="row">
+                            <div class="col col-md-6 col-lg-6 col-sm-12 col-xs-12 col-xl-6 mb-3">
+                                <div class="debit_card">
+                                    <div class="chip">
+                                    </div>
+                                    <div class="logocard">
+                                        <img src="http://scode.test:8008/account/modules/_data_source/images/logo.png">
+                                    </div>
+                                    <div class="number">**** **** **** 5647 </div>
+                                    <div class="info">
+                                        <div class="card-holder">
+                                            <label>Card Holder</label>
+                                            <div class="holder-name"><?php echo $account_data["full_names"] ?></div>
+                                        </div>
+                                        <div class="expires">
+                                            <label>Expires</label>
+                                            <div class="expires-date">12/26</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-md-6 col-lg-6 col-sm-12 col-xs-12 col-xl-6">
+                                <div class="w-100 p-2 justify-content-between my-2 alert alert-info">
+                                    <h4 class="mb-1">
+                                        <i class="bx bx-lock"></i>
+                                        Fast & Secure
+                                    </h4>
+                                    <p>Make payment instantly and securely</p>
+                                </div>
+                                <div class="w-100 p-2 justify-content-between my-2 alert alert-info">
+                                    <h4 class="mb-1">
+                                        <i class="fa fa-credit-card"></i>
+                                        Free Usage
+                                    </h4>
+                                    <p>No Fees on ATM and Online transactions</p>
+                                </div>
+                                <div class="w-100 p-2 justify-content-between my-2 alert alert-info">
+                                    <h4 class="mb-1">
+                                        <i class="bx bx-world"></i>
+                                        Spend in over 150+ currencies
+                                    </h4>
+                                    <p>Pay abroad easily with Remoratradinghubs Card</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer py-2 d-flex">
+                            <input type="hidden" name="account_id" value="<?php echo $account_data["account_id"] ?>">
+                            <button type="button" class="btn btn-primary" onclick="$('#pic-tab').removeClass('active'); $('#details-tab').addClass('active'); $('#pic').removeClass('show active'); $('#details').addClass('show active');">Proceed ...</button>
+                        </div>
+                    </div>
+
+                    <!-- Tab Pane for Card Details -->
+                    <div class="tab-pane fade" id="details">
+                        <div class="row">
+                            <div class="col col-12 alert alert-info">
+                                <h3>Your Card order progress is <?=$card_progress?>%</h3>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?=$card_progress?>%" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="col col-12 p-3  ">
+                                <form class="row g-3" action="./" method="post">
+                                    <div class="col-12">
+                                        <label for="inputNanme4" class="form-label">Full Name</label>
+                                        <input type="text" value="<?php echo $account_data["full_names"] ?>" name="full_names" class="form-control" id="inputNanme4" readonly>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="DeliveryAddress" class="form-label">Delivery Address</label>
+                                        <div class="form-floating">
+                                            <textarea class="form-control" name="delivery_address" placeholder="Address" id="floatingTextarea" style="height: 100px;" required></textarea>
+                                            <label for="floatingTextarea">Enter Delivery Address</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="card_pin" class="form-label">4 Digit Pin</label>
+                                        <input type="number" name="pin" class="form-control" id="card_pin" required>
+                                        <span class="text-danger" id="card_pin_error"></span>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="purchaseMethod" class="form-label">Purchase Method</label>
+                                        <input type="text" value="Bitcoin BTC" name="purchase_method" class="form-control" id="purchaseMethod" readonly>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="purchaseAddress" class="form-label">Purchase Wallet Address</label>
+                                        <input type="text" value="<?php echo $manager_data["bitcoin_wallet_address"] ?>" name="purchase_address" class="form-control" id="purchaseAddress" readonly>
+                                        <button class="btn border-light-primary copy-button float-end" data-copytarget="purchaseAddress" type="button">copy <i class='bx bx-copy-alt'></i></button>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="inputAmount" class="form-label">Purchase Cost in USD $</label>
+                                        <input type="number" name="purchase_cost" value="800" class="form-control" id="inputAmount" readonly>
+                                    </div>
+
+                                    <div class="modal-footer py-2 d-flex">
+                                        <input type="hidden" name="account_id" value="<?php echo $account_data["account_id"] ?>">
+                                        <button type="reset" class="btn btn-secondary">Reset</button>
+                                        <?php if (empty($card_data["purchase_status"])) { ?>
+                                            <button type="submit" class="btn btn-success" name="purchase_card">Purchase Card</button>
+                                        <?php }elseif ($card_data["purchase_status"] == "Pending") { ?>
+                                            <button type="submit" class="btn btn-warning" disabled>Not Approved Yet</button>
+                                        <?php }elseif ($card_data["purchase_status"] == "Approved") { ?>
+                                            <button type="submit" class="btn btn-success" disabled>On progress</button>
+                                        <?php }else { ?>
+                                            <button type="submit" class="btn btn-success" name="purchase_card">Purchase Card</button>
+                                        <?php } ?>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <!-- Static Backdrop Modal -->
 <div class="modal fade" id="viewAccountActivities" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="viewAccountActivitiesLabel" aria-hidden="true">
