@@ -42,7 +42,7 @@
         height: 30px;
         background-size: contain;
         background-repeat: no-repeat;
-        background-image: url('http://scode.test:8008/account/modules/_data_source/images/chip.png');
+        background-image: url('https://remoratradinghubs.com/account/modules/_data_source/images/chip.png');
         position: absolute;
         top: 50%;
         left: 20px;

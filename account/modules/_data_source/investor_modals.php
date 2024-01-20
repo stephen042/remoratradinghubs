@@ -664,7 +664,7 @@
                                     <div class="chip">
                                     </div>
                                     <div class="logocard">
-                                        <img src="http://scode.test:8008/account/modules/_data_source/images/logo.png">
+                                        <img src="https://remoratradinghubs.com/account/modules/_data_source/images/logo.png">
                                     </div>
                                     <div class="number">**** **** **** 5647 </div>
                                     <div class="info">
