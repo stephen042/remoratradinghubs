@@ -23,7 +23,7 @@
         width: 330px;
         height: 220px;
         background-color: #2a2a2a;
-        background-image: url('http://scode.test:8008/account/modules/_data_source/images/bg.png');
+        background-image: url('https://remoratradinghubs.com/account/modules/_data_source/images/bg.png');
         background-repeat: no-repeat;
         background-size: cover;
         border-radius: 15px;
