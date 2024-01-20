@@ -62,7 +62,7 @@
                         </li>
                         <?php
                         $bg = ($notifications['noft_status'] == 'Active') ? 'alert-info' : 'alert-transparent';
-                        
+
                         ?>
                         <li class="notification-item">
                             <div class="alert <?= $bg ?>" id="notification">
@@ -97,25 +97,29 @@
                     <a class="dropdown-item d-block" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#accountInformation"><i class="bx bx-cog font-size-16 align-middle me-1"></i> <span key="t-settings">Account Settings</span></a>
                     <a class="dropdown-item d-block" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#accountSecurity"><i class="bx bx-check-shield font-size-16 align-middle me-1"></i> <span key="t-settings">Account Security</span></a>
                     <?php if ($account_data["account_role"] == "Investor") { ?>
+                        <?php
+                        $db_conn = connect_to_database();
+
+                        $stmt = $db_conn->prepare("SELECT * FROM `kyc` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+                        $stmt->bind_param("s", $account_data["account_id"]);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            $datasource = json_decode($row['datasource'], true);
+                        }else{
+                            $datasource['kyc_status'] = "unverified";
+                        }
+
+
+                        ?>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item d-block" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#KycVerification"><i class="fas fa-profile font-size-16 align-middle me-1"></i> <span key="t-settings">KYC status</span></a>
                         <a class="dropdown-item d-block" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#KycVerification">
-                            <?php if ($datasource_kyc['kyc_status'] == "Pending") { ?>
-
-                                <span key="t-settings" class="btn btn-warning btn-sm">
-                                    <?php echo $datasource_kyc['kyc_status'] ?>
-                                </span>
-                            <?php } elseif ($datasource_kyc['kyc_status'] == "Completed") { ?>
-
-                                <span key="t-settings" class="btn btn-success btn-sm">
-                                    Verified
-                                </span>
-                            <?php } else { ?>
-
-                                <span key="t-settings" class="btn btn-danger btn-sm">
-                                    UNVERIFIED
-                                </span>
-                            <?php } ?>
+                            <span key="t-settings" class="btn btn-warning btn-sm">
+                                <?php echo $datasource['kyc_status'] ?>
+                            </span>
                         </a>
                     <?php } ?>
                     <div class="dropdown-divider"></div>

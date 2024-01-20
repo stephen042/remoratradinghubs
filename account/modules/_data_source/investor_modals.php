@@ -569,8 +569,14 @@
             $stmt->execute();
             $result = $stmt->get_result();
 
-            $row = $result->fetch_assoc();
-            $datasource = json_decode($row['datasource'], true);
+            
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $datasource = json_decode($row['datasource'], true);
+            }else{
+                $datasource['kyc_status'] = "unverified";
+            }
+
 
             ?>
             <form method="post" action="./" enctype="multipart/form-data">

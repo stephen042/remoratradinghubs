@@ -21,10 +21,12 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 $row = $result->fetch_assoc();
-if ($row < 1) {
-    $datasource_kyc = "Unverified";
-}else {
-   $datasource_kyc = json_decode($row['datasource'], true); 
+
+if ($result->num_rows < 1) {
+    $datasource_kyc = [];
+} else {
+    $row = $result->fetch_assoc();
+    $datasource_kyc = json_decode($row['datasource'], true); 
 }
 
 
