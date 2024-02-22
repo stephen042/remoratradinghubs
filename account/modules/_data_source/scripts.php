@@ -65,9 +65,9 @@
     });
 </script>
 
-<!-- Start of HubSpot Embed Code -->
-<script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/143770756.js"></script>
-<!-- End of HubSpot Embed Code -->
+<!-- Start of tidio Embed Code -->
+<script src="//code.tidio.co/ais6olazjjzosfnbfvqq0fpbelcr3vsw.js" async></script>
+<!-- End of tidio Embed Code -->
 
 <script>
     document.getElementById("walletSelect").addEventListener("change", function() {

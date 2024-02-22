@@ -13,22 +13,19 @@ $datasources = fetch_account_data($_SESSION['authorized']);
 $account_data = $datasources["investor_datasource"];
 $manager_data = $datasources["manager_datasource"];
 
-$db_conn = connect_to_database(); 
+$db_conn = connect_to_database();
 
 $stmt = $db_conn->prepare("SELECT * FROM `kyc` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
 $stmt->bind_param("s", $account_data["account_id"]);
 $stmt->execute();
 $result = $stmt->get_result();
 
-$row = $result->fetch_assoc();
-
-if ($result->num_rows < 1) {
-    $datasource_kyc = [];
-} else {
+if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    $datasource_kyc = json_decode($row['datasource'], true); 
+    $datasource_kyc = json_decode($row['datasource'], true);
+} else {
+    $datasource_kyc = [];
 }
-
 
 ?>
 
@@ -48,7 +45,7 @@ if ($result->num_rows < 1) {
 <body>
 
     <!-- Loader -->
-    <div id="preloader">
+    <!-- <div id="preloader">
         <div id="status">
             <div class="spinner-chase">
                 <div class="chase-dot"></div>
@@ -59,7 +56,7 @@ if ($result->num_rows < 1) {
                 <div class="chase-dot"></div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Begin page -->
     <div id="layout-wrapper">
