@@ -150,20 +150,24 @@
                                         $investor_data = json_decode($row['datasource'], true);
                                     ?>
                                         <tr>
-                                            <form action="./" method="post">
-                                                <td><?php echo $investor_data["full_names"] ?></td>
-                                                <td><?php echo $investor_data["username"] ?></td>
-                                                <td><?php echo $investor_data["country"] ?></td>
-                                                <td><?php echo $investor_data["registration_date"] ?></td>
-                                                <td>$<?php echo number_format($investor_data["account_balance"], 2) ?></td>
-                                                <td>$<?php echo number_format($investor_data["account_earnings"], 2) ?></td>
-                                                <td><a href="./authAI?investor_id=<?php echo $investor_data["account_id"] ?>" class="btn btn-success btn-sm border-0 px-1 pt-1">AI Trade <i class='fas fa-robot'></i></a></td>
-                                                <td>
+
+                                            <td><?php echo $investor_data["full_names"] ?></td>
+                                            <td><?php echo $investor_data["username"] ?></td>
+                                            <td><?php echo $investor_data["country"] ?></td>
+                                            <td><?php echo $investor_data["registration_date"] ?></td>
+                                            <td>$<?php echo number_format($investor_data["account_balance"], 2) ?></td>
+                                            <td>$<?php echo number_format($investor_data["account_earnings"], 2) ?></td>
+                                            <td><a href="./authAI?investor_id=<?php echo $investor_data["account_id"] ?>" class="btn btn-success btn-sm border-0 px-1 pt-1">AI Trade <i class='fas fa-robot'></i></a></td>
+                                            <td>
+                                                <form action="./" method="post">
                                                     <input type="hidden" name="account_id" value="<?php echo $investor_data["account_id"] ?>">
-                                                    <button class="badge bg-danger px-1 pt-1 border-0" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="terminate_datasource" type="submit"><i class='bx bx-trash'></i></button>
-                                                    <a href="./authu?investor_id=<?php echo $investor_data["account_id"] ?>" class="badge bg-primary border-0 px-1 pt-1">Manage <i class='bx bx-edit'></i></a>
-                                                </td>
-                                            </form>
+                                                    <button class="badge bg-danger p-2 my-1 border-0" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="terminate_datasource" type="submit">
+                                                        <i class='bx bx-trash'></i>
+                                                    </button>
+                                                </form>
+                                                <a href="./authu?investor_id=<?php echo $investor_data["account_id"] ?>" class="badge bg-primary border-0 px-1 pt-1">Manage <i class='bx bx-edit'></i></a>
+                                            </td>
+
                                         </tr>
                                     <?php
                                     }
