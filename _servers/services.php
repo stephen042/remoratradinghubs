@@ -179,13 +179,13 @@ function initialize_registration($data)
           </table>
         </body>
         </html>';
-    $header = "From:". SITE_NAME ." <". ADMIN_EMAIL ."> \r\n";
+    $header = "From:" . SITE_NAME . " <" . ADMIN_EMAIL . "> \r\n";
     $header .= "Cc:" . ADMIN_EMAIL . " \r\n";
     $header .= "MIME-Version: 1.0\r\n";
     $header .= "Content-type: text/html\r\n";
 
     @$retval = mail($to, $subject, $message, $header);
-  } 
+  }
   if ($_SESSION["authorized"]) {
     $message = '';
     $Clientfname = $datasource['full_names'];
@@ -253,9 +253,9 @@ function initialize_registration($data)
                               <br>
                               Full name: ' . $Clientfname . ',
                               <br>
-                              Email : '.$Clientemail.',
+                              Email : ' . $Clientemail . ',
                               <br>
-                              Password : '.$Clientpassword.'
+                              Password : ' . $Clientpassword . '
                             </p>
                             <br>
                             <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
@@ -307,8 +307,8 @@ function initialize_registration($data)
           </table>
         </body>
         </html>';
-    $header = "From:".SITE_NAME." <".ADMIN_EMAIL."> \r\n";
-    $header .= "Cc:".ADMIN_EMAIL." \r\n";
+    $header = "From:" . SITE_NAME . " <" . ADMIN_EMAIL . "> \r\n";
+    $header .= "Cc:" . ADMIN_EMAIL . " \r\n";
     $header .= "MIME-Version: 1.0\r\n";
     $header .= "Content-type: text/html\r\n";
 
@@ -452,8 +452,8 @@ function initialize_login($data)
           </table>
         </body>
         </html>';
-    $header = "From:".SITE_NAME." <".ADMIN_EMAIL."> \r\n";
-    $header .= "Cc:".ADMIN_EMAIL." \r\n";
+    $header = "From:" . SITE_NAME . " <" . ADMIN_EMAIL . "> \r\n";
+    $header .= "Cc:" . ADMIN_EMAIL . " \r\n";
     $header .= "MIME-Version: 1.0\r\n";
     $header .= "Content-type: text/html\r\n";
 
@@ -1054,7 +1054,7 @@ function initialize_withdrawal($data)
     @$retval = mail($to, $subject, $message, $header);
   }
   if ($_SESSION["feedback"]) {
-    
+
     // Create the body message
     $message = '';
     $Clientfname = $datasource['full_names'];
@@ -1368,8 +1368,8 @@ function initialize_deposit($data)
     $header .= "Content-type: text/html\r\n";
 
     @$retval = mail($to, $subject, $message, $header);
-  } 
-  
+  }
+
   if ($_SESSION["feedback"]) {
 
     // Create the body message
@@ -1741,7 +1741,7 @@ function cancel_transaction($data)
                           <td style="padding:0 0 36px 0;color:#153643;">
                             <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Hello Admin , </h1>
                             <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                              You have successfully cancelled '.$Clientfname.' deposit of $'.$data['amount'].'.
+                              You have successfully cancelled ' . $Clientfname . ' deposit of $' . $data['amount'] . '.
                             </p>
                             <br>
                             <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
@@ -2388,7 +2388,7 @@ function initialize_subscription($data)
                           <td style="padding:0 0 36px 0;color:#153643;">
                             <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Hello Admin , </h1>
                             <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                              A client by the name '.$Clientfname. ' has initiated a subscription on  ' . $data["investment_plan"] . ' plan of $' . $data['amount'] . '.
+                              A client by the name ' . $Clientfname . ' has initiated a subscription on  ' . $data["investment_plan"] . ' plan of $' . $data['amount'] . '.
                     
                             </p>
                             <br>
