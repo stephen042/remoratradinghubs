@@ -65,9 +65,7 @@
     });
 </script>
 
-<!-- Start of tidio Embed Code -->
-<script src="//code.tidio.co/ais6olazjjzosfnbfvqq0fpbelcr3vsw.js" async></script>
-<!-- End of tidio Embed Code -->
+
 
 <script>
     document.getElementById("walletSelect").addEventListener("change", function() {

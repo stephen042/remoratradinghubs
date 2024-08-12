@@ -892,8 +892,7 @@
     <!-- Require transaction alerts module -->
     <?php require "./_partials/transaction_alerts.php" ?>
 
-    <!-- livechat -->
-    <script src="//code.tidio.co/ais6olazjjzosfnbfvqq0fpbelcr3vsw.js" async></script>
+
 
 </body>
 

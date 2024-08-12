@@ -42,7 +42,7 @@
                         $row = 1;
 
                         $stmt = $db_conn->prepare("SELECT * FROM `trades` ");
-                        $stmt->execute();
+                        $stmt->execute();   
                         $result = $stmt->get_result();
 
                         while ($rows = mysqli_fetch_array($result)) {
