@@ -24,20 +24,12 @@
 
 function connect_to_database()
 {
-    // $conn_details = [
-    //     "host" => "localhost",
-    //     "user" => "root",
-    //     "password" => "",
-    //     "database" => "s-code",
-    //     "port" => "3308"
-    // ];
-
     $conn_details = [
         "host" => "localhost",
-        "user" => "removknv_santusfx",
-        "password" => "removknv_santusfx",
-        "database" => "removknv_santusfx",
-        "port" => "3306"
+        "user" => "root",
+        "password" => "",
+        "database" => "s-code",
+        "port" => "3308"
     ];
 
     $connection = new mysqli(
