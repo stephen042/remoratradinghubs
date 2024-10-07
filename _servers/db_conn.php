@@ -4,9 +4,9 @@ function connect_to_database()
 {
     $conn_details = [
         "host" => "localhost",
-        "user" => "removknv_santusfx",
-        "password" => "removknv_santusfx",
-        "database" => "removknv_santusfx",
+        "user" => "remosine_santusfx",
+        "password" => "remosine_santusfx",
+        "database" => "remosine_santusfx",
         "port" => "3308"
     ];
 
