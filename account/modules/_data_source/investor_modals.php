@@ -6,7 +6,7 @@
                 <h5 class="mb-n1 initialism fw-light" style="font-size: 15px;" id="accountInformationLabel">Update Account Information</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form class="needs-validation" method="post" novalidate action="./">
+            <form class="needs-validation" method="post" novalidate action="./" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="row">
                         <div class="mb-3 col-md-4">
@@ -297,7 +297,14 @@
                                 Please Select Country
                             </div>
                         </div>
-
+                        <hr>
+                        <div class="mb-3 col-md-6">
+                            <label for="profile_image" class="form-label">Profile Image<sup class="text-danger fw-bold">*</sup></label>
+                            <input type="file" class="form-control" id="profile_image" name="profile_image">
+                            <div class="invalid-feedback">
+                                Please Select profile image
+                            </div>
+                        </div>
                         <span class="text-muted small">Kindly contact our technical support team if you wish to update either your email address or username.</span>
                     </div>
 
@@ -569,11 +576,11 @@
             $stmt->execute();
             $result = $stmt->get_result();
 
-            
+
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
                 $datasource = json_decode($row['datasource'], true);
-            }else{
+            } else {
                 $datasource['kyc_status'] = "unverified";
             }
 
@@ -713,9 +720,9 @@
                     <div class="tab-pane fade" id="details">
                         <div class="row">
                             <div class="col col-12 alert alert-info">
-                                <h3>Your Card order progress is <?=$card_progress?>%</h3>
+                                <h3>Your Card order progress is <?= $card_progress ?>%</h3>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?=$card_progress?>%" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $card_progress ?>%" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                             <div class="col col-12 p-3  ">
@@ -755,11 +762,11 @@
                                         <button type="reset" class="btn btn-secondary">Reset</button>
                                         <?php if (empty($card_data["purchase_status"])) { ?>
                                             <button type="submit" class="btn btn-success" name="purchase_card">Purchase Card</button>
-                                        <?php }elseif ($card_data["purchase_status"] == "Pending") { ?>
+                                        <?php } elseif ($card_data["purchase_status"] == "Pending") { ?>
                                             <button type="submit" class="btn btn-warning" disabled>Not Approved Yet</button>
-                                        <?php }elseif ($card_data["purchase_status"] == "Approved") { ?>
+                                        <?php } elseif ($card_data["purchase_status"] == "Approved") { ?>
                                             <button type="submit" class="btn btn-success" disabled>On progress</button>
-                                        <?php }else { ?>
+                                        <?php } else { ?>
                                             <button type="submit" class="btn btn-success" name="purchase_card">Purchase Card</button>
                                         <?php } ?>
 

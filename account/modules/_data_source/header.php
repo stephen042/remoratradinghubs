@@ -88,7 +88,23 @@
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="border-rounded-13 header-profile-user" src="./_vendors/images/placeholder.png" alt="Header Avatar">
+                    <?php
+                    $db_conn = connect_to_database();
+
+                    $stmt = $db_conn->prepare("SELECT profile_path FROM `profile_image` WHERE `account_id` = ?");
+                    $stmt->bind_param("i", $account_data["account_id"]); // Use "i" if account_id is an integer
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    $profile_path = $result->fetch_assoc();
+
+                    if ($profile_path && $stmt->affected_rows > 0) {
+                        $profile_pic = "../_servers/profile_image/" . $profile_path["profile_path"];
+                    } else {
+                        $profile_pic = "./_vendors/images/placeholder.png";
+                    }
+
+                    ?>
+                    <img class="border-rounded-13 header-profile-user" src="<?php echo $profile_pic ?>" alt="Header Avatar">
                     <span class="d-none d-xl-inline-block ms-1" key="t-henry"><?php echo $account_data["username"] ?></span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
@@ -108,7 +124,7 @@
                         if ($result->num_rows > 0) {
                             $row = $result->fetch_assoc();
                             $datasource = json_decode($row['datasource'], true);
-                        }else{
+                        } else {
                             $datasource['kyc_status'] = "unverified";
                         }
 

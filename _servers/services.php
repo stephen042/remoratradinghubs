@@ -521,23 +521,98 @@ function update_account_information($data)
     }
   }
 
+  $full_names = $datasource['full_names'];
+
+  if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] == 0) {
+
+    $profile_image = $_FILES['profile_image'];
+    $payment_proof_size_limit = 10 * 1024 * 1024; // 10 MB size limit
+
+    // Check if the uploaded file exceeds the size limit
+    if ($profile_image['size'] > $payment_proof_size_limit) {
+      $_SESSION["feedback"] = "The uploaded file exceeds the size limit of 10 MB. Please choose a smaller file.";
+      return false;
+    }
+
+    $profile_image_name = bin2hex(random_bytes(20)) . "." . pathinfo($profile_image['name'], PATHINFO_EXTENSION);
+    $profile_image_path = "../_servers/profile_image/" . $profile_image_name;
+
+   
+    $account_id = $data['account_id']; // Get the account_id from $data
+
+    // Check if there's an existing profile image in the database
+    $sql_check = "SELECT profile_path FROM profile_image WHERE account_id = ?";
+    $stmt_check = $db_conn->prepare($sql_check);
+    $stmt_check->bind_param("s", $account_id);
+    $stmt_check->execute();
+    $result_check = $stmt_check->get_result();
+
+    if ($result_check->num_rows > 0) {
+      // There is an existing image, fetch its path
+      $old_image = $result_check->fetch_assoc();
+      $old_image_path = "../_servers/profile_image/" . $old_image['profile_path'];
+
+      // Delete old image from server
+      if (file_exists($old_image_path)) {
+        unlink($old_image_path); // Remove old image file
+      }
+
+      // Optionally delete the old image record from the database
+      $sql_delete = "DELETE FROM profile_image WHERE account_id = ?";
+      $stmt_delete = $db_conn->prepare($sql_delete);
+      $stmt_delete->bind_param("s", $account_id);
+      $stmt_delete->execute();
+    }
+
+    // Now move the uploaded new image to the server
+    $save_image = move_uploaded_file($profile_image['tmp_name'], $profile_image_path);
+
+    if ($save_image) {
+      // Insert the new profile image into the database
+      $sql_insert = "
+            INSERT INTO profile_image (account_id, profile_path)
+            VALUES (?, ?)
+            ON DUPLICATE KEY UPDATE
+                profile_path = VALUES(profile_path);
+        ";
+
+      // Prepare and execute the insert query
+      $stmt_insert = $db_conn->prepare($sql_insert);
+      $stmt_insert->bind_param("ss", $account_id, $profile_image_name);
+      $stmt_insert->execute();
+
+      // Check if the query was successful
+      if ($stmt_insert->affected_rows > 0) {
+        $_SESSION['feedback'] = "Profile image updated successfully!";
+      } else {
+        $_SESSION['feedback'] = "Failed to update profile image.";
+      }
+    } else {
+      $_SESSION["feedback"] = "Failed to upload the image.";
+      return false;
+    }
+  }
+
   $datasource = json_encode($datasource);
 
   $stmt = $db_conn->prepare("UPDATE `accounts` SET `datasource` = ? WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
   $stmt->bind_param("ss", $datasource, $data["account_id"]);
   $stmt->execute();
 
-  if ($stmt->affected_rows <= 0) {
-    $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
-    return false;
+  if (!isset($_FILES['profile_image'])) {
+    if ($stmt->affected_rows <= 0 and $_FILES['profile_image']['error'] == 0) {
+      $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
+      return false;
+    }
   }
 
-  if ($_SESSION["feedback"]) {
+
+  if ($stmt->affected_rows > 0) {
 
     $noft_id = bin2hex(random_bytes(20));
     $account_id = $data["account_id"];
     $noft_category = 'Account Information Update';
-    $noft_msg = "Hello " . $datasource['full_names'] . " We're pleased to inform you that your account information has been successfully modified and updated in our system.";
+    $noft_msg = "Hello " . $full_names . " We're pleased to inform you that your account information has been successfully modified and updated in our system.";
     $noft_status = 'Active';
 
     $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
@@ -546,7 +621,9 @@ function update_account_information($data)
   }
 
   $_SESSION["feedback"] = "We're pleased to inform you that your account information has been successfully modified and updated in our system.";
-  return true;
+  header("Location: " . $_SERVER['REQUEST_URI']);  // Redirects to the same page to refresh
+  exit();  // Ensure no further code is executed after the redirect
+
 }
 
 function update_account_security($data)
