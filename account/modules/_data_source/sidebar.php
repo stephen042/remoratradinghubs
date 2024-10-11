@@ -110,7 +110,7 @@
                         </a>
                     </li>
 
-                    <li class="menu-title" key="t-apps">Utility Overview</li>
+                    <li class="menu-title" key="t-apps">Card Utility Overview</li>
 
                     <li>
                         <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#orderModal" class="waves-effect">
@@ -118,7 +118,20 @@
                             <span key="t-chat">Card Order</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#fundCard" class="waves-effect">
+                            <i class="fas fa-plus"></i>
+                            <span key="t-chat">Fund Card</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#orderModal" class="waves-effect">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span key="t-chat">Transfer to Card</span>
+                        </a>
+                    </li>
 
+                    <li class="menu-title" key="t-apps">Security Overview</li>
                     <li>
                         <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#KycVerification" class="waves-effect">
                             <i class="fa fa-id-card"></i>

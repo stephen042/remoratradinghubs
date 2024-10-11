@@ -92,7 +92,7 @@
                     $db_conn = connect_to_database();
 
                     $stmt = $db_conn->prepare("SELECT profile_path FROM `profile_image` WHERE `account_id` = ?");
-                    $stmt->bind_param("i", $account_data["account_id"]); // Use "i" if account_id is an integer
+                    $stmt->bind_param("s", $account_data["account_id"]); // Use "i" if account_id is an integer
                     $stmt->execute();
                     $result = $stmt->get_result();
                     $profile_path = $result->fetch_assoc();

@@ -552,8 +552,85 @@
                 </div>
                 <div class="modal-footer py-2 d-flex">
                     <input type="hidden" name="account_id" value="<?php echo $account_data["account_id"] ?>">
+                    <input type="hidden" name="category" value="Credit TXN">
                     <button type="reset" class="btn" data-bs-dismiss="modal" style="border: 1px dashed #343a40;">Cancel <i class='bx bx-reset'></i></button>
                     <button type="submit" class="ms-auto btn btn-primary" name="initialize_deposit">Fund Account <i class='bx bx-save'></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Static Backdrop Modal -->
+<div class="modal fade" id="fundCard" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="fundAccountLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header py-3">
+                <h5 class="mb-n1 initialism fw-light" style="font-size: 15px;" id="fundAccountLabel">Process Card Funding</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="./" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label for="desired_amount" class="form-label">Desired Amount</label>
+                            <input type="number" class="form-control text-light border-light-primary" required name="amount" placeholder="e.g. $500.00" id="desired_amount">
+                        </div>
+
+                        <div class="mb-3 col-md-4">
+                            <label for="obtained_transaction_token" class="form-label"> Payment Medium</label>
+                            <select id="walletSelectCard" class="form-select border-light-primary" required name="ewallet">
+                                <option selected value="">-- Select Wallet --</option>
+                                <option value="Bitcoin [BTC]">Bitcoin [BTC] </option>
+                                <option value="Ethereum [ETH]">Ethereum [ETH] </option>
+                                <option value="Tether [USDT]">Tether [USDT]</option>
+                                <option value="Dogecoin [DOGE]">Dogecoin [DOGE]</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3 col-md-4">
+                            <label for="payment_proof" class="form-label">Payment Proof</label>
+                            <input type="file" class="form-control border-light-primary" required name="payment_proof" id="payment_proof">
+                        </div>
+
+                        <div class="mb-0 col-md-12">
+                            <div data-wallet="Bitcoin [BTC]" class="d-none">
+                                <label for="exampleFormControlInput1" class="form-label"> Send Bitcoin To The Address Below</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control text-muted border-light-primary" readonly value="<?php echo $manager_data["bitcoin_wallet_address"] ?>" placeholder="This wallet currently unavailable..." id="admin_bitcoin_wallet_address">
+                                    <button class="btn border-light-primary copy-button" data-copytarget="admin_bitcoin_wallet_address" type="button"><i class='bx bx-copy-alt'></i></button>
+                                </div>
+                            </div>
+                            <div data-wallet="Ethereum [ETH]" class="d-none">
+                                <label for="exampleFormControlInput1" class="form-label"> Send Ethereum To The Address Below</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control text-muted border-light-primary" readonly value="<?php echo $manager_data["ethereum_wallet_address"] ?>" placeholder="This wallet currently unavailable..." id="admin_ethereum_wallet_address">
+                                    <button class="btn border-light-primary copy-button" data-copytarget="admin_ethereum_wallet_address" type="button"><i class='bx bx-copy-alt'></i></button>
+                                </div>
+                            </div>
+                            <div data-wallet="Tether [USDT]" class="d-none">
+                                <label for="exampleFormControlInput1" class="form-label"> Send Tether To The Address Below</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control text-muted border-light-primary" readonly value="<?php echo $manager_data["tether_wallet_address"] ?>" placeholder="This wallet currently unavailable..." id="admin_tether_wallet_address">
+                                    <button class="btn border-light-primary copy-button" data-copytarget="admin_tether_wallet_address" type="button"><i class='bx bx-copy-alt'></i></button>
+                                </div>
+                            </div>
+                            <div data-wallet="Dogecoin [DOGE]" class="d-none">
+                                <label for="exampleFormControlInput1" class="form-label"> Send Dogecoin To The Address Below</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control text-muted border-light-primary" readonly value="<?php echo $manager_data["dogecoin_wallet_address"] ?>" placeholder="This wallet currently unavailable..." id="admin_dogecoin_wallet_address">
+                                    <button class="btn border-light-primary copy-button" data-copytarget="admin_dogecoin_wallet_address" type="button"><i class='bx bx-copy-alt'></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer py-2 d-flex">
+                    <input type="hidden" name="account_id" value="<?php echo $account_data["account_id"] ?>">
+                    <input type="hidden" name="category" value="Card Credit TXN">
+                    <button type="reset" class="btn" data-bs-dismiss="modal" style="border: 1px dashed #343a40;">Cancel <i class='bx bx-reset'></i></button>
+                    <button type="submit" class="ms-auto btn btn-primary" name="initialize_deposit">Fund Card <i class='bx bx-save'></i></button>
                 </div>
             </form>
         </div>

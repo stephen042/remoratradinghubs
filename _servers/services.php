@@ -537,7 +537,7 @@ function update_account_information($data)
     $profile_image_name = bin2hex(random_bytes(20)) . "." . pathinfo($profile_image['name'], PATHINFO_EXTENSION);
     $profile_image_path = "../_servers/profile_image/" . $profile_image_name;
 
-   
+
     $account_id = $data['account_id']; // Get the account_id from $data
 
     // Check if there's an existing profile image in the database
@@ -811,6 +811,345 @@ function manually_credit_earnings($data)
 
   $_SESSION["feedback"] = "Investor's account has been successfully updated!";
   return true;
+}
+
+function manually_credit_card($data)
+{
+  $db_conn = connect_to_database();
+
+  $amount = $data["amount"];
+
+  $stmt = $db_conn->prepare("SELECT account_id FROM `card_balance` WHERE account_id = ?");
+  $stmt->bind_param("s", $data["account_id"]);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  if ($result->num_rows > 0) {
+    $stmt = $db_conn->prepare("UPDATE `card_balance` SET `amount` = amount + ? WHERE account_id = ?");
+    $stmt->bind_param("ss", $amount, $data["account_id"]);
+    $stmt->execute();
+    if ($stmt->affected_rows <= 0) {
+      $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
+      return false;
+    } else {
+      $_SESSION["feedback"] = "Investor's account has been successfully updated!";
+      return true;
+    }
+  }
+}
+
+function manually_debit_card($data)
+{
+  $db_conn = connect_to_database();
+
+  $amount = $data["amount"];
+
+  $stmt = $db_conn->prepare("SELECT account_id FROM `card_balance` WHERE account_id = ?");
+  $stmt->bind_param("s", $data["account_id"]);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  if ($result->num_rows > 0) {
+    $stmt = $db_conn->prepare("UPDATE `card_balance` SET `amount` = amount - ? WHERE account_id = ?");
+    $stmt->bind_param("ss", $amount, $data["account_id"]);
+    $stmt->execute();
+    if ($stmt->affected_rows <= 0) {
+      $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
+      return false;
+    } else {
+      $_SESSION["feedback"] = "Investor's account has been successfully updated!";
+      return true;
+    }
+  }
+}
+
+function transfer_funds_to_credit_card($data)
+{
+  $db_conn = connect_to_database();
+
+  $amount = $data["amount"];
+
+  $stmt = $db_conn->prepare("SELECT * FROM `accounts` WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+  $stmt->bind_param("s", $data["account_id"]);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  if ($result->num_rows <= 0) {
+    $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
+    return false;
+  }
+
+  $row = mysqli_fetch_assoc($result);
+  $datasource = json_decode($row["datasource"], true);
+
+  $fname = $datasource['full_names'];
+  $email = $datasource['email_address'];
+
+  $datasource["account_earnings"] -= $data["amount"];
+  $datasource = json_encode($datasource);
+
+  $stmt = $db_conn->prepare("UPDATE `accounts` SET `datasource` = ? WHERE JSON_EXTRACT(`datasource`, '$.account_id') = ?");
+  $stmt->bind_param("ss", $datasource, $data["account_id"]);
+  $stmt->execute();
+
+  if ($stmt->affected_rows <= 0) {
+    $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
+    return false;
+  }
+
+  $stmt = $db_conn->prepare("UPDATE `card_balance` SET `amount` = amount + ? WHERE account_id = ?");
+  $stmt->bind_param("ss", $amount, $data["account_id"]);
+  $stmt->execute();
+  $_SESSION["feedback"] = "Your Card transfer funding was successful";
+
+  if ($_SESSION["feedback"]) {
+
+    $noft_id = bin2hex(random_bytes(20));
+    $account_id = $data["account_id"];
+    $noft_category = 'CARD FUNDING';
+    $noft_msg = "Hello " .$fname. " We're pleased to inform you that your Card transfer funding was successful";
+    $noft_status = 'Active';
+
+    $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $noft_id, $account_id, $noft_category, $noft_msg, $noft_status);
+    $stmt->execute();
+  }
+
+  if ($_SESSION["feedback"]) {
+
+    // mail function
+    $message = '';
+
+    // Send mail to user with verification here
+    $to = $email;
+    $subject = "CARD FUNDING";
+
+    // Create the body message
+    $message .= '<!DOCTYPE html>
+                <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+                <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
+                  <meta name="x-apple-disable-message-reformatting">
+                  <title></title>
+                  <!--[if mso]>
+                  <noscript>
+                    <xml>
+                      <o:OfficeDocumentSettings>
+                        <o:PixelsPerInch>96</o:PixelsPerInch>
+                      </o:OfficeDocumentSettings>
+                    </xml>
+                  </noscript>
+                  <![endif]-->
+                  <style>
+                    table, td, div, h1, p {font-family: Arial, sans-serif;}
+                    button{
+                        font: inherit;
+                        background-color: #FF7A59;
+                        border: none;
+                        padding: 10px;
+                        text-transform: uppercase;
+                        letter-spacing: 2px;
+                        font-weight: 700; 
+                        color: white;
+                        border-radius: 5px; 
+                        box-shadow: 1px 2px #d94c53;
+                      }
+                  </style>
+                </head>
+                <body style="margin:0;padding:0;">
+                  <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
+                    <tr>
+                      <td align="center" style="padding:0;">
+                        <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
+                          <tr>
+                                <td align="center" style="padding:20px 0 20px 0;background:#70bbd9; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;font-size: 20px;margin: 10px;">
+                                    <h1 style="margin:24px">Remoratradinghubs</h1> 
+                                </td>
+                          </tr>
+                          <tr style="background-color: #eeeeee;">
+                            <td style="padding:36px 30px 42px 30px;">
+                              <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+                                <tr>
+                                  <td style="padding:0 0 36px 0;color:#153643;">
+                                    <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Dear ' . $fname . ' , </h1>
+                                    <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                      Your card funding of ' . $data["amount"] . ' from your earnings wallet was successful. Your card will be credited shortly .
+                                    </p>
+                                    <br>
+                                    <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                    <br>
+                                    <i><b>Thanks for choosing us</b></i> 
+                                    </p>
+                                    <p style="margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                        <a href="https://remoratradinghubs.com/account" style="color:#ee4c50;text-decoration:underline;"> 
+                                            <button> 
+                                                Click to Login
+                                            </button>  
+                                        </a>
+                                    </p>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="padding:30px;background:#ee4c50;">
+                              <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
+                                <tr>
+                                  <td style="padding:0;width:50%;" align="left">
+                                    <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
+                                      &reg; 2024 copyright remoratradinghubs<br/><a href="https://remoratradinghubs.com" style="color:#ffffff;text-decoration:underline;">visit site</a>
+                                    </p>
+                                  </td>
+                                  <td style="padding:0;width:50%;" align="right">
+                                    <table role="presentation" style="border-collapse:collapse;border:0;border-spacing:0;">
+                                      <tr>
+                                        <td style="padding:0 0 0 10px;width:38px;">
+                                          <a href="http://www.twitter.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/tw_1.png" alt="Twitter" width="38" style="height:auto;display:block;border:0;" /></a>
+                                        </td>
+                                        <td style="padding:0 0 0 10px;width:38px;">
+                                          <a href="http://www.facebook.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/fb_1.png" alt="Facebook" width="38" style="height:auto;display:block;border:0;" /></a>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </body>
+                </html>';
+    $header = "From:Remoratradinghubs <support@remoratradinghubs.com> \r\n";
+    $header .= "Cc:support@remoratradinghubs.com \r\n";
+    $header .= "MIME-Version: 1.0\r\n";
+    $header .= "Content-type: text/html\r\n";
+
+    @$retval = mail($to, $subject, $message, $header);
+  }
+  if ($_SESSION["feedback"]) {
+
+    // Create the body message
+    $message = '';
+    $Clientfname = $fname;
+    $adminEmail = ADMIN_EMAIL;
+
+    // Send mail to user with verification here
+    $to = $adminEmail;
+    $subject = "Customer's Card funding";
+
+    $message .= '<!DOCTYPE html>
+        <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width,initial-scale=1">
+          <meta name="x-apple-disable-message-reformatting">
+          <title></title>
+          <!--[if mso]>
+          <noscript>
+            <xml>
+              <o:OfficeDocumentSettings>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+              </o:OfficeDocumentSettings>
+            </xml>
+          </noscript>
+          <![endif]-->
+          <style>
+            table, td, div, h1, p {font-family: Arial, sans-serif;}
+            button{
+                font: inherit;
+                background-color: #FF7A59;
+                border: none;
+                padding: 10px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-weight: 700; 
+                color: white;
+                border-radius: 5px; 
+                box-shadow: 1px 2px #d94c53;
+              }
+          </style>
+        </head>
+        <body style="margin:0;padding:0;">
+          <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
+            <tr>
+              <td align="center" style="padding:0;">
+                <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
+                  <tr>
+                        <td align="center" style="padding:20px 0 20px 0;background:#70bbd9; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;font-size: 20px;margin: 10px;">
+                            <h1 style="margin:24px">Remoratradinghubs</h1> 
+                        </td>
+                  </tr>
+                  <tr style="background-color: #eeeeee;">
+                    <td style="padding:36px 30px 42px 30px;">
+                      <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+                        <tr>
+                          <td style="padding:0 0 36px 0;color:#153643;">
+                            <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Hello Admin , </h1>
+                            <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                              A client with the name ' . $Clientfname . ' have successfully funded their card through earnings with the sum of  $' . $data["amount"] . ' on ' . date('Y-m-d h:i A') . ' .
+                            </p>
+                            <br>
+                            <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                           Welcome aboard! We are thrilled to have you as part of our Remoratradinghubs community.
+                           <br>
+                           We are here to make your trading experience enjoyable and seamless.
+                              
+                            </p>
+                            <p style="margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
+                                <a href="mailto:support@remoratradinghubs.com" style="color:#ee4c50;text-decoration:underline;"> 
+                                    <button> 
+                                        Click to mail support
+                                    </button>  
+                                </a>
+                            </p>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:30px;background:#ee4c50;">
+                      <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
+                        <tr>
+                          <td style="padding:0;width:50%;" align="left">
+                            <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
+                              &reg; 2024 copyright remoratradinghubs<br/><a href="https://remoratradinghubs.com" style="color:#ffffff;text-decoration:underline;">visit site</a>
+                            </p>
+                          </td>
+                          <td style="padding:0;width:50%;" align="right">
+                            <table role="presentation" style="border-collapse:collapse;border:0;border-spacing:0;">
+                              <tr>
+                                <td style="padding:0 0 0 10px;width:38px;">
+                                  <a href="http://www.twitter.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/tw_1.png" alt="Twitter" width="38" style="height:auto;display:block;border:0;" /></a>
+                                </td>
+                                <td style="padding:0 0 0 10px;width:38px;">
+                                  <a href="http://www.facebook.com/" style="color:#ffffff;"><img src="https://assets.codepen.io/210284/fb_1.png" alt="Facebook" width="38" style="height:auto;display:block;border:0;" /></a>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>';
+    $header = "From:" . SITE_NAME . " <" . ADMIN_EMAIL . "> \r\n";
+    $header .= "Cc:" . ADMIN_EMAIL . " \r\n";
+    $header .= "MIME-Version: 1.0\r\n";
+    $header .= "Content-type: text/html\r\n";
+
+    @$retval = mail($to, $subject, $message, $header);
+  }
 }
 
 function manually_debit_earnings($data)
@@ -1289,7 +1628,7 @@ function initialize_deposit($data)
     "transaction_date" => date("jS M Y"),
     "transaction_status" => "Pending",
     "amount" => $data["amount"],
-    "category" => "Credit TXN",
+    "category" => $data["category"],
     "proof_img" => "-- / --",
     "ewallet" => $data["ewallet"]
   ];
@@ -1312,15 +1651,17 @@ function initialize_deposit($data)
     return false;
   }
 
-  $_SESSION["feedback"] = "Your deposit request has been successfully initiated and is currently under review. Your funds will be arriving in your account balance shortly.";
+  $_SESSION["feedback"] = "Your request has been successfully initiated and is currently under review. Your funds will be arriving shortly.";
 
 
   if ($_SESSION["feedback"]) {
 
+    $creditType = ($data["Credit TXN"]) ? "Deposit" : "Card Deposit";
+
     $noft_id = bin2hex(random_bytes(20));
     $account_id = $data["account_id"];
-    $noft_category = 'DEPOSIT REQUEST NOTIFICATION';
-    $noft_msg = "Hello " . $datasource['full_names'] . " We're pleased to that your Deposit request has been successfully initiated and is currently under review. Your funds will be arriving in your wallet shortly.";
+    $noft_category = "$creditType REQUEST NOTIFICATION";
+    $noft_msg = "Hello " . $datasource['full_names'] . " We're pleased to that your $creditType request has been successfully initiated and is currently under review. Your funds will be arriving in your wallet shortly.";
     $noft_status = 'Active';
 
     $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
@@ -1337,7 +1678,7 @@ function initialize_deposit($data)
 
     // Send mail to user with verification here
     $to = $email;
-    $subject = "DEPOSIT NOTIFICATION";
+    $subject = "$creditType NOTIFICATION";
 
     // Create the body message
     $message .= '<!DOCTYPE html>
@@ -1389,7 +1730,7 @@ function initialize_deposit($data)
                                   <td style="padding:0 0 36px 0;color:#153643;">
                                     <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Dear ' . $fname . ' , </h1>
                                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                                      Your Deposit Request of $' . $data["amount"] . ' has been submitted, your account will be credited once it is confirmed .
+                                      Your ' . $creditType . ' Request of $' . $data["amount"] . ' has been submitted, you will be credited once it is confirmed .
                                     </p>
                                     <br>
                                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
@@ -1456,7 +1797,7 @@ function initialize_deposit($data)
 
     // Send mail to user with verification here
     $to = $adminEmail;
-    $subject = "A NEW DEPOSIT NOTIFICATION ";
+    $subject = "A NEW $creditType NOTIFICATION ";
 
     $message .= '<!DOCTYPE html>
         <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -1507,7 +1848,7 @@ function initialize_deposit($data)
                           <td style="padding:0 0 36px 0;color:#153643;">
                             <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Hello Admin , </h1>
                             <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                              A new client with the name ' . $Clientfname . ' have successfully initiated a Deposit of  $' . $data["amount"] . ' on ' . date('Y-m-d h:i A') . ' .
+                              A new client with the name ' . $Clientfname . ' have successfully initiated a ' . $creditType . ' of  $' . $data["amount"] . ' on ' . date('Y-m-d h:i A') . ' .
                             </p>
                             <br>
                             <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
@@ -1919,6 +2260,31 @@ function approve_transaction($data)
       $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
       return false;
     }
+  } elseif ($data["category"] == "Card Credit TXN") {
+    $amount = $data["amount"];
+
+    $stmt = $db_conn->prepare("SELECT account_id FROM `card_balance` WHERE account_id = ?");
+    $stmt->bind_param("s", $data["account_id"]);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows <= 0) {
+      $stmt = $db_conn->prepare("INSERT INTO `card_balance` (`account_id`, `amount`) VALUES (?, ?)");
+      $stmt->bind_param("ss", $data["account_id"], $amount);
+      $stmt->execute();
+      if ($stmt->affected_rows <= 0) {
+        $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
+        return false;
+      }
+    } else {
+      $stmt = $db_conn->prepare("UPDATE `card_balance` SET `amount` = amount + ? WHERE account_id = ?");
+      $stmt->bind_param("ss", $amount, $data["account_id"]);
+      $stmt->execute();
+      if ($stmt->affected_rows <= 0) {
+        $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
+        return false;
+      }
+    }
   }
 
   $transaction_status = "Completed";
@@ -1934,13 +2300,14 @@ function approve_transaction($data)
 
   $_SESSION["feedback"] = "Investor's account has been successfully updated!";
 
+  $creditType = ($data["Credit TXN"]) ? "Deposit" : "Card Deposit";
 
   if ($_SESSION["feedback"]) {
 
     $noft_id = bin2hex(random_bytes(20));
     $account_id = $data["account_id"];
-    $noft_category = 'DEPOSIT APPROVE NOTIFICATION';
-    $noft_msg = "Hello " . $datasource['full_names'] . " Your Deposit of $" . $data["amount"] . " has been approved your account is credited already.";
+    $noft_category = " $creditType DEPOSIT APPROVE NOTIFICATION";
+    $noft_msg = "Hello " . $datasource['full_names'] . " Your  $creditType of $" . $data["amount"] . " has been approved your account is credited already.";
     $noft_status = 'Active';
 
     $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
@@ -1957,7 +2324,7 @@ function approve_transaction($data)
 
     // Send mail to user with verification here
     $to = $email;
-    $subject = "DEPOSIT NOTIFICATION";
+    $subject = " $creditType NOTIFICATION";
 
     // Create the body message
     $message .= '<!DOCTYPE html>
@@ -2009,7 +2376,7 @@ function approve_transaction($data)
                                   <td style="padding:0 0 36px 0;color:#153643;">
                                     <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Dear ' . $fname . ' , </h1>
                                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                                      Your Deposit of $' . $data["amount"] . ' has been approved, your account will be credited shortly.
+                                      Your  ' . $creditType . ' of $' . $data["amount"] . ' has been approved, your account will be credited shortly.
                                     </p>
                                     <br>
                                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
@@ -2076,7 +2443,7 @@ function approve_transaction($data)
 
     // Send mail to user with verification here
     $to = $adminEmail;
-    $subject = "DEPOSIT NOTIFICATION ";
+    $subject = " $creditType NOTIFICATION ";
 
     $message .= '<!DOCTYPE html>
         <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -2127,7 +2494,7 @@ function approve_transaction($data)
                           <td style="padding:0 0 36px 0;color:#153643;">
                             <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Hello Admin , </h1>
                             <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                              You have successfully approved ' . $Clientfname . ' Deposit of  $' . $data["amount"] . ' on ' . date('Y-m-d h:i A') . ' .
+                              You have successfully approved ' . $Clientfname . ' ' . $creditType . '  of  $' . $data["amount"] . ' on ' . date('Y-m-d h:i A') . ' .
                               <br>
                               His account will be created right away!!.
                             </p>

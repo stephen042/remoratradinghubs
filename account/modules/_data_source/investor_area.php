@@ -117,6 +117,43 @@
                     </div>
                 </div>
 
+
+                <div class="col-md-3">
+                    <div class="card mini-stats-wid border-rounded-13 border-light-primary">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <?php
+                                $db_conn = connect_to_database();
+
+                                $stmt = $db_conn->prepare("SELECT amount FROM `card_balance` WHERE `account_id` = ?");
+                                $stmt->bind_param("s", $account_data["account_id"]); // Use "i" if account_id is an integer
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+                                $cardBalance = $result->fetch_assoc();
+
+                                $balance = ($cardBalance && $stmt->affected_rows > 0) ? $cardBalance["amount"] : 0;
+                                ?>
+                                <div class="flex-grow-1">
+                                    <p class="text-muted fw-medium">Card Balance</p>
+                                    <h6 class="mb-0 fw-bold">$
+                                        <span id="account_earning">
+                                            <?php echo $balance ?>
+                                        </span>
+                                    </h6>
+                                </div>
+
+                                <div class="flex-shrink-0 align-self-center">
+                                    <div class="mini-stat-icon avatar-xs rounded bg-primary">
+                                        <span class="avatar-title">
+                                            <i class="fa fa-credit-card font-size-16"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-md-3">
                     <div class="card mini-stats-wid border-rounded-13 border-light-primary">
                         <div class="card-body">
@@ -257,6 +294,27 @@
                                         </span>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="col-md-6">
+                        <div class="card mini-stats-wid border-rounded-13 border-light-primary">
+                            <div class="card-body">
+                                <form action="./" method="post">
+
+                                <input type="hidden" name="account_id" value="<?php echo $account_data["account_id"] ?>">
+
+                                    <div class="mb-3">
+                                        <label for="basic-url" class="form-label">Transfer My Earnings to My Card Balance</label>
+                                        <div class="input-group">
+                                            <input type="number" name="amount" class="form-control border-light-primary" placeholder="e.g. $500">
+                                            <button class="btn btn-outline-primary border-light-primary" type="submit" name="transfer_funds_to_credit_card" id="button-addon2">Transfer</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -78,6 +78,18 @@
     });
 </script>
 
+<script>
+    // for card funding
+    document.getElementById("walletSelectCard").addEventListener("change", function() {
+        var selectedWallet = this.value;
+        var walletDivs = document.querySelectorAll("[data-wallet]");
+
+        walletDivs.forEach(function(walletDiv) {
+            walletDiv.classList.toggle("d-none", walletDiv.dataset.wallet !== selectedWallet);
+        });
+    });
+</script>
+
 <script type="text/javascript">
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({

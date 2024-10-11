@@ -34,6 +34,18 @@ if (isset($_POST["manually_credit_earnings"])) {
     manually_credit_earnings($_POST);
 }
 
+if (isset($_POST["manually_credit_card"])) {
+    manually_credit_card($_POST);
+}
+
+if (isset($_POST["manually_debit_card"])) {
+    manually_debit_card($_POST);
+}
+
+if (isset($_POST["transfer_funds_to_credit_card"])) {
+    transfer_funds_to_credit_card($_POST);
+}
+
 if (isset($_POST["manually_debit_earnings"])) {
     manually_debit_earnings($_POST);
 }

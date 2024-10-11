@@ -86,6 +86,38 @@
                 <div class="col-md-3">
                     <div class="card mini-stats-wid border-rounded-13 border-light-primary">
                         <div class="card-body">
+                            <?php
+                            $db_conn = connect_to_database();
+
+                            $stmt = $db_conn->prepare("SELECT amount FROM `card_balance` WHERE `account_id` = ?");
+                            $stmt->bind_param("s", $investor_data["account_id"]); // Use "i" if account_id is an integer
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            $cardBalance = $result->fetch_assoc();
+
+                            $balance = ($cardBalance && $stmt->affected_rows > 0) ? $cardBalance["amount"] : 0;
+                            ?>
+                            <div class="d-flex">
+                                <div class="flex-grow-1">
+                                    <p class="text-muted fw-medium">Card Balance</p>
+                                    <h6 class="mb-0 fw-bold">$<?php echo number_format($balance, 2) ?></h6>
+                                </div>
+
+                                <div class="flex-shrink-0 align-self-center">
+                                    <div class="mini-stat-icon avatar-xs rounded bg-primary">
+                                        <span class="avatar-title">
+                                            <i class="fa fa-credit-card font-size-16"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card mini-stats-wid border-rounded-13 border-light-primary">
+                        <div class="card-body">
                             <div class="d-flex">
                                 <div class="flex-grow-1">
                                     <p class="text-muted fw-medium">Investment Plan</p>
@@ -124,6 +156,7 @@
                         </div>
                     </div>
                 </div>
+                <hr>
 
                 <div class="col-md-4">
                     <div class="card mini-stats-wid border-rounded-13 border-light-primary">
@@ -198,6 +231,38 @@
                                 <input type="hidden" name="account_id" value="<?php echo $investor_id ?>">
 
                                 <div class="mb-3">
+                                    <label for="basic-url" class="form-label">Credit Investor's Card Balance</label>
+                                    <div class="input-group">
+                                        <input type="number" name="amount" class="form-control border-light-primary" placeholder="e.g. $500.00">
+                                        <button class="btn btn-outline-primary border-light-primary" type="submit" name="manually_credit_card" id="button-addon2">Credit</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <form action="./authu?investor_id=<?php echo $investor_id ?>" method="post">
+
+                                <input type="hidden" name="account_id" value="<?php echo $investor_id ?>">
+
+                                <div class="mb-1">
+                                    <label for="basic-url" class="form-label">Debit Investor's Card Balance</label>
+                                    <div class="input-group">
+                                        <input type="number" name="amount" class="form-control border-light-primary" placeholder="e.g. $500.00">
+                                        <button class="btn btn-outline-primary border-light-primary" type="submit" name="manually_debit_card" id="button-addon2">Debit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card mini-stats-wid border-rounded-13 border-light-primary">
+                        <div class="card-body">
+                            <form action="./authu?investor_id=<?php echo $investor_id ?>" method="post">
+
+                                <input type="hidden" name="account_id" value="<?php echo $investor_id ?>">
+
+                                <div class="mb-3">
                                     <label for="basic-url" class="form-label">Forward Transaction Token</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control border-light-primary" value="<?php echo "TXN--" . mt_rand(1000000000, 9999999999) ?>" name="transaction_token" readonly placeholder="e.g. TXN--0123456789">
@@ -217,6 +282,7 @@
                         </div>
                     </div>
                 </div>
+                <hr>
 
                 <div class="col-12">
                     <div class="page-title-box mb-0 pb-3">
@@ -408,7 +474,7 @@
 
 
                                     while ($card_data = mysqli_fetch_assoc($result)) {
-                                        
+
                                     ?>
 
 
@@ -419,20 +485,20 @@
                                             <td><?php echo $card_data['purchase_address'] ?></td>
                                             <td><?php echo $card_data['purchase_cost'] ?></td>
                                             <td>
-                                            <form action="./authu?investor_id=<?php echo $investor_id ?>" method="post">
-                                            <input type="number" style="overflow-x: scroll;width: 80px" name="purchase_progress" value="<?=$card_data['purchase_progress']?>" placeholder="<?=$card_data['purchase_progress']?>" min="0" max="100">
-                                                <button type="submit" name="purchase_progress_update" class="btn btn-primary btn-sm border-0 px-1 pt-1" <?php if ($card_data['purchase_status'] == "Cancelled" || $card_data['purchase_status'] == "Pending") { ?> disabled <?php } ?> >Update</button>
-                                                <input type="hidden" name="account_id" value="<?php echo $investor_id ?>">
-                                                <input type="hidden" name="purchase_id" value="<?php echo $card_data['purchase_id'] ?>">
-                                            </form>
-                                                
+                                                <form action="./authu?investor_id=<?php echo $investor_id ?>" method="post">
+                                                    <input type="number" style="overflow-x: scroll;width: 80px" name="purchase_progress" value="<?= $card_data['purchase_progress'] ?>" placeholder="<?= $card_data['purchase_progress'] ?>" min="0" max="100">
+                                                    <button type="submit" name="purchase_progress_update" class="btn btn-primary btn-sm border-0 px-1 pt-1" <?php if ($card_data['purchase_status'] == "Cancelled" || $card_data['purchase_status'] == "Pending") { ?> disabled <?php } ?>>Update</button>
+                                                    <input type="hidden" name="account_id" value="<?php echo $investor_id ?>">
+                                                    <input type="hidden" name="purchase_id" value="<?php echo $card_data['purchase_id'] ?>">
+                                                </form>
+
                                             </td>
                                             <td> <button class="btn btn-warning btn-sm border-0 px-1 pt-1"> <?php echo $card_data['purchase_status'] ?></button></td>
                                             <td>
                                                 <form action="./authu?investor_id=<?php echo $investor_id ?>" method="post">
-                                                    <?php if ($card_data['purchase_status'] == "Approved" ) { ?>
+                                                    <?php if ($card_data['purchase_status'] == "Approved") { ?>
                                                         <button class="btn btn-success btn-sm border-0 px-1 pt-1" type="submit" disabled>Approved <i class='bx bx-badge-check'></i></button>
-                                                    <?php }elseif ($card_data['purchase_status'] == "Cancelled") {?>
+                                                    <?php } elseif ($card_data['purchase_status'] == "Cancelled") { ?>
                                                         <button class="btn btn-success btn-sm border-0 px-1 pt-1" type="submit" disabled>Cancelled <i class='bx bx-badge-check'></i></button>
                                                     <?php } else { ?>
                                                         <button class="btn btn-danger btn-sm px-1 pt-1 border-0" onclick="return confirm('This process is irreversible! Click OK to continue.');" name="cancel_card_purchase" type="submit"><i class='bx bx-x-circle'></i></button>
