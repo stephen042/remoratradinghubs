@@ -850,6 +850,12 @@ function manually_debit_card($data)
   $result = $stmt->get_result();
 
   if ($result->num_rows > 0) {
+
+    if ($result["amount"] < $data["amount"]) {
+      $_SESSION["feedback"] = "Insufficient Funds to debit. Please try again later.";
+      return false;
+    }
+
     $stmt = $db_conn->prepare("UPDATE `card_balance` SET `amount` = amount - ? WHERE account_id = ?");
     $stmt->bind_param("ss", $amount, $data["account_id"]);
     $stmt->execute();
@@ -885,6 +891,11 @@ function transfer_funds_to_credit_card($data)
   $fname = $datasource['full_names'];
   $email = $datasource['email_address'];
 
+  if ($datasource["account_earnings"] < $data["amount"]) {
+    $_SESSION["feedback"] = "Insufficient Funds";
+    return false;
+  }
+
   $datasource["account_earnings"] -= $data["amount"];
   $datasource = json_encode($datasource);
 
@@ -907,7 +918,7 @@ function transfer_funds_to_credit_card($data)
     $noft_id = bin2hex(random_bytes(20));
     $account_id = $data["account_id"];
     $noft_category = 'CARD FUNDING';
-    $noft_msg = "Hello " .$fname. " We're pleased to inform you that your Card transfer funding was successful";
+    $noft_msg = "Hello " . $fname . " We're pleased to inform you that your Card transfer funding was successful";
     $noft_status = 'Active';
 
     $stmt = $db_conn->prepare("INSERT INTO `notification` (`noft_id`,`account_id`,`noft_category`,`noft_msg`,`noft_status`) VALUE (?,?,?,?,?)");
