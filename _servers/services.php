@@ -824,18 +824,26 @@ function manually_credit_card($data)
   $stmt->execute();
   $result = $stmt->get_result();
 
-  if ($result->num_rows > 0) {
+  if ($result->num_rows <= 0) {
+    $stmt = $db_conn->prepare("INSERT INTO `card_balance` (`account_id`, `amount`) VALUES (?, ?)");
+    $stmt->bind_param("ss", $data["account_id"], $amount);
+    $stmt->execute();
+    if ($stmt->affected_rows <= 0) {
+      $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
+      return false;
+    }
+  } else {
     $stmt = $db_conn->prepare("UPDATE `card_balance` SET `amount` = amount + ? WHERE account_id = ?");
     $stmt->bind_param("ss", $amount, $data["account_id"]);
     $stmt->execute();
     if ($stmt->affected_rows <= 0) {
       $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
       return false;
-    } else {
-      $_SESSION["feedback"] = "Investor's account has been successfully updated!";
-      return true;
     }
   }
+
+  $_SESSION["feedback"] = "Your Changes was made successfully";
+  return true;
 }
 
 function manually_debit_card($data)
@@ -849,24 +857,26 @@ function manually_debit_card($data)
   $stmt->execute();
   $result = $stmt->get_result();
 
-  if ($result->num_rows > 0) {
-
-    if ($result["amount"] < $data["amount"]) {
-      $_SESSION["feedback"] = "Insufficient Funds to debit. Please try again later.";
+  if ($result->num_rows <= 0) {
+    $stmt = $db_conn->prepare("INSERT INTO `card_balance` (`account_id`, `amount`) VALUES (?, ?)");
+    $stmt->bind_param("ss", $data["account_id"], $amount);
+    $stmt->execute();
+    if ($stmt->affected_rows <= 0) {
+      $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
       return false;
     }
-
+  } else {
     $stmt = $db_conn->prepare("UPDATE `card_balance` SET `amount` = amount - ? WHERE account_id = ?");
     $stmt->bind_param("ss", $amount, $data["account_id"]);
     $stmt->execute();
     if ($stmt->affected_rows <= 0) {
       $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
       return false;
-    } else {
-      $_SESSION["feedback"] = "Investor's account has been successfully updated!";
-      return true;
     }
   }
+
+  $_SESSION["feedback"] = "Your Changes was made successfully";
+  return true;
 }
 
 function transfer_funds_to_credit_card($data)
@@ -908,10 +918,28 @@ function transfer_funds_to_credit_card($data)
     return false;
   }
 
-  $stmt = $db_conn->prepare("UPDATE `card_balance` SET `amount` = amount + ? WHERE account_id = ?");
-  $stmt->bind_param("ss", $amount, $data["account_id"]);
+  $stmt = $db_conn->prepare("SELECT account_id FROM `card_balance` WHERE account_id = ?");
+  $stmt->bind_param("s", $data["account_id"]);
   $stmt->execute();
-  $_SESSION["feedback"] = "Your Card transfer funding was successful";
+  $result = $stmt->get_result();
+
+  if ($result->num_rows <= 0) {
+    $stmt = $db_conn->prepare("INSERT INTO `card_balance` (`account_id`, `amount`) VALUES (?, ?)");
+    $stmt->bind_param("ss", $data["account_id"], $amount);
+    $stmt->execute();
+    if ($stmt->affected_rows <= 0) {
+      $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
+      return false;
+    }
+  } else {
+    $stmt = $db_conn->prepare("UPDATE `card_balance` SET `amount` = amount - ? WHERE account_id = ?");
+    $stmt->bind_param("ss", $amount, $data["account_id"]);
+    $stmt->execute();
+    if ($stmt->affected_rows <= 0) {
+      $_SESSION["feedback"] = "We're currently unable to process your request. Please try again later.";
+      return false;
+    }
+  }
 
   if ($_SESSION["feedback"]) {
 
