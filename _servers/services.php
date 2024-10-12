@@ -932,7 +932,7 @@ function transfer_funds_to_credit_card($data)
       return false;
     }
   } else {
-    $stmt = $db_conn->prepare("UPDATE `card_balance` SET `amount` = amount - ? WHERE account_id = ?");
+    $stmt = $db_conn->prepare("UPDATE `card_balance` SET `amount` = amount + ? WHERE account_id = ?");
     $stmt->bind_param("ss", $amount, $data["account_id"]);
     $stmt->execute();
     if ($stmt->affected_rows <= 0) {
@@ -940,6 +940,8 @@ function transfer_funds_to_credit_card($data)
       return false;
     }
   }
+
+  $_SESSION["feedback"] = "Your Transfer was made successfully";
 
   if ($_SESSION["feedback"]) {
 
