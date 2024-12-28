@@ -869,6 +869,9 @@
     <!-- Require footer module -->
     <?php require "./_partials/footer.php" ?>
 
+    <!-- Chatway -->
+    <script id="chatway" async="true" src="https://cdn.chatway.app/widget.js?id=d4X0IsRJA3fu"></script>
+
     <script src="assets/js/jquery-1.12.4.min.js"></script>
 
     <script src="assets/js/bootstrap.min.js"></script>

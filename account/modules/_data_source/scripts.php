@@ -39,6 +39,9 @@
 <!-- dashboard init -->
 <script src="./_vendors/js/pages/dashboard.init.js"></script>
 
+<!-- Chatway -->
+<script id="chatway" async="true" src="https://cdn.chatway.app/widget.js?id=d4X0IsRJA3fu"></script>
+
 <script>
     const now = new Date();
     const hour = now.getHours();
